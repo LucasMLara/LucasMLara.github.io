@@ -1,67 +1,26 @@
-
-h1 {
-  font-family: Verdana, sans-serif;
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: 0;
 
 }
 
+header {
 
-#bio {
+  background-image: url(https://images.wallpaperscraft.com/image/sand_black_grains_130940_2560x1024.jpg);
+  background-size: cover;
+  padding: 200px;
+  background-attachment: fixed;
+}
 
-  font-family: 'Segoe UI', sans-serif;
-  float: right;
-  margin-top: 250px;
-  max-width: 350px;
+h1, h2, li, a {
 
+  color: wheat;
 
 }
 
 body {
 
-  text-align: center;
-  background-color: black;
-  color: antiquewhite;
-}
-
-#profilePicture {
-
-  padding: 15px;
-  width: 250px;
-  border-radius: 20%;
-  position: relative;
-  margin: 80px;
-  background-color:gray
-
-}
-
-ul {
-
-  list-style: none;
   background-color: gray;
-  padding: 15px;
-  text-shadow: 20px 20px 20px 20px;
-
-}
-
-li:hover {
-
-  background-color: rgb(74, 158, 40);
-
-}
-
-.intro {
-
-  display: inline-block;
-
-}
-
-.Indiceitem {
-
-    background-color: antiquewhite;
-
-}
-
-li:nth-child(2n+1) {
-
-  background-color: brown;
 
 }
