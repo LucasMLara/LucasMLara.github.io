@@ -1,0 +1,67 @@
+
+h1 {
+  font-family: Verdana, sans-serif;
+
+}
+
+
+#bio {
+
+  font-family: 'Segoe UI', sans-serif;
+  float: right;
+  margin-top: 250px;
+  max-width: 350px;
+
+
+}
+
+body {
+
+  text-align: center;
+  background-color: black;
+  color: antiquewhite;
+}
+
+#profilePicture {
+
+  padding: 15px;
+  width: 250px;
+  border-radius: 20%;
+  position: relative;
+  margin: 80px;
+  background-color:gray
+
+}
+
+ul {
+
+  list-style: none;
+  background-color: gray;
+  padding: 15px;
+  text-shadow: 20px 20px 20px 20px;
+
+}
+
+li:hover {
+
+  background-color: rgb(74, 158, 40);
+
+}
+
+.intro {
+
+  display: inline-block;
+
+}
+
+.Indiceitem {
+
+    background-color: antiquewhite;
+
+}
+
+li:nth-child(2n+1) {
+
+  background-color: brown;
+
+}
