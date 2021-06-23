@@ -42,7 +42,7 @@ body {
   width: 2rem;
   height: 2rem;
   position: fixed;
-  z-index: 50;
+  z-index: 100;
   right: 2rem;
   font-size: 2.5rem;
 }
@@ -84,10 +84,15 @@ aside  {
 }
 
 .menu{
+  /* background-color: gray; */
   position: absolute;
   top: 40%;
-  left: 50%;
   transform: translate(-50%, 50%);
+  right: -20rem;
+}
+
+.show-menu{
+  right: 0;
 }
 
 .item-menu{
@@ -107,7 +112,6 @@ animation:   glow 1000ms linear infinite 100ms;
 }
 
 .social{
-  /* background-color: blue; */
   position: absolute;
   bottom: 2rem;
   width: 100%;
