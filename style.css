@@ -77,18 +77,18 @@ header {
 
 aside  {
   width: 20rem;
-  height: 100vh;
+  height: 50vh;
   position: fixed;
   top: 0;
   right: 0;
+  transition: all 1s;
 }
 
-.menu{
-  /* background-color: gray; */
-  position: absolute;
-  top: 40%;
+.side-menu{
+  position: fixed;
+  top: 10%;
   transform: translate(-50%, 50%);
-  right: -20rem;
+  right: -30rem;
 }
 
 .show-menu{
