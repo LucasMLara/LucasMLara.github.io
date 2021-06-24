@@ -15,6 +15,15 @@ div {
   animation-delay: 2s;
   animation-iteration-count: infinite;
   animation-direction: alternate;
+  animation-fill-mode: forwards;
+  animation-play-state: running ou paused;
+
+||
+
+shorthand = 
+
+animation: animation, duração, timefunction, interation-count, ;
+
 }
 */
 
@@ -171,6 +180,10 @@ animation:   glow 1000ms linear infinite 100ms;
   }100%{
     transform: scale(1);
   }
+}
+
+main {
+  background-color: rgba(0, 0, 0, .90);
 }
 
 main h1{
