@@ -82,7 +82,7 @@ header {
 }
 
 aside  {
-  width: 20rem;
+  width: 15rem;
   height: 50vh;
   position: fixed;
   top: 0;
@@ -100,7 +100,6 @@ aside  {
 .show-menu{
   right: 0;
   background-color: rgba(0, 0, 0, 0.4);
-  border-style: inset;
 }
 
 .item-menu{
@@ -145,7 +144,10 @@ animation:   glow 1000ms linear infinite 100ms;
   }
 
 }
-
+i:hover{
+  cursor: pointer;
+  animation:   glow 1000ms linear infinite 100ms;
+}
 @keyframes glow {
   40%{
     text-shadow: 0 0 8px #fff;
@@ -182,7 +184,7 @@ animation:   glow 1000ms linear infinite 100ms;
   }
 }
 
-main {
+main, footer {
   background-color: rgba(0, 0, 0, .90);
 }
 
