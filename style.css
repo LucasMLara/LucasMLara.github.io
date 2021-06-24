@@ -34,10 +34,6 @@ div {
   list-style: none;
 }
 
-body {
-  display: flex;
-}
-
 .menu-btn{
   width: 2rem;
   height: 2rem;
@@ -173,4 +169,12 @@ animation:   glow 1000ms linear infinite 100ms;
   }100%{
     transform: scale(1);
   }
+}
+
+main h1{
+  color: black;
+}
+
+footer h4{
+  color: black;
 }
