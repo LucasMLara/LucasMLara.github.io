@@ -90,6 +90,8 @@ aside  {
 
 .show-menu{
   right: 0;
+  background-color: rgba(0, 0, 0, 0.4);
+  border-style: inset;
 }
 
 .item-menu{
