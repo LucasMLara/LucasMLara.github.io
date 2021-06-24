@@ -1,26 +1,176 @@
-* {
-  padding: 0;
+@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,300;0,400;0,900;1,400;1,700&family=Orbitron:wght@400;500;600;700;800;900&family=Roboto+Mono:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500;1,700&display=swap');
+
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css');
+
+/* font-family: 'Lato', sans-serif;
+font-family: 'Orbitron', sans-serif;
+font-family: 'Roboto Mono', monospace; 
+
+Animation css shorthand shorcut
+
+div {
+  animation-name: example;
+  animation-duration: 5s;
+  animation-timing-function: linear;
+  animation-delay: 2s;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+}
+*/
+
+:root {
+  --font-primary: 'Roboto Mono', monospace;
+  --font-secundary: 'Orbitron', sans-serif; 
+  --font-action: 'Lato', sans-serif
+}
+
+
+*{
   margin: 0;
-  box-sizing: 0;
-
-}
-
-header {
-
-  background-image: url(https://images.wallpaperscraft.com/image/sand_black_grains_130940_2560x1024.jpg);
-  background-size: cover;
-  padding: 200px;
-  background-attachment: fixed;
-}
-
-h1, h2, li, a {
-
-  color: wheat;
-
+  padding: 0;
+  color: #fff;
+  text-decoration: none;
+  font-family: var(--font-primary);
+  list-style: none;
 }
 
 body {
+  display: flex;
+}
 
-  background-color: gray;
+.menu-btn{
+  width: 2rem;
+  height: 2rem;
+  position: fixed;
+  z-index: 100;
+  right: 2rem;
+  font-size: 2.5rem;
+}
 
+.menu-btn:hover {
+  animation: glow 500ms linear infinite 500ms;
+}
+
+header {
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+  position: relative;
+}
+
+.img-wrapper {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background-color: rgba(0, 0, 0, .85)
+}
+
+.banner{
+  position:absolute;
+  top: 35%;
+  left:15%;
+  right:15%;
+  animation: reveal 3000ms ease-in-out forwards 200ms,
+  glow 2500ms linear infinite 2000ms;
+  
+  
+}
+
+aside  {
+  width: 20rem;
+  height: 50vh;
+  position: fixed;
+  top: 0;
+  right: 0;
+  transition: all 1s;
+}
+
+.side-menu{
+  position: fixed;
+  top: 10%;
+  transform: translate(-50%, 50%);
+  right: -30rem;
+}
+
+.show-menu{
+  right: 0;
+}
+
+.item-menu{
+  text-align: center;
+  margin-bottom: .8rem;
+}
+
+.menu-link{
+font-family: var(--font-secundary);
+font-size: 2rem;
+transition: 1s;
+}
+
+.menu-link:hover{
+cursor: pointer;
+animation:   glow 1000ms linear infinite 100ms;
+}
+
+.social{
+  position: absolute;
+  bottom: 2rem;
+  width: 100%;
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.social i{
+  height: 3rem;
+  width: 3rem;
+  font-size: 2rem;
+}
+
+.social i:hover{
+  animation:   glow 1000ms linear infinite 100ms;
+}
+
+@keyframes reveal{
+  80%{
+    letter-spacing: 2px;
+  }100%{
+    background-size: contain;
+  }
+
+}
+
+@keyframes glow {
+  40%{
+    text-shadow: 0 0 8px #fff;
+  }
+  
+}
+
+
+.banner h1{
+  font-family: var(--font-secundary);
+  font-size: 3.5rem;
+  margin-bottom: 1.5rem;
+  
+}
+.banner h2 {
+  font-family: var(--font-secundary);
+  font-size: 2.25rem;
+}
+
+
+.img-wrapper img{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.7;
+  animation: bgzoom 30s;
+}
+
+@keyframes bgzoom {
+  0%{
+    transform: scale(1.5);
+  }100%{
+    transform: scale(1);
+  }
 }
