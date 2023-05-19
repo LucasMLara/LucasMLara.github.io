@@ -2,6 +2,21 @@
 
 @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css');
 
+/* font-family: 'Lato', sans-serif;
+font-family: 'Orbitron', sans-serif;
+font-family: 'Roboto Mono', monospace; 
+
+Animation css shorthand shorcut
+
+div {
+  animation-name: example;
+  animation-duration: 5s;
+  animation-timing-function: linear;
+  animation-delay: 2s;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+}
+*/
 
 :root {
   --font-primary: 'Roboto Mono', monospace;
