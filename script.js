@@ -1,5 +1,4 @@
 const menuLink = document.querySelectorAll(".menu-link");
-console.log(menuLink);
 
 //para fechar o menu com dispositivo pequeno quando clicar em algum link
 menuLink.forEach((link) => {
