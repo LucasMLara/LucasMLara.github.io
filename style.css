@@ -177,6 +177,9 @@ animation: glow 1000ms linear infinite 100ms;
   height: 5rem;
   width: 5rem;
   font-size: 2rem;
+  @media screen and (max-width: 750px) {
+  animation: glow 1000ms linear infinite 100ms;    
+  }
 }
 
 .social i:hover{
