@@ -9,7 +9,7 @@ menuLink.forEach((link) => {
   });
 });
 
-const navbtnmenu = document.getElementsByClassName("clickmenu")[0];
+const navbtnmenu = document.getElementById("clickmenu");
 
 navbtnmenu.addEventListener("click", () => {
   document.querySelector(".topnav").classList.toggle("showmenu");
