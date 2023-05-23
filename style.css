@@ -162,7 +162,6 @@ animation: glow 1000ms linear infinite 100ms;
 .social{  
   position: relative;
   top: 2em;
-  /* background-color: red; */
   display: flex;
   align-items: center;
   justify-content: space-evenly;
