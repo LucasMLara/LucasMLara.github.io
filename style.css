@@ -1,8 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,300;0,400;0,900;1,400;1,700&family=Orbitron:wght@400;500;600;700;800;900&family=Roboto+Mono:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500;1,700&display=swap');
 
-@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css');
-
-
 :root {
   --font-primary: 'Roboto Mono', monospace;
   --font-secundary: 'Orbitron', sans-serif; 
@@ -49,8 +46,13 @@
   scroll-behavior: smooth;
 }
 
-
 .menu-btn{
+  font-size: 1.5rem;
+  
+  
+}
+
+/* .menu-btn{
   width: 2rem;
   height: 2rem;
   position: fixed;
@@ -58,7 +60,7 @@
   right: 2rem;
   cursor: pointer;
   font-size: 2.5rem;
-}
+} */
 
 .menu-btn:hover {
   animation: glow 500ms linear infinite 500ms;
@@ -89,57 +91,96 @@
   
 }
 
-header  {
+/* header  {
   width: 20rem;
   height: 40vh;
-  position: fixed;
   top: 0;
   right: 0;
+  position: fixed;
+  top: 0;
+  color: white;  
+  
+  border: 1px solid rgba(255, 255, 255, 0.3);
+} */
+
+
+header  {
+  background: rgba(255, 255, 255, 0.01);  
+  border-radius: 16px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  position: fixed;
+  width: 100%;
+  z-index: 1;
   transition: all 1s;
 }
 
-.side-menu{
-  position: fixed;
-  top: 10%;
-  transform: translate(-50%, 50%);
-  right: -30rem;
-
-  @media screen and (max-width:1000px){
-    background: rgba(255, 255, 255, 0.01);
-    border-radius: 16px;
-    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-    backdrop-filter: blur(5px);
-    -webkit-backdrop-filter: blur(5px);
-    border: 1px solid rgba(255, 255, 255, 0.3);
+header nav ul  {
+  display: flex;
+  justify-content: space-evenly;
+  margin: 1em;
+  @media screen and (max-width:750px) {
+    flex-direction:column;
+    align-items:center;
+    
   }
 }
 
-.show-menu{
-  right: 0;
+
+
+
+header nav ul li {
+  margin: .2em;
 }
 
-.item-menu{
-  text-align: center;
-  margin-bottom: .8rem;
+.clickmenu{
+  font-size: 1.5em;
+  cursor: pointer;
+  animation:scaling 1s infinite;
+  @media screen and (min-width:750px) {
+    display:none
+    
+  }
+}
+
+.topnav {
+  top:-12em;
+  @media screen and (min-width:750px) {
+    top:0em;
+    
+  }
+}
+
+.showmenu{
+  top:0;
+}
+
+.hide {
+  display: none;
+}
+
+.show {
+  display: block;
 }
 
 .menu-link{
 font-family: var(--font-secundary);
-font-size: 2rem;
-transition: 1s;
+font-size: 1.5rem;
 }
 
 .menu-link:hover{
 cursor: pointer;
-animation:   glow 1000ms linear infinite 100ms;
+animation: glow 1000ms linear infinite 100ms;
 }
 
 .social{
-  position: absolute;
-  bottom: 2rem;
-  width: 100%;
-  display: flex;
+  height: 4em;
+  display: flex;  
+  align-items: center;
   justify-content: space-evenly;
+  background: rgba(0, 0, 0, 1);
+  
 }
 
 .social i{
@@ -160,6 +201,21 @@ animation:   glow 1000ms linear infinite 100ms;
   }
 
 }
+
+@keyframes scaling{
+  0%{
+    transform: scale(1);
+  }  
+  50%{
+    transform: scale(1.1);    
+  }
+  100%{
+    transform: scale(1);
+  }
+
+}
+
+
 
 @keyframes glow {
   40%{
@@ -197,7 +253,59 @@ animation:   glow 1000ms linear infinite 100ms;
   }
 }
 
+@keyframes shake {
+  0% { 
+    transform: rotate(0deg); 
+  }
+  
+  33% {
+    transform: rotate(10deg); 
+    }
 
-footer p {
-  color: black;
+  66% {
+    transform: rotate(-10deg); 
+    }
+  
+  100% {
+    transform: rotate(0deg); 
+  }
+}
+
+.whatsappContainer {
+  position: fixed;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  bottom: 1em;
+  right: 1em;
+  width: 4em;
+  height: 4em;
+  background: rgba(255, 255, 255, 0.01);
+    border-radius: 50%;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.whatsappContainer i {
+  font-size: 2em;
+  animation: glow 0.5s infinite;
+  
+}
+.whatsappContainer i:hover {
+  animation: shake .5s ease-in-out infinite;
+  transform: translate3d(0,0,0);  
+  backface-visibility: hidden;
+  perspective: 1000px;
+  
+}
+
+footer{
+  display: flex;
+  color: var(--font-primary-color);
+  background-color: #160D08;
+  justify-content: center;
+  align-items: center;
+  height: 3.5em;
 }
