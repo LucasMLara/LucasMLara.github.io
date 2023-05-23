@@ -1,14 +1,14 @@
-const menuLink = document.getElementsByClassName("menu-link");
+const menuLink = document.querySelectorAll(".menu-link");
 console.log(menuLink);
 
-// menuLink.forEach((link) => {
-//   console.log(link);
-//   link.addEventListener("click", () => {
-//     if (innerWidth < 750) {
-//       link.classList.remove("showmenu");
-//     }
-//   });
-// });
+//para fechar o menu com dispositivo pequeno quando clicar em algum link
+menuLink.forEach((link) => {
+  link.addEventListener("click", () => {
+    if (innerWidth < 750) {
+      document.querySelector(".topnav").classList.remove("showmenu");
+    }
+  });
+});
 
 const navbtnmenu = document.getElementsByClassName("clickmenu")[0];
 
