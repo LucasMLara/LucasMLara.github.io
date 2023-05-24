@@ -169,13 +169,12 @@ animation: glow 1000ms linear infinite 100ms;
   top: 2em;
   display: flex;
   align-items: center;
-  justify-content: space-evenly;
+  justify-content: space-between;
+  margin-bottom: 3em;
   
 }
 
 .social i{
-  height: 5rem;
-  width: 5rem;
   font-size: 2rem;
   @media screen and (max-width: 750px) {
   animation: glow 1000ms linear infinite 100ms;    
