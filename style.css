@@ -184,7 +184,7 @@ cursor: pointer;
 animation: glow 1000ms linear infinite 100ms;
 }
 
-.social{  
+.myoutgoinglinks{  
   position: relative;
   top: 2em;
   display: flex;
@@ -194,14 +194,14 @@ animation: glow 1000ms linear infinite 100ms;
   
 }
 
-.social i{
+.myoutgoinglinks i{
   font-size: 2rem;
   @media screen and (max-width: 750px) {
   animation: glow 1000ms linear infinite 100ms;    
   }
 }
 
-.social i:hover{
+.myoutgoinglinks i:hover{
   animation: glow 1000ms linear infinite 100ms;
 }
 
@@ -270,7 +270,8 @@ animation: glow 1000ms linear infinite 100ms;
     font-size: 1.2em;
   }
 }
-#contact span {
+
+span {
   font-size: 2em;
 }
 

@@ -27,9 +27,6 @@ const browserName = (function (agent) {
   }
 })(window.navigator.userAgent.toLowerCase());
 
-if (browserName === mozilla || browserName === safari) {
-}
-
 menuLink.forEach((link) => {
   link.addEventListener("click", () => {
     if (innerWidth < 750 || browserName === mozilla || browserName === safari) {
