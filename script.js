@@ -27,17 +27,12 @@ const browserName = (function (agent) {
   }
 })(window.navigator.userAgent.toLowerCase());
 
-console.log("You are using " + browserName + " browser");
-
 if (browserName === mozilla || browserName === safari) {
 }
 
-console.log(browserName === mozilla);
-console.log(browserName === gchrome);
-
 menuLink.forEach((link) => {
   link.addEventListener("click", () => {
-    if (innerWidth < 750) {
+    if (innerWidth < 750 || browserName === mozilla || browserName === safari) {
       document.querySelector(".topnav").classList.remove("showmenu");
     }
   });
