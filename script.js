@@ -1,3 +1,11 @@
+const mozilla = "Mozilla Firefox";
+const gchrome = "Chrome";
+const safari = "Safari";
+const navbtnmenu = document.getElementById("clickmenu");
+const menuLink = document.querySelectorAll(".menu-link");
+const topnav = document.getElementsByClassName("topnav")[0];
+const listlinks = document.getElementById("listlinks");
+
 const browserName = (function (agent) {
   switch (true) {
     case agent.indexOf("edge") > -1:
@@ -21,7 +29,11 @@ const browserName = (function (agent) {
 
 console.log("You are using " + browserName + " browser");
 
-const menuLink = document.querySelectorAll(".menu-link");
+if (browserName === mozilla || browserName === safari) {
+}
+
+console.log(browserName === mozilla);
+console.log(browserName === gchrome);
 
 menuLink.forEach((link) => {
   link.addEventListener("click", () => {
@@ -30,8 +42,6 @@ menuLink.forEach((link) => {
     }
   });
 });
-
-const navbtnmenu = document.getElementById("clickmenu");
 
 navbtnmenu.addEventListener("click", () => {
   document.querySelector(".topnav").classList.toggle("showmenu");
