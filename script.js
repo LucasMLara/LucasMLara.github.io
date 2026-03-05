@@ -23,7 +23,7 @@
       categoryEN: "Website + AI Agent",
       status: "wip", // 'live' quando terminar
       url: null,     // colocar URL quando terminar
-      contact: { type: "instagram", handle: "@essencebeautyclinic", url: "https://instagram.com/essencebeautyclinic" },
+      contact: { type: "instagram", handle: "@essencebeautyclinic", url: "https://instagram.com/dra.marianamenegardo" },
       tags: ["HTML/CSS/JS", "AI Agent", "WhatsApp", "SEO"],
       mockupName: "Essence Beauty Clinic",
       mockupUrl: "essencebeautyclinic.com.br",
