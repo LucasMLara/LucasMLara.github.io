@@ -1,151 +1,599 @@
 <!DOCTYPE html>
-<html lang="pt-br">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link
-      rel="apple-touch-icon"
-      sizes="180x180"
-      href="Images/apple-touch-icon.png"
-    />
-    <link
-      rel="icon"
-      type="image/png"
-      sizes="32x32"
-      href="Images/favicon-32x32.png"
-    />
-    <link
-      rel="icon"
-      type="image/png"
-      sizes="16x16"
-      href="Images/favicon-16x16.png"
-    />
-    <link rel="manifest" href="/site.webmanifest" />
-    <link rel="stylesheet" href="style.css" />
-    <script
-      src="https://kit.fontawesome.com/060e4b0b75.js"
-      crossorigin="anonymous"
-    ></script>
-    <title>Lucas M. Lara</title>
-  </head>
-  <body>
-    <header class="topnav">
-      <nav>
-        <ul id="listlinks">
-          <li><a href="#home" class="menu-link">Home</a></li>
-          <li><a href="#bio" class="menu-link">Biografia</a></li>
-          <li><a href="#skills" class="menu-link">Habilidades</a></li>
-          <li><a href="#projects" class="menu-link">Projetos</a></li>
-          <li><a href="#contact" class="menu-link">Contato</a></li>
-          <li><i class="fas fa-bars" id="clickmenu"></i></li>
-        </ul>
-      </nav>
-    </header>
+<html lang="pt-BR" data-theme="dark" data-lang="pt">
+<head>
+  <meta charset="UTF-8" />
+  <base target="_self" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ByLara — Lucas Lara</title>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body class="no-scroll">
 
-    <main>
-      <section class="sectionarea" id="home">
-        <div class="img-wrapper">
-          <img src="./Images/hdrbg.jpg" alt="Header Background" />
+<a href="#main-content" class="skip-link">Skip to content</a>
+
+<div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
+<div class="cursor-dot" id="cursorDot" aria-hidden="true"></div>
+<div class="cursor-ring" id="cursorRing" aria-hidden="true"></div>
+<div class="noise-overlay" aria-hidden="true"></div>
+<div class="grid-overlay" aria-hidden="true"></div>
+
+<!-- ══ SPLASH ══ -->
+<div id="splash" aria-hidden="true">
+
+  <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:20px;width:100%;padding:0 24px;text-align:center;">
+
+    <!-- SVG logo animada — ícone </> + wordmark ByLara -->
+    <svg id="logo-svg"
+      viewBox="0 0 420 80"
+      xmlns="http://www.w3.org/2000/svg"
+      style="overflow:visible;width:min(420px,90vw);height:auto;">
+
+      <!-- ── ÍCONE </> ── -->
+      <!-- < stroke -->
+      <path id="s-bl" class="logo-stroke"
+        d="M 28 20 L 8 40 L 28 60"
+        stroke-linecap="round" stroke-linejoin="round"
+        style="stroke-dasharray:70;stroke-dashoffset:70"/>
+      <!-- / stroke -->
+      <path id="s-bolt" class="logo-stroke"
+        d="M 44 14 L 28 66"
+        stroke-linecap="round"
+        style="stroke-dasharray:55;stroke-dashoffset:55"/>
+      <!-- > stroke -->
+      <path id="s-br" class="logo-stroke"
+        d="M 48 20 L 68 40 L 48 60"
+        stroke-linecap="round" stroke-linejoin="round"
+        style="stroke-dasharray:70;stroke-dashoffset:70"/>
+
+      <!-- < fill -->
+      <path id="f-bl" class="logo-fill" fill="none"
+        stroke="var(--accent)" stroke-width="3"
+        stroke-linecap="round" stroke-linejoin="round"
+        d="M 28 20 L 8 40 L 28 60"/>
+      <!-- / fill -->
+      <path id="f-bolt" class="logo-fill" fill="none"
+        stroke="var(--accent2)" stroke-width="3"
+        stroke-linecap="round"
+        d="M 44 14 L 28 66"/>
+      <!-- > fill -->
+      <path id="f-br" class="logo-fill" fill="none"
+        stroke="var(--accent)" stroke-width="3"
+        stroke-linecap="round" stroke-linejoin="round"
+        d="M 48 20 L 68 40 L 48 60"/>
+
+      <!-- ── WORDMARK ByLara ── -->
+      <!-- stroke -->
+      <text id="wm-stroke"
+        x="88" y="58"
+        font-family="Syne,sans-serif"
+        font-weight="800"
+        font-size="52"
+        letter-spacing="-1"
+        fill="none"
+        stroke="var(--accent)"
+        stroke-width="1.2"
+        style="stroke-dasharray:1400;stroke-dashoffset:1400;transition:stroke-dashoffset 2.2s cubic-bezier(.5,0,.3,1) 0.3s">
+        ByLara
+      </text>
+      <!-- fill -->
+      <text id="wm-fill"
+        x="88" y="58"
+        font-family="Syne,sans-serif"
+        font-weight="800"
+        font-size="52"
+        letter-spacing="-1"
+        class="logo-fill">
+        <tspan fill="var(--text)">By</tspan><tspan fill="var(--accent)">Lara</tspan>
+      </text>
+    </svg>
+
+    <p class="splash-tag" id="splashTag">
+      Front-end Developer + AI Solutions
+    </p>
+  </div>
+
+</div>
+
+<!-- ══ NAV ══ -->
+<header class="nav" id="nav">
+  <a href="#home" class="nav-brand">By<span>Lara</span></a>
+  <ul class="nav-links">
+    <li><a href="#home"><span class="pt">Home</span><span class="en">Home</span></a></li>
+    <li><a href="#bio"><span class="pt">Sobre</span><span class="en">About</span></a></li>
+    <li><a href="#services"><span class="pt">Serviços</span><span class="en">Services</span></a></li>
+    <li><a href="#projects"><span class="pt">Projetos</span><span class="en">Projects</span></a></li>
+    <li><a href="#contact"><span class="pt">Contato</span><span class="en">Contact</span></a></li>
+  </ul>
+  <div class="nav-controls">
+    <button class="lang-toggle" id="langToggle" onclick="toggleLang()" aria-label="Switch to English">🇧🇷 PT</button>
+    <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme"></button>
+    <button type="button" class="hamburger" id="hamburger" onclick="toggleMenu()" aria-label="Open menu" aria-expanded="false" aria-controls="mobileNav">
+      <span aria-hidden="true"></span><span aria-hidden="true"></span><span aria-hidden="true"></span>
+    </button>
+  </div>
+</header>
+
+<nav class="mobile-nav" id="mobileNav" aria-label="Mobile navigation">
+  <a href="#home" onclick="toggleMenu()"><span class="pt">Home</span><span class="en">Home</span></a>
+  <a href="#bio" onclick="toggleMenu()"><span class="pt">Sobre</span><span class="en">About</span></a>
+  <a href="#services" onclick="toggleMenu()"><span class="pt">Serviços</span><span class="en">Services</span></a>
+  <a href="#projects" onclick="toggleMenu()"><span class="pt">Projetos</span><span class="en">Projects</span></a>
+  <a href="#contact" onclick="toggleMenu()"><span class="pt">Contato</span><span class="en">Contact</span></a>
+</nav>
+
+<main id="main-content">
+
+<!-- ══ HERO ══ -->
+<section id="home">
+  <div class="hero-blob blob-1" aria-hidden="true"></div>
+  <div class="hero-blob blob-2" aria-hidden="true"></div>
+  <div class="hero-inner">
+    <div>
+      <div class="hero-label fade-up d1">
+        <span class="pt">Portfólio & Soluções</span>
+        <span class="en">Portfolio & Solutions</span>
+      </div>
+      <h1 class="hero-brand fade-up d2">By<span>Lara</span></h1>
+      <p class="hero-byline fade-up d2">by <strong>Lucas Lara</strong></p>
+      <div class="hero-role fade-up d3">Front-end Developer + AI Solutions</div>
+      <h2 class="hero-tagline fade-up d4">
+        <span class="pt">Sites que vendem.<br><em>IA que qualifica.</em></span>
+        <span class="en">Sites that sell.<br><em>AI that qualifies.</em></span>
+      </h2>
+      <p class="hero-desc fade-up d5">
+        <span class="pt">Crio sites personalizados com agentes de IA integrados para clínicas, salões e escritórios gerarem mais clientes — no automático.</span>
+        <span class="en">I build custom websites with integrated AI agents for clinics, salons and offices to generate more clients — automatically.</span>
+      </p>
+      <div class="hero-cta fade-up d6">
+        <a href="#contact" class="btn-primary">
+          <span class="pt">Ver proposta →</span>
+          <span class="en">See proposal →</span>
+        </a>
+        <a href="#projects" class="btn-ghost">
+          <span class="pt">ver projetos</span>
+          <span class="en">see my work</span>
+        </a>
+      </div>
+    </div>
+    <div class="hero-visual fade-up d3">
+      <div class="hero-photo-wrap">
+        <div class="photo-corner corner-tl" aria-hidden="true"></div>
+        <div class="photo-corner corner-br" aria-hidden="true"></div>
+        <div class="hero-photo">
+          <img src="Images/home.png" alt="Lucas Lara" style="width:100%;height:100%;object-fit:cover;display:block;" />
         </div>
-        <div class="banner">
-          <h1>Lucas Muniz Lara</h1>
-          <h2>Web Developer</h2>
-        </div>
-      </section>
-      <section class="sectionarea" id="bio">
-        <div class="img-wrapper">
-          <img src="./Images/hdrbg2.jpg" alt="Header Background" />
-        </div>
-        <div class="banner">
-          <h1>Biografia</h1>
-          <p>
-            Natural de Vila velha / ES, tenho 32 anos e fiz uma transição de
-            carreira em 2021! Sempre conectado às tecnologias desde pequeno e fã
-            de jogos eletrônicos, decidi embarcar nessa jornada e entender como
-            que as coisas funcionam na internet e me descobri apaixonado pela
-            programação e estou sempre em busca de aprender mais. Tudo é bem
-            desafiador para mim, mas é fora da nossa zona de conforto que
-            evoluímos!
-          </p>
-        </div>
-      </section>
-      <section class="sectionarea" id="skills">
-        <div class="img-wrapper">
-          <img src="./Images/hdrbg3.jpg" alt="Header Background" />
-        </div>
-        <div class="banner">
-          <h1>Habilidades</h1>
-          <h3>Algumas das minhas habilidades :</h3>
-          <div class="myoutgoinglinks">
-            <a
-              href="https://developer.mozilla.org/pt-BR/docs/Web/HTML"
-              target="_blank"
-              ><i class="fa-brands fa-html5"></i
-            ></a>
-            <a
-              href="https://developer.mozilla.org/pt-BR/docs/Web/CSS"
-              target="_blank"
-              ><i class="fa-brands fa-css3"></i
-            ></a>
-            <a
-              href="https://developer.mozilla.org/pt-BR/docs/Web/JavaScript"
-              target="_blank"
-              ><i class="fa-brands fa-square-js"></i
-            ></a>
-            <a href="https://react.dev/" target="_blank"
-              ><i class="fa-brands fa-react"></i
-            ></a>
+        <div class="hero-card">
+          <div class="hero-card-label">
+            <span class="pt">Experiência</span><span class="en">Experience</span>
           </div>
-          <small
-            >...e muito mais no
-            <a href="https://github.com/LucasMLara" target="_blank">Github</a>!
-            <span>&#9989;</span></small
-          >
-        </div>
-      </section>
-      <section class="sectionarea" id="projects">
-        <div class="img-wrapper">
-          <img src="./Images/hdrbg2.jpg" alt="Header Background" />
-        </div>
-        <div class="banner">
-          <h1>Projetos</h1>
-          <h3>Em breve!!!</h3>
-        </div>
-      </section>
-      <section class="sectionarea" id="contact">
-        <div class="img-wrapper">
-          <img src="./Images/hdrbg3.jpg" alt="Header Background" />
-        </div>
-        <div class="banner">
-          <h1>Contato</h1>
-          <h3>Onde você me acha:</h3>
-          <div class="myoutgoinglinks">
-            <a href="https://github.com/LucasMLara" target="_blank"
-              ><i class="fab fa-github-square"></i
-            ></a>
-            <a href="http://www.linkedin.com/in/lucasmlara" target="_blank"
-              ><i class="fab fa-linkedin"></i
-            ></a>
-            <a href="https://www.instagram.com/lucas.m.lara/" target="_blank"
-              ><i class="fab fa-instagram-square"></i
-            ></a>
-            <a href="https://www.twitch.tv/lucasmlara" target="_blank"
-              ><i class="fa-brands fa-twitch"></i
-            ></a>
+          <div class="hero-card-value">4+</div>
+          <div class="hero-card-sub">
+            <span class="pt">anos de front-end</span><span class="en">years of front-end</span>
           </div>
-          <small
-            >...ou me chame no WhatsApp ali no cantinho!
-            <span>&#128515;</span></small
-          >
         </div>
-      </section>
-    </main>
-    <div class="whatsappContainer" title="Me chame no Whatsapp!">
-      <a href=" https://wa.me/5527997493742" target="_blank">
-        <i class="fa-brands fa-whatsapp"></i>
+        <div class="hero-card-2">
+          <div class="hero-card-2-inner">
+            <div class="card2-icon">
+              <svg width="16" height="16" viewBox="0 0 56 56" fill="none">
+                <path d="M14 18L10 18L10 38L14 38" stroke="var(--accent)" stroke-width="2.5" stroke-linecap="round"/>
+                <path d="M42 18L46 18L46 38L42 38" stroke="var(--accent)" stroke-width="2.5" stroke-linecap="round"/>
+                <path d="M31 18L24 28L29 28L25 38" stroke="var(--accent2)" stroke-width="2.8" stroke-linecap="round"/>
+              </svg>
+            </div>
+            <div>
+              <div class="card2-title">AI Agent</div>
+              <div class="card2-sub"><span class="pt">integrado</span><span class="en">integrated</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="scroll-indicator" aria-hidden="true">
+    <div class="scroll-line"></div>
+    <span class="scroll-text">scroll</span>
+  </div>
+</section>
+
+<!-- ══ SOBRE ══ -->
+<section id="bio">
+
+    <!-- LEFT — foto -->
+    <div class="about-photo-col">
+      <div class="about-photo-wrap">
+        <div class="photo-corner corner-tl" aria-hidden="true"></div>
+        <div class="photo-corner corner-br" aria-hidden="true"></div>
+        <div class="about-photo">
+          <img src="Images/about.png" alt="Lucas Lara" style="width:100%;height:100%;object-fit:cover;display:block;" />
+        </div>
+
+        <!-- card flutuante — localização -->
+        <div class="about-card">
+          <div style="font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:var(--accent);margin-bottom:4px;">
+            <span class="pt">Localização</span><span class="en">Location</span>
+          </div>
+          <div style="font-family:'Syne',sans-serif;font-weight:700;font-size:14px;color:var(--text);">
+            Serra, ES
+          </div>
+          <div style="font-size:11px;color:var(--muted);margin-top:2px;">
+            🇧🇷 Brasil
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- RIGHT — texto + skills -->
+    <div class="about-content">
+
+      <div class="about-label">
+        <span class="pt">// sobre mim</span>
+        <span class="en">// about me</span>
+      </div>
+
+      <h2 class="about-heading">
+        <span class="pt">Código com<br><em>propósito.</em></span>
+        <span class="en">Code with<br><em>purpose.</em></span>
+      </h2>
+
+      <p class="about-text">
+        <span class="pt">Sempre fui curioso com tecnologia — desde cedo entendia intuitivamente como as coisas funcionavam na tela. Em 2021 transformei essa curiosidade em carreira, mergulhando no front-end e descobrindo uma paixão por criar interfaces que realmente funcionam para as pessoas.</span>
+        <span class="en">I've always been curious about technology — from an early age I intuitively understood how things worked on a screen. In 2021 I turned that curiosity into a career, diving into front-end development and discovering a passion for building interfaces that truly work for people.</span>
+      </p>
+
+      <p class="about-text" style="margin-top:16px;">
+        <span class="pt">Hoje, com 4 anos de experiência, combino código e design para entregar experiências digitais que geram resultado real — me adaptando às exigências de cada cliente e do mercado.</span>
+        <span class="en">Today, with 4 years of experience, I combine code and design to deliver digital experiences that drive real results — adapting to each client's needs and market demands.</span>
+      </p>
+
+      <!-- skills -->
+      <div class="skills-label">
+        <span class="pt">// tecnologias</span>
+        <span class="en">// technologies</span>
+      </div>
+
+      <div class="skills-grid">
+        <div class="skill-tag">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="var(--accent)" aria-hidden="true"><path d="M1.5 0h21l-1.91 21.563L11.977 24l-8.565-2.438L1.5 0zm7.031 9.75l-.232-2.718 10.059.003.23-2.622L5.412 4.41l.698 8.01h9.126l-.326 3.426-2.91.804-2.955-.81-.188-2.11H6.248l.33 4.171L12 19.351l5.379-1.443.744-8.157H8.531z"/></svg>
+          HTML / CSS
+        </div>
+        <div class="skill-tag">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="var(--accent)" aria-hidden="true"><path d="M0 0h24v24H0V0zm22.034 18.276c-.175-1.095-.888-2.015-3.003-2.873-.736-.345-1.554-.585-1.797-1.14-.091-.33-.105-.51-.046-.705.15-.646.915-.84 1.515-.66.39.12.75.42.976.9 1.034-.676 1.034-.676 1.755-1.125-.27-.42-.404-.601-.586-.78-.63-.705-1.469-1.065-2.834-1.034l-.705.089c-.676.165-1.32.525-1.71 1.005-1.14 1.291-.811 3.541.569 4.471 1.365 1.02 3.361 1.244 3.616 2.205.24 1.17-.87 1.545-1.966 1.41-.811-.18-1.26-.586-1.755-1.336l-1.83 1.051c.21.48.45.689.81 1.109 1.74 1.756 6.09 1.666 6.871-1.004.029-.09.24-.705.074-1.65l.046.067zm-8.983-7.245h-2.248c0 1.938-.009 3.864-.009 5.805 0 1.232.063 2.363-.138 2.711-.33.689-1.18.601-1.566.48-.396-.196-.597-.466-.83-.855-.063-.105-.11-.196-.127-.196l-1.825 1.125c.305.63.75 1.172 1.324 1.517.855.51 2.004.675 3.207.405.783-.226 1.458-.691 1.811-1.411.51-.93.402-2.07.397-3.346.012-2.054 0-4.109 0-6.179l.004-.056z"/></svg>
+          JavaScript
+        </div>
+        <div class="skill-tag">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="var(--accent)" aria-hidden="true"><path d="M14.23 12.004a2.236 2.236 0 0 1-2.235 2.236 2.236 2.236 0 0 1-2.236-2.236 2.236 2.236 0 0 1 2.235-2.236 2.236 2.236 0 0 1 2.236 2.236zm2.648-10.69c-1.346 0-3.107.96-4.888 2.622-1.78-1.653-3.542-2.602-4.887-2.602-.41 0-.783.093-1.106.278-1.375.793-1.683 3.264-.973 6.365C1.98 8.917 0 10.42 0 12.004c0 1.59 1.99 3.097 5.043 4.03-.704 3.113-.39 5.588.988 6.38.32.187.69.275 1.102.275 1.345 0 3.107-.96 4.888-2.624 1.78 1.654 3.542 2.603 4.887 2.603.41 0 .783-.09 1.106-.275 1.374-.792 1.683-3.263.973-6.365C22.02 15.096 24 13.59 24 12.004c0-1.59-1.99-3.097-5.043-4.032.704-3.11.39-5.587-.988-6.38a2.167 2.167 0 0 0-1.092-.278zm-.005 1.09c.347 0 .658.077.903.222 1.376.793.875 3.843-.697 7.032C15.036 8.352 13.14 6.75 11.998 5.8c1.7-1.495 3.318-2.397 4.875-2.397zM5.136 5.481c1.557 0 3.175.902 4.875 2.396C8.86 8.748 6.965 10.35 5.548 11.83c-1.573-3.19-2.074-6.24-.697-7.032.244-.145.555-.321.285-.317zm4.882 7.84l.008.005.003-.002-.01-.002zm.002 0zm.003.004l-.003-.004.004.003zm4.956-1.12c.3.307.588.63.855.966-1.485 1.722-3.458 3.297-4.908 3.297-.01 0-.019-.001-.028-.001-1.46 0-3.434-1.576-4.92-3.298.268-.335.555-.658.854-.965 1.13-1.159 2.434-2.138 3.53-2.64l.564-.25.563.25c1.098.502 2.4 1.48 3.53 2.64z"/></svg>
+          React
+        </div>
+        <div class="skill-tag">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="var(--accent)" aria-hidden="true"><path d="M12.001 4.8c-3.2 0-5.2 1.6-6 4.8 1.2-1.6 2.6-2.2 4.2-1.8.913.228 1.565.89 2.288 1.624C13.666 10.618 15.027 12 18.001 12c3.2 0 5.2-1.6 6-4.8-1.2 1.6-2.6 2.2-4.2 1.8-.913-.228-1.565-.89-2.288-1.624C16.337 6.182 14.976 4.8 12.001 4.8zm-6 7.2c-3.2 0-5.2 1.6-6 4.8 1.2-1.6 2.6-2.2 4.2-1.8.913.228 1.565.89 2.288 1.624 1.177 1.194 2.538 2.576 5.512 2.576 3.2 0 5.2-1.6 6-4.8-1.2 1.6-2.6 2.2-4.2 1.8-.913-.228-1.565-.89-2.288-1.624C10.337 13.382 8.976 12 6.001 12z"/></svg>
+          Tailwind
+        </div>
+        <div class="skill-tag">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="var(--accent)" aria-hidden="true"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+          Git / GitHub
+        </div>
+        <div class="skill-tag">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="var(--accent)" aria-hidden="true"><path d="M15.852 8.981h-4.588V0h4.588c2.476 0 4.49 2.014 4.49 4.49s-2.014 4.491-4.49 4.491zM12.735 7.51h3.117c1.665 0 3.019-1.355 3.019-3.019s-1.355-3.019-3.019-3.019h-3.117V7.51zm0 1.471H8.148c-2.476 0-4.49-2.014-4.49-4.49S5.672 0 8.148 0h4.588v8.981zm-4.587-7.51c-1.665 0-3.019 1.355-3.019 3.019s1.355 3.019 3.019 3.019h3.117V1.471H8.148zm4.587 15.019H3.638v-4.588c0-2.476 2.014-4.49 4.49-4.49s4.49 2.014 4.49 4.49v4.588zm-7.51-1.471h6.039v-3.117c0-1.665-1.355-3.019-3.019-3.019s-3.019 1.354-3.019 3.019v3.117zm7.51 7.012H8.148c-2.476 0-4.49-2.014-4.49-4.49s2.014-4.49 4.49-4.49h4.588v8.98zm-4.587-7.509c-1.665 0-3.019 1.355-3.019 3.019s1.355 3.019 3.019 3.019h3.117v-6.038H8.148zm9.703 7.509h-4.588v-8.98h4.588c2.476 0 4.49 2.014 4.49 4.49s-2.014 4.49-4.49 4.49zm-3.117-1.471h3.117c1.665 0 3.019-1.355 3.019-3.019s-1.355-3.019-3.019-3.019h-3.117v6.038z"/></svg>
+          Figma
+        </div>
+      </div>
+
+      <!-- links -->
+      <div class="about-links">
+        <a href="https://github.com/LucasMLara" target="_blank" rel="noopener noreferrer" class="about-link">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+          GitHub
+        </a>
+        <a href="https://linkedin.com/in/lucasmlara" target="_blank" rel="noopener noreferrer" class="about-link">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          LinkedIn
+        </a>
+        <a href="https://instagram.com/lucas.m.lara" target="_blank" rel="noopener noreferrer" class="about-link">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z"/></svg>
+          Instagram
+        </a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══ SERVIÇOS ══ -->
+<section id="services">
+  <div class="services-inner">
+
+    <div class="services-header">
+      <div>
+        <div class="about-label" style="margin-bottom:12px;">
+          <span class="pt">// serviços</span>
+          <span class="en">// services</span>
+        </div>
+        <h2 class="services-heading">
+          <span class="pt">O que eu<br><em>entrego.</em></span>
+          <span class="en">What I<br><em>deliver.</em></span>
+        </h2>
+      </div>
+      <a href="#contact" class="services-cta-top">
+        <span class="pt">Quero um orçamento →</span>
+        <span class="en">Get a quote →</span>
       </a>
     </div>
-    <script src="script.js"></script>
-  </body>
+
+    <div class="services-grid">
+
+      <div class="service-card featured">
+        <div class="featured-badge"><span class="pt">principal</span><span class="en">main</span></div>
+        <div class="service-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.8" stroke-linecap="round" aria-hidden="true">
+            <rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/>
+          </svg>
+        </div>
+        <div class="service-name"><span class="pt">Site Personalizado</span><span class="en">Custom Website</span></div>
+        <p class="service-desc">
+          <span class="pt">Site do zero, com design exclusivo, responsivo e otimizado — feito sob medida para o seu negócio e seus clientes.</span>
+          <span class="en">Website from scratch, with exclusive responsive design, optimized and tailored to your business and customers.</span>
+        </p>
+        <div class="service-tags">
+          <span class="service-tag">HTML / CSS / JS</span>
+          <span class="service-tag">React</span>
+          <span class="service-tag"><span class="pt">Responsivo</span><span class="en">Responsive</span></span>
+        </div>
+      </div>
+
+      <div class="service-card featured">
+        <div class="featured-badge"><span class="pt">destaque</span><span class="en">highlight</span></div>
+        <div class="service-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.8" stroke-linecap="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M4.22 4.22l2.12 2.12M17.66 17.66l2.12 2.12M2 12h3M19 12h3M4.22 19.78l2.12-2.12M17.66 6.34l2.12-2.12"/>
+          </svg>
+        </div>
+        <div class="service-name"><span class="pt">Agente de IA</span><span class="en">AI Agent</span></div>
+        <p class="service-desc">
+          <span class="pt">Agente integrado ao seu site que conversa com visitantes, qualifica leads e encaminha os mais quentes para você — no automático.</span>
+          <span class="en">Agent integrated into your site that talks to visitors, qualifies leads and forwards the hottest ones to you — automatically.</span>
+        </p>
+        <div class="service-tags">
+          <span class="service-tag"><span class="pt">Qualificação</span><span class="en">Lead Scoring</span></span>
+          <span class="service-tag">24/7</span>
+        </div>
+      </div>
+
+      <div class="service-card">
+        <div class="service-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="var(--accent)" aria-hidden="true">
+            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 0 0-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/>
+          </svg>
+        </div>
+        <div class="service-name"><span class="pt">Integração WhatsApp</span><span class="en">WhatsApp Integration</span></div>
+        <p class="service-desc">
+          <span class="pt">Botão flutuante + integração do agente de IA com WhatsApp para que os leads cheguem direto no seu celular.</span>
+          <span class="en">Floating button + AI agent integration with WhatsApp so leads arrive directly on your phone.</span>
+        </p>
+        <div class="service-tags"><span class="service-tag">WhatsApp API</span></div>
+      </div>
+
+      <div class="service-card">
+        <div class="service-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.8" stroke-linecap="round" aria-hidden="true">
+            <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
+          </svg>
+        </div>
+        <div class="service-name">SEO</div>
+        <p class="service-desc">
+          <span class="pt">Otimização básica para que seu site apareça no Google — meta tags, performance, estrutura semântica e Google Search Console.</span>
+          <span class="en">Basic optimization so your site appears on Google — meta tags, performance, semantic structure and Google Search Console.</span>
+        </p>
+        <div class="service-tags">
+          <span class="service-tag">Google</span>
+          <span class="service-tag"><span class="pt">Performance</span><span class="en">Performance</span></span>
+        </div>
+      </div>
+
+      <div class="service-card">
+        <div class="service-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.8" stroke-linecap="round" aria-hidden="true">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+          </svg>
+        </div>
+        <div class="service-name"><span class="pt">Manutenção Mensal</span><span class="en">Monthly Maintenance</span></div>
+        <p class="service-desc">
+          <span class="pt">Suporte contínuo, atualizações, monitoramento e melhorias — para o seu site nunca parar de funcionar nem de evoluir.</span>
+          <span class="en">Ongoing support, updates, monitoring and improvements — so your site never stops working or evolving.</span>
+        </p>
+        <div class="service-tags">
+          <span class="service-tag"><span class="pt">Mensalidade</span><span class="en">Monthly</span></span>
+          <span class="service-tag">Suporte</span>
+        </div>
+      </div>
+
+      <div class="service-card" style="align-items:center;justify-content:center;text-align:center;border-style:dashed;gap:20px;">
+        <div style="font-family:'Syne',sans-serif;font-weight:700;font-size:18px;color:var(--text);">
+          <span class="pt">Precisa de algo diferente?</span>
+          <span class="en">Need something different?</span>
+        </div>
+        <p class="service-desc" style="text-align:center;">
+          <span class="pt">Cada negócio tem necessidades únicas. Me conta o seu projeto e a gente descobre juntos.</span>
+          <span class="en">Every business has unique needs. Tell me about your project and we'll figure it out together.</span>
+        </p>
+        <a href="#contact" class="btn-primary">
+          <span class="pt">Fale comigo →</span>
+          <span class="en">Talk to me →</span>
+        </a>
+      </div>
+
+    </div>
+
+    <div class="services-bottom">
+      <p>
+        <span class="pt">Todos os serviços seguem o modelo <strong style="color:var(--text);">setup + mensalidade</strong> — você investe uma vez e garante suporte contínuo.</span>
+        <span class="en">All services follow the <strong style="color:var(--text);">setup + monthly</strong> model — you invest once and get ongoing support.</span>
+      </p>
+    </div>
+
+  </div>
+</section>
+
+<!-- ══ PROJETOS ══ -->
+<section id="projects">
+  <div class="projects-inner">
+
+    <div class="projects-header">
+      <div class="about-label" style="margin-bottom:12px;">
+        <span class="pt">// projetos</span>
+        <span class="en">// projects</span>
+      </div>
+      <h2 class="services-heading">
+        <span class="pt">Cases <em>reais.</em></span>
+        <span class="en">Real <em>cases.</em></span>
+      </h2>
+    </div>
+
+    <!-- renderizado dinamicamente pelo JS -->
+    <div id="projects-list"></div>
+</section>
+
+<!-- ══ CONTATO ══ -->
+<section id="contact">
+  <div class="contact-inner">
+
+    <!-- LEFT -->
+    <div class="contact-left">
+      <div class="about-label" style="margin-bottom:12px;">
+        <span class="pt">// contato</span>
+        <span class="en">// contact</span>
+      </div>
+      <h2 class="contact-heading">
+        <span class="pt">Vamos construir<br>algo <em>incrível.</em></span>
+        <span class="en">Let's build<br>something <em>great.</em></span>
+      </h2>
+      <p class="contact-desc">
+        <span class="pt">Tem um negócio que precisa crescer online? Me conta o seu projeto — respondo em até 24h.</span>
+        <span class="en">Have a business that needs to grow online? Tell me about your project — I'll reply within 24h.</span>
+      </p>
+
+      <div class="contact-options">
+        <a href="https://wa.me/5527997493742" target="_blank" rel="noopener noreferrer" class="contact-option">
+          <div class="contact-option-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="var(--accent)" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 0 0-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></svg>
+          </div>
+          <div class="contact-option-text">
+            <div class="contact-option-label">WhatsApp</div>
+            <div class="contact-option-value">+55 (27) 99749-3742</div>
+          </div>
+        </a>
+
+        <a href="/cdn-cgi/l/email-protection#f39f869092809e9fb39f9a8596dd909c9e" class="contact-option">
+          <div class="contact-option-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.8" stroke-linecap="round" aria-hidden="true">
+              <rect x="2" y="4" width="20" height="16" rx="2"/>
+              <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>
+            </svg>
+          </div>
+          <div class="contact-option-text">
+            <div class="contact-option-label">Email</div>
+            <div class="contact-option-value"><span class="__cf_email__" data-cfemail="315d445250425c5d715d5847541f525e5c">[email&#160;protected]</span></div>
+          </div>
+        </a>
+
+        <a href="https://linkedin.com/in/lucasmlara" target="_blank" rel="noopener noreferrer" class="contact-option">
+          <div class="contact-option-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="var(--accent)" aria-hidden="true"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          </div>
+          <div class="contact-option-text">
+            <div class="contact-option-label">LinkedIn</div>
+            <div class="contact-option-value">linkedin.com/in/lucasmlara</div>
+          </div>
+        </a>
+      </div>
+    </div>
+
+    <!-- RIGHT — card formulário -->
+    <div class="contact-card">
+      <div class="contact-card-title">
+        <span class="pt">Preencha o briefing</span>
+        <span class="en">Fill the briefing</span>
+      </div>
+      <p class="contact-card-sub">
+        <span class="pt">Responda algumas perguntas rápidas sobre o seu negócio. Leva menos de 3 minutos e me ajuda a preparar uma proposta certeira para você.</span>
+        <span class="en">Answer a few quick questions about your business. It takes less than 3 minutes and helps me prepare a spot-on proposal for you.</span>
+      </p>
+
+      <a href="https://forms.gle/Qjuyftz2BX4re39E8" target="_blank" rel="noopener noreferrer" class="contact-form-btn">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+          <polyline points="14 2 14 8 20 8"/>
+          <line x1="16" y1="13" x2="8" y2="13"/>
+          <line x1="16" y1="17" x2="8" y2="17"/>
+          <polyline points="10 9 9 9 8 9"/>
+        </svg>
+        <span class="pt">Abrir formulário →</span>
+        <span class="en">Open form →</span>
+      </a>
+
+      <p class="contact-form-note">
+        <span class="pt">Prefere ir direto? <a href="https://wa.me/5527997493742" target="_blank" rel="noopener noreferrer" style="color:var(--accent);text-decoration:none;">Me chama no WhatsApp</a> — respondo rápido.</span>
+        <span class="en">Prefer to go straight? <a href="https://wa.me/5527997493742" target="_blank" rel="noopener noreferrer" style="color:var(--accent);text-decoration:none;">Message me on WhatsApp</a> — I reply fast.</span>
+      </p>
+
+      <div class="contact-expect">
+        <div class="contact-expect-title">
+          <span class="pt">// o que acontece depois</span>
+          <span class="en">// what happens next</span>
+        </div>
+        <div class="expect-list">
+          <div class="expect-item">
+            <span class="pt">Analiso seu briefing e preparo uma proposta personalizada</span>
+            <span class="en">I review your briefing and prepare a personalized proposal</span>
+          </div>
+          <div class="expect-item">
+            <span class="pt">Entro em contato em até 24h pelo canal que preferir</span>
+            <span class="en">I'll reach out within 24h via your preferred channel</span>
+          </div>
+          <div class="expect-item">
+            <span class="pt">Se fizer sentido, começamos a trabalhar juntos</span>
+            <span class="en">If it makes sense, we start working together</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+</main>
+
+<!-- ══ FOOTER ══ -->
+<footer>
+  <div class="footer-inner">
+    <a href="#home" class="footer-brand">By<span>Lara</span></a>
+
+    <div class="footer-links">
+      <a href="https://github.com/LucasMLara" target="_blank" rel="noopener noreferrer" class="footer-link" aria-label="GitHub (opens in new tab)">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+      </a>
+      <a href="https://linkedin.com/in/lucasmlara" target="_blank" rel="noopener noreferrer" class="footer-link" aria-label="LinkedIn (opens in new tab)">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+      </a>
+      <a href="https://instagram.com/lucas.m.lara" target="_blank" rel="noopener noreferrer" class="footer-link" aria-label="Instagram (opens in new tab)">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z"/></svg>
+      </a>
+      <a href="https://wa.me/5527997493742" target="_blank" rel="noopener noreferrer" class="footer-link" aria-label="WhatsApp (opens in new tab)">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 0 0-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></svg>
+      </a>
+    </div>
+
+    <p class="footer-copy">
+      © 2026 ByLara · Lucas Lara
+    </p>
+  </div>
+</footer>
+
+<!-- WhatsApp flutuante -->
+<a href="https://wa.me/5527997493742" target="_blank" rel="noopener noreferrer" class="whatsapp-float" aria-label="Me chama no WhatsApp! (opens in new tab)">
+  <svg width="24" height="24" viewBox="0 0 24 24" fill="white" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 0 0-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></svg>
+</a>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="script.js"></script>
+</body>
 </html>
