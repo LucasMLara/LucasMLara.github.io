@@ -453,14 +453,29 @@
       color: var(--text); transition: color 0.4s;
     }
     .services-heading em { font-style: normal; color: var(--accent); transition: color 0.4s; }
+    @keyframes cta-shimmer {
+      0%   { left: -60%; }
+      100% { left: 110%; }
+    }
     .services-cta-top {
       display: inline-flex; align-items: center; gap: 8px;
       color: var(--accent); font-size: 12px; letter-spacing: 0.08em;
       text-decoration: none; border: 1px solid var(--border);
       padding: 10px 20px; border-radius: 8px;
       white-space: nowrap; transition: all 0.2s;
+      position: relative; overflow: hidden;
+    }
+    .services-cta-top::before {
+      content: '';
+      position: absolute;
+      top: 0; left: -60%;
+      width: 45%; height: 100%;
+      background: linear-gradient(120deg, transparent 0%, color-mix(in srgb, var(--accent) 25%, transparent) 50%, transparent 100%);
+      animation: cta-shimmer 2s ease-in-out infinite alternate;
+      pointer-events: none;
     }
     .services-cta-top:hover { background: var(--accent); color: #fff; border-color: var(--accent); }
+    .services-cta-top:hover::before { display: none; }
 
     .services-grid {
       display: grid;
