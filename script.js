@@ -180,9 +180,9 @@
     const container = document.getElementById('projects-list');
     if (!container) return;
 
-    let output = '';
+    let slides = '';
 
-    // cards de projetos reais
+    // slides de projetos reais
     projects.forEach(p => {
       const statusBadge = p.status === 'wip'
         ? `<span style="font-size:9px;letter-spacing:0.12em;text-transform:uppercase;background:rgba(255,190,0,0.1);color:#febc2e;border:1px solid rgba(255,190,0,0.25);padding:3px 10px;border-radius:100px;">
@@ -206,89 +206,131 @@
            </a>`
         : '';
 
-      output += `
-      <div class="project-featured" style="margin-bottom:20px;">
-        <div class="project-mockup">
-          <div class="browser-frame">
-            <div class="browser-bar">
-              <div class="browser-dots">
-                <div class="browser-dot" style="background:#ff5f57"></div>
-                <div class="browser-dot" style="background:#febc2e"></div>
-                <div class="browser-dot" style="background:#28c840"></div>
+      slides += `
+      <div class="carousel-slide">
+        <div class="project-featured">
+          <div class="project-mockup">
+            <div class="browser-frame">
+              <div class="browser-bar">
+                <div class="browser-dots">
+                  <div class="browser-dot" style="background:#ff5f57"></div>
+                  <div class="browser-dot" style="background:#febc2e"></div>
+                  <div class="browser-dot" style="background:#28c840"></div>
+                </div>
+                <div class="browser-url">${p.mockupUrl}</div>
               </div>
-              <div class="browser-url">${p.mockupUrl}</div>
-            </div>
-            <div class="browser-content">
-              <div class="mock-hero-bar" style="background:linear-gradient(135deg,#1a0a0f,${p.mockupAccent});position:relative;overflow:hidden;">
-                <span class="mock-hero-text">${p.mockupName}</span>
-                ${p.status === 'wip' ? '<div style="position:absolute;top:6px;right:8px;font-size:9px;letter-spacing:0.12em;text-transform:uppercase;background:rgba(255,190,0,0.15);color:#febc2e;border:1px solid rgba(255,190,0,0.3);padding:2px 8px;border-radius:100px;">em andamento</div>' : ''}
-              </div>
-              <div class="mock-row">
-                <div class="mock-card"><div class="mock-line accent"></div><div class="mock-line"></div><div class="mock-line short"></div></div>
-                <div class="mock-card"><div class="mock-line accent"></div><div class="mock-line"></div><div class="mock-line short"></div></div>
-                <div class="mock-card"><div class="mock-line accent"></div><div class="mock-line"></div><div class="mock-line short"></div></div>
-              </div>
-              <div class="mock-row">
-                <div class="mock-card" style="flex:2;"><div class="mock-line" style="height:40px;background:rgba(200,80,100,0.15);border-radius:6px;"></div></div>
+              <div class="browser-content">
+                <div class="mock-hero-bar" style="background:linear-gradient(135deg,#1a0a0f,${p.mockupAccent});position:relative;overflow:hidden;">
+                  <span class="mock-hero-text">${p.mockupName}</span>
+                  ${p.status === 'wip' ? '<div style="position:absolute;top:6px;right:8px;font-size:9px;letter-spacing:0.12em;text-transform:uppercase;background:rgba(255,190,0,0.15);color:#febc2e;border:1px solid rgba(255,190,0,0.3);padding:2px 8px;border-radius:100px;">em andamento</div>' : ''}
+                </div>
+                <div class="mock-row">
+                  <div class="mock-card"><div class="mock-line accent"></div><div class="mock-line"></div><div class="mock-line short"></div></div>
+                  <div class="mock-card"><div class="mock-line accent"></div><div class="mock-line"></div><div class="mock-line short"></div></div>
+                  <div class="mock-card"><div class="mock-line accent"></div><div class="mock-line"></div><div class="mock-line short"></div></div>
+                </div>
+                <div class="mock-row">
+                  <div class="mock-card" style="flex:2;"><div class="mock-line" style="height:40px;background:rgba(200,80,100,0.15);border-radius:6px;"></div></div>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-        <div class="project-info">
-          <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
-            <div class="project-category">
-              <span class="pt">${p.categoryPT}</span><span class="en">${p.categoryEN}</span>
+          <div class="project-info">
+            <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
+              <div class="project-category">
+                <span class="pt">${p.categoryPT}</span><span class="en">${p.categoryEN}</span>
+              </div>
+              ${statusBadge}
             </div>
-            ${statusBadge}
-          </div>
-          <h3 class="project-title">${p.name}</h3>
-          <p class="project-problem">
-            <span class="pt">${p.descPT}</span>
-            <span class="en">${p.descEN}</span>
-          </p>
-          <div class="project-impact">
-            <div class="project-impact-label">
-              <span class="pt">${p.impactLabelPT}</span>
-              <span class="en">${p.impactLabelEN}</span>
+            <h3 class="project-title">${p.name}</h3>
+            <p class="project-problem">
+              <span class="pt">${p.descPT}</span>
+              <span class="en">${p.descEN}</span>
+            </p>
+            <div class="project-impact">
+              <div class="project-impact-label">
+                <span class="pt">${p.impactLabelPT}</span>
+                <span class="en">${p.impactLabelEN}</span>
+              </div>
+              <div class="project-impact-text" style="font-size:13px;font-weight:400;font-family:'DM Mono',monospace;">
+                <span class="pt">${p.impactPT}</span>
+                <span class="en">${p.impactEN}</span>
+              </div>
             </div>
-            <div class="project-impact-text" style="font-size:13px;font-weight:400;font-family:'DM Mono',monospace;">
-              <span class="pt">${p.impactPT}</span>
-              <span class="en">${p.impactEN}</span>
+            <div class="project-footer">
+              <div class="project-techs">
+                ${p.tags.map(t => `<span class="project-tech">${t}</span>`).join('')}
+              </div>
+              ${ctaLink}
             </div>
-          </div>
-          <div class="project-footer">
-            <div class="project-techs">
-              ${p.tags.map(t => `<span class="project-tech">${t}</span>`).join('')}
-            </div>
-            ${ctaLink}
           </div>
         </div>
       </div>`;
     });
 
-    // slots "em breve" — aparece enquanto tiver menos de 3 projetos ao vivo
-    const liveCount = projects.filter(p => p.status === 'live').length;
-    const soonSlots = Math.max(0, 2 - (projects.length - (projects.length - liveCount)));
-
-    output += `<div class="projects-soon">`;
-
+    // slide "em breve" — aparece enquanto tiver menos de 3 projetos
     if (projects.length < 3) {
-      output += `
-      <div class="project-soon-card">
-        <span class="soon-badge"><span class="pt">em breve</span><span class="en">coming soon</span></span>
-        <div class="soon-title"><span class="pt">Próximo cliente</span><span class="en">Next client</span></div>
-        <p class="soon-desc">
-          <span class="pt">Novo case em desenvolvimento. Acompanhe pelo LinkedIn.</span>
-          <span class="en">New case in development. Follow updates on LinkedIn.</span>
-        </p>
-        <a href="https://linkedin.com/in/lucasmlara" target="_blank" rel="noopener noreferrer" class="about-link" style="margin-top:4px;">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
-          LinkedIn
-        </a>
+      slides += `
+      <div class="carousel-slide">
+        <div class="project-featured project-placeholder">
+          <div class="project-mockup placeholder-mockup">
+            <div class="placeholder-skeleton">
+              <div class="ph-bar"></div>
+              <div class="ph-row">
+                <div class="ph-block"></div>
+                <div class="ph-block"></div>
+                <div class="ph-block"></div>
+              </div>
+              <div class="ph-wide"></div>
+            </div>
+          </div>
+          <div class="project-info">
+            <div style="display:flex;align-items:center;gap:10px;">
+              <span class="soon-badge"><span class="pt">em breve</span><span class="en">coming soon</span></span>
+            </div>
+            <div class="soon-title"><span class="pt">Próximo cliente</span><span class="en">Next client</span></div>
+            <p class="project-problem">
+              <span class="pt">Novo case em desenvolvimento. Acompanhe pelo LinkedIn para não perder.</span>
+              <span class="en">New case in development. Follow on LinkedIn so you don't miss it.</span>
+            </p>
+            <div class="project-footer">
+              <div class="project-techs"></div>
+              <a href="https://linkedin.com/in/lucasmlara" target="_blank" rel="noopener noreferrer" class="project-link">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+                LinkedIn
+              </a>
+            </div>
+          </div>
+        </div>
       </div>`;
     }
 
-    output += `
+    const totalSlides = projects.length + (projects.length < 3 ? 1 : 0);
+
+    let dotsHtml = '';
+    for (let i = 0; i < totalSlides; i++) {
+      dotsHtml += `<button class="carousel-dot${i === 0 ? ' active' : ''}" data-index="${i}" aria-label="Slide ${i + 1}"></button>`;
+    }
+
+    const controlsHtml = totalSlides > 1 ? `
+    <div class="carousel-controls">
+      <button class="carousel-btn" id="carouselPrev" aria-label="Projeto anterior">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="15 18 9 12 15 6"/></svg>
+      </button>
+      <div class="carousel-dots">${dotsHtml}</div>
+      <button class="carousel-btn" id="carouselNext" aria-label="Próximo projeto">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="9 18 15 12 9 6"/></svg>
+      </button>
+    </div>` : '';
+
+    container.innerHTML = `
+    <div class="projects-carousel-wrap">
+      <div class="projects-carousel-track">
+        <div class="projects-carousel" id="projectsCarousel">${slides}</div>
+      </div>
+      ${controlsHtml}
+    </div>
+    <div class="projects-soon">
       <div class="project-soon-card">
         <span class="soon-badge"><span class="pt">em breve</span><span class="en">coming soon</span></span>
         <div class="soon-title"><span class="pt">Quer ser o próximo?</span><span class="en">Want to be next?</span></div>
@@ -296,21 +338,43 @@
           <span class="pt">Seu negócio pode ser o próximo case aqui. Me chama e a gente conversa.</span>
           <span class="en">Your business could be the next case here. Reach out and let's talk.</span>
         </p>
-        <a href="#contact" class="btn-primary" style="margin-top:4px;font-size:12px;padding:10px 20px;">
+        <a href="#contact" class="btn-primary" style="font-size:12px;padding:10px 20px;">
           <span class="pt">Quero um site →</span><span class="en">I want a site →</span>
         </a>
       </div>
     </div>`;
 
-    container.innerHTML = output;
+    // carousel logic
+    if (totalSlides > 1) {
+      let current = 0;
+      const carousel = document.getElementById('projectsCarousel');
+      const dots = container.querySelectorAll('.carousel-dot');
+
+      function goTo(idx) {
+        current = ((idx % totalSlides) + totalSlides) % totalSlides;
+        carousel.style.transform = `translateX(-${current * 100}%)`;
+        dots.forEach((d, i) => d.classList.toggle('active', i === current));
+      }
+
+      document.getElementById('carouselPrev').addEventListener('click', () => goTo(current - 1));
+      document.getElementById('carouselNext').addEventListener('click', () => goTo(current + 1));
+      dots.forEach((d, i) => d.addEventListener('click', () => goTo(i)));
+
+      // swipe support
+      let startX = 0;
+      const track = carousel.parentElement;
+      track.addEventListener('touchstart', e => { startX = e.touches[0].clientX; }, { passive: true });
+      track.addEventListener('touchend', e => {
+        const diff = startX - e.changedTouches[0].clientX;
+        if (Math.abs(diff) > 50) goTo(current + (diff > 0 ? 1 : -1));
+      });
+    }
 
     // re-aplica hover do cursor nos novos elementos
     container.querySelectorAll('a, button, .project-featured').forEach(el => {
       el.addEventListener('mouseenter', () => document.body.classList.add('cursor-hover'));
       el.addEventListener('mouseleave', () => document.body.classList.remove('cursor-hover'));
     });
-
-
   }
 
   window.addEventListener('load', () => {
