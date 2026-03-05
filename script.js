@@ -351,3 +351,14 @@
   document.addEventListener('mouseleave', () => { dot.style.opacity = '0'; ring.style.opacity = '0'; });
   document.addEventListener('mouseenter', () => { dot.style.opacity = '1'; ring.style.opacity = '0.6'; });
 
+  /* ── WHATSAPP FLOAT — lift above footer ── */
+  const waBtn = document.querySelector('.whatsapp-float');
+  const footerEl = document.querySelector('footer');
+  if (waBtn && footerEl) {
+    new IntersectionObserver(([entry]) => {
+      waBtn.style.bottom = entry.isIntersecting
+        ? (footerEl.offsetHeight + 16) + 'px'
+        : '24px';
+    }, { threshold: 0 }).observe(footerEl);
+  }
+
