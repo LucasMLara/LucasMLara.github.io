@@ -35,6 +35,24 @@
       impactPT: "Entre em contato com a Essence pelo Instagram e pergunte sobre o site que estou desenvolvendo para elas.",
       impactEN: "Contact Essence on Instagram and ask about the website I'm developing for them.",
     },
+    {
+      name: "Teuller Moraes Adv",
+      categoryPT: "Site",
+      categoryEN: "Website",
+      status: "wip", // 'live' quando terminar
+      url: null,     // colocar URL quando terminar
+      contact: { type: "instagram", handle: "@teuller.adv", url: "https://instagram.com/teuller.adv" },
+      tags: ["HTML/CSS/JS", "WhatsApp", "SEO"],
+      mockupName: "Teuller Moraes Adv",
+      mockupUrl: "teulleradv.com.br",
+      mockupAccent: "#002B3C",
+      descPT: "O Dr. Teuller se interessou em propagar sua imagem no universo digital de forma mais profissional e impactante. Estamos criando uma Landing Page que faça sentido com as expectativas do cliente.",
+      descEN: "Dr. Teuller is interested inpropagating his image in the digital universe in a more professional and impactful way. We're building a Landing Page that makes sense with the client's expectations",
+      impactLabelPT: "// quer saber mais sobre esse projeto?",
+      impactLabelEN: "// want to know more about this project?",
+      impactPT: "Entre em contato com o Dr Teuller pelo Instagram e pergunte sobre o projeto que estou desenvolvendo para ele.",
+      impactEN: "Contact Dr Teuller on Instagram and ask about the project I'm developing for him.",
+    },
     // ── adicione o próximo projeto aqui ──
     // {
     //   name: "Nome do Cliente",
