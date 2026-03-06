@@ -429,6 +429,10 @@
       .about-inner { grid-template-columns: 1fr; gap: 48px; }
       .about-photo-wrap { max-width: 280px; }
       .about-card { right: -12px; }
+      .about-content { text-align: center; }
+      .about-label { justify-content: center; }
+      .about-links { justify-content: center; }
+      .skills-grid { justify-content: center; }
     }
 
     /* ══ SERVICES ══ */
