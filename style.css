@@ -72,6 +72,8 @@
     }
     body.cursor-hover .cursor-dot { width: 12px; height: 12px; background: var(--accent2); }
     body.cursor-hover .cursor-ring { width: 48px; height: 48px; opacity: 0.3; }
+    body.no-scroll .cursor-dot,
+    body.no-scroll .cursor-ring { opacity: 0 !important; visibility: hidden; transition: opacity 0.2s, visibility 0.2s; }
     @media(hover: none) {
       .cursor-dot, .cursor-ring { display: none; }
       body { cursor: auto; }
@@ -304,6 +306,7 @@
 
     .fade-up{opacity:0;transform:translateY(24px);animation:fadeUp 0.7s forwards}
     @keyframes fadeUp{to{opacity:1;transform:translateY(0)}}
+    body.splash-active #home .fade-up{animation:none !important}
     .d1{animation-delay:.1s}.d2{animation-delay:.25s}.d3{animation-delay:.4s}
     .d4{animation-delay:.55s}.d5{animation-delay:.7s}.d6{animation-delay:.85s}
 
