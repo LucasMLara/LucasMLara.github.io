@@ -18,6 +18,28 @@
   ════════════════════════════════════════════════ */
   const projects = [
     {
+      name: "Jazz Lourenço",
+      categoryPT: "Landing Page",
+      categoryEN: "Landing Page",
+      status: "live",
+      url: "https://serene-dodol-e99860.netlify.app/",
+      contact: { type: "instagram", handle: "@jz.lourenco", url: "https://www.instagram.com/jz.lourenco/" },
+      tags: ["HTML/CSS/JS", "Landing Page", "Design System", "i18n", "Dark Mode"],
+      mockupName: "Jazz Lourenço",
+      mockupUrl: "serene-dodol-e99860.netlify.app",
+      mockupAccent: "#C8853A",
+      descPT: "A Jazz não tinha presença digital consolidada para apresentar seu portfólio de branding, fotografia e social media. Desenvolvemos uma landing page completa com sistema de design próprio, modo escuro/claro, bilíngue PT/EN e modais de cases para cada um dos 12 clientes atendidos.",
+      descEN: "Jazz had no consolidated digital presence to showcase her branding, photography, and social media portfolio. We built a full landing page with a custom design system, dark/light mode, PT/EN bilingual support, and case modals for each of her 12 clients.",
+      impactLabelWipPT: "// quer saber mais sobre esse projeto?",
+      impactLabelWipEN: "// want to know more about this project?",
+      impactWipPT: "Entre em contato com a Jazz pelo Instagram e pergunte sobre o site que estou desenvolvendo para ela.",
+      impactWipEN: "Contact Jazz on Instagram and ask about the website I'm developing for her.",
+      impactLabelLivePT: "// quer ver o resultado?",
+      impactLabelLiveEN: "// want to see the result?",
+      impactLivePT: "Acesse o site completo pelo botão abaixo.",
+      impactLiveEN: "Check out the full website using the button below.",
+    },
+    {
       name: "Essence Beauty Clinic",
       categoryPT: "Site + Agente de IA",
       categoryEN: "Website + AI Agent",
@@ -30,10 +52,14 @@
       mockupAccent: "#3d1020",
       descPT: "A clínica não tinha presença digital e perdia leads por falta de atendimento fora do horário comercial. Estamos criando um site completo com agente de IA que qualifica clientes 24h e encaminha para o WhatsApp da equipe.",
       descEN: "The clinic had no digital presence and was losing leads outside business hours. We're building a complete website with an AI agent that qualifies clients 24/7 and forwards them to the team's WhatsApp.",
-      impactLabelPT: "// quer saber mais sobre esse projeto?",
-      impactLabelEN: "// want to know more about this project?",
-      impactPT: "Entre em contato com a Essence pelo Instagram e pergunte sobre o site que estou desenvolvendo para elas.",
-      impactEN: "Contact Essence on Instagram and ask about the website I'm developing for them.",
+      impactLabelWipPT: "// quer saber mais sobre esse projeto?",
+      impactLabelWipEN: "// want to know more about this project?",
+      impactWipPT: "Entre em contato com a Essence pelo Instagram e pergunte sobre o site que estou desenvolvendo para elas.",
+      impactWipEN: "Contact Essence on Instagram and ask about the website I'm developing for them.",
+      impactLabelLivePT: "// quer ver o resultado?",
+      impactLabelLiveEN: "// want to see the result?",
+      impactLivePT: "Acesse o site completo pelo botão abaixo.",
+      impactLiveEN: "Check out the full website using the button below.",
     },
     {
       name: "Teuller Moraes Adv",
@@ -48,10 +74,14 @@
       mockupAccent: "#002B3C",
       descPT: "O Dr. Teuller se interessou em propagar sua imagem no universo digital de forma mais profissional e impactante. Estamos criando uma Landing Page que faça sentido com as expectativas do cliente.",
       descEN: "Dr. Teuller is interested inpropagating his image in the digital universe in a more professional and impactful way. We're building a Landing Page that makes sense with the client's expectations",
-      impactLabelPT: "// quer saber mais sobre esse projeto?",
-      impactLabelEN: "// want to know more about this project?",
-      impactPT: "Entre em contato com o Dr Teuller pelo Instagram e pergunte sobre o projeto que estou desenvolvendo para ele.",
-      impactEN: "Contact Dr Teuller on Instagram and ask about the project I'm developing for him.",
+      impactLabelWipPT: "// quer saber mais sobre esse projeto?",
+      impactLabelWipEN: "// want to know more about this project?",
+      impactWipPT: "Entre em contato com o Dr Teuller pelo Instagram e pergunte sobre o projeto que estou desenvolvendo para ele.",
+      impactWipEN: "Contact Dr Teuller on Instagram and ask about the project I'm developing for him.",
+      impactLabelLivePT: "// quer ver o resultado?",
+      impactLabelLiveEN: "// want to see the result?",
+      impactLivePT: "Acesse o site completo pelo botão abaixo.",
+      impactLiveEN: "Check out the full website using the button below.",
     },
     // ── adicione o próximo projeto aqui ──
     // {
@@ -67,10 +97,14 @@
     //   mockupAccent: "#0a1a3d",
     //   descPT: "...",
     //   descEN: "...",
-    //   impactLabelPT: "// impacto",
-    //   impactLabelEN: "// impact",
-    //   impactPT: "...",
-    //   impactEN: "...",
+    //   impactLabelWipPT: "// quer saber mais sobre esse projeto?",
+    //   impactLabelWipEN: "// want to know more about this project?",
+    //   impactWipPT: "...",
+    //   impactWipEN: "...",
+    //   impactLabelLivePT: "// quer ver o resultado?",
+    //   impactLabelLiveEN: "// want to see the result?",
+    //   impactLivePT: "Acesse o site completo pelo botão abaixo.",
+    //   impactLiveEN: "Check out the full website using the button below.",
     // },
   ];
 
@@ -267,12 +301,12 @@
             </p>
             <div class="project-impact">
               <div class="project-impact-label">
-                <span class="pt">${p.impactLabelPT}</span>
-                <span class="en">${p.impactLabelEN}</span>
+                <span class="pt">${p.status === 'live' ? p.impactLabelLivePT : p.impactLabelWipPT}</span>
+                <span class="en">${p.status === 'live' ? p.impactLabelLiveEN : p.impactLabelWipEN}</span>
               </div>
               <div class="project-impact-text" style="font-size:13px;font-weight:400;font-family:'DM Mono',monospace;">
-                <span class="pt">${p.impactPT}</span>
-                <span class="en">${p.impactEN}</span>
+                <span class="pt">${p.status === 'live' ? p.impactLivePT : p.impactWipPT}</span>
+                <span class="en">${p.status === 'live' ? p.impactLiveEN : p.impactWipEN}</span>
               </div>
             </div>
             <div class="project-footer">
