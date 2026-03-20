@@ -187,7 +187,11 @@
 
   /* 4. TOGGLES */
   function toggleTheme() {
+    document.documentElement.classList.add('theme-transitioning');
     html.setAttribute('data-theme', html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
+    setTimeout(() => {
+      document.documentElement.classList.remove('theme-transitioning');
+    }, 300);
   }
   function toggleLang() {
     setLang(html.getAttribute('data-lang') === 'pt' ? 'en' : 'pt');
@@ -247,19 +251,19 @@
       const ease = 'power2.out';
       const start = 'top 88%';
 
-      gsap.from('.about-heading', { scrollTrigger: { trigger: '#bio', start }, y: fromY, opacity: fromOpacity, duration, ease });
-      gsap.from('.about-photo-wrap', { scrollTrigger: { trigger: '#bio', start }, y: fromY, opacity: fromOpacity, duration, ease, delay: 0.08 });
+      gsap.from('.about-heading', { scrollTrigger: { trigger: '#bio', start }, y: fromY, opacity: fromOpacity, filter: 'blur(4px)', duration, ease, clearProps: 'filter' });
+      gsap.from('.about-photo-wrap', { scrollTrigger: { trigger: '#bio', start }, y: fromY, opacity: fromOpacity, filter: 'blur(4px)', duration, ease, delay: 0.08, clearProps: 'filter' });
       gsap.from('.skill-tag', { scrollTrigger: { trigger: '.skills-grid', start }, y: 20, opacity: fromOpacity, duration: 0.5, stagger: 0.05, ease });
 
-      gsap.from('.services-heading', { scrollTrigger: { trigger: '#services', start }, y: fromY, opacity: fromOpacity, duration, ease });
+      gsap.from('.services-heading', { scrollTrigger: { trigger: '#services', start }, y: fromY, opacity: fromOpacity, filter: 'blur(4px)', duration, ease, clearProps: 'filter' });
       /* service-card sem GSAP: evita cards ficarem invisíveis (opacity 0); só o título faz reveal */
 
-      gsap.from('.projects-header', { scrollTrigger: { trigger: '#projects', start }, y: fromY, opacity: fromOpacity, duration, ease });
-      gsap.from('.projects-carousel-wrap', { scrollTrigger: { trigger: '#projects', start }, y: 28, opacity: fromOpacity, duration, delay: 0.06, ease });
+      gsap.from('.projects-header', { scrollTrigger: { trigger: '#projects', start }, y: fromY, opacity: fromOpacity, filter: 'blur(4px)', duration, ease, clearProps: 'filter' });
+      gsap.from('.projects-carousel-wrap', { scrollTrigger: { trigger: '#projects', start }, y: 28, opacity: fromOpacity, filter: 'blur(4px)', duration, delay: 0.06, ease, clearProps: 'filter' });
       gsap.from('.project-soon-card', { scrollTrigger: { trigger: '#projects', start }, y: 24, opacity: fromOpacity, duration: 0.55, ease });
 
-      gsap.from('.contact-heading', { scrollTrigger: { trigger: '#contact', start }, y: fromY, opacity: fromOpacity, duration, ease });
-      gsap.from('.contact-card', { scrollTrigger: { trigger: '#contact', start }, y: 28, opacity: fromOpacity, duration, delay: 0.1, ease });
+      gsap.from('.contact-heading', { scrollTrigger: { trigger: '#contact', start }, y: fromY, opacity: fromOpacity, filter: 'blur(4px)', duration, ease, clearProps: 'filter' });
+      gsap.from('.contact-card', { scrollTrigger: { trigger: '#contact', start }, y: 28, opacity: fromOpacity, filter: 'blur(4px)', duration, delay: 0.1, ease, clearProps: 'filter' });
       gsap.from('.contact-options', { scrollTrigger: { trigger: '#contact', start }, y: 20, opacity: fromOpacity, duration: 0.5, stagger: 0.06, ease });
     }
     window.runHeroReveal = runHeroReveal;
@@ -470,9 +474,11 @@
 
   window.addEventListener('load', () => {
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (prefersReducedMotion) {
+    const splashSeen = sessionStorage.getItem('splashSeen');
+    if (prefersReducedMotion || splashSeen) {
       dismissSplash();
     } else {
+      sessionStorage.setItem('splashSeen', '1');
       document.body.classList.add('splash-active');
       runLogoAnimation();
     }
