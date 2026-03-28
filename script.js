@@ -487,6 +487,21 @@
   });
 
 
+  /* ── FAQ ACCORDION ── */
+  document.querySelectorAll('.faq-question').forEach(btn => {
+    const item = btn.closest('.faq-item');
+    const answer = item.querySelector('.faq-answer');
+
+    const toggle = () => {
+      const isOpen = item.classList.contains('is-open');
+      item.classList.toggle('is-open', !isOpen);
+      answer.setAttribute('aria-hidden', isOpen ? 'true' : 'false');
+    };
+
+    btn.addEventListener('click', toggle);
+    btn.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle(); } });
+  });
+
   /* ── CURSOR ── */
   const dot  = document.getElementById('cursorDot');
   const ring = document.getElementById('cursorRing');
@@ -507,7 +522,7 @@
   }
   animateRing();
 
-  document.querySelectorAll('a, button, .service-card, .project-featured').forEach(el => {
+  document.querySelectorAll('a, button, summary, .service-card, .project-featured').forEach(el => {
     el.addEventListener('mouseenter', () => document.body.classList.add('cursor-hover'));
     el.addEventListener('mouseleave', () => document.body.classList.remove('cursor-hover'));
   });
