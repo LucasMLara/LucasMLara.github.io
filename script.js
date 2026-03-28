@@ -429,7 +429,7 @@
     <div class="projects-soon">
       <div class="project-soon-card">
         <span class="soon-badge"><span class="pt">em breve</span><span class="en">coming soon</span></span>
-        <div class="soon-title"><span class="pt">Quer ser o próximo?</span><span class="en">Want to be next?</span></div>
+        <div class="soon-title"><span class="pt">Quer estar aqui?</span><span class="en">Want to be here?</span></div>
         <p class="soon-desc">
           <span class="pt">Seu negócio pode ser o próximo case aqui. Me chama e a gente conversa.</span>
           <span class="en">Your business could be the next case here. Reach out and let's talk.</span>
