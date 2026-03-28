@@ -431,11 +431,14 @@
     .about-link:hover { color: var(--accent); border-color: var(--accent); }
 
     @media(max-width: 768px) {
-      #bio { padding: 80px 24px; }
+      #bio { padding: 80px 24px; overflow: hidden; }
       .about-inner { grid-template-columns: 1fr; gap: 48px; }
-      .about-photo-wrap { max-width: 280px; }
-      .about-card { right: -12px; }
-      .about-content { text-align: center; }
+      .about-photo-col { min-width: 0; }
+      .about-photo-wrap { max-width: 280px; padding-bottom: 16px; }
+      .about-card { right: 0; bottom: 0; }
+      .about-content { text-align: center; min-width: 0; }
+      .about-heading { font-size: clamp(24px, 7vw, 32px); overflow-wrap: break-word; }
+      .about-text { overflow-wrap: break-word; }
       .about-label { justify-content: center; }
       .about-links { justify-content: center; }
       .skills-grid { justify-content: center; }
