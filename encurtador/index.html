@@ -391,6 +391,63 @@
       transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease !important;
     }
 
+    /* ── CONFIRM MODAL ── */
+    .modal-backdrop {
+      position: fixed; inset: 0; z-index: 1000;
+      background: rgba(6,8,15,0.72);
+      backdrop-filter: blur(4px);
+      display: flex; align-items: center; justify-content: center;
+      padding: 24px;
+      opacity: 0; pointer-events: none;
+      transition: opacity 0.2s;
+    }
+    [data-theme="light"] .modal-backdrop { background: rgba(245,244,255,0.6); }
+    .modal-backdrop.open { opacity: 1; pointer-events: all; }
+
+    .modal {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 28px 32px;
+      max-width: 360px;
+      width: 100%;
+      transform: translateY(10px);
+      transition: transform 0.22s ease;
+    }
+    .modal-backdrop.open .modal { transform: translateY(0); }
+
+    .modal-title {
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 18px;
+      color: var(--text);
+      margin-bottom: 8px;
+    }
+    .modal-body {
+      font-size: 12px;
+      color: var(--muted);
+      line-height: 1.7;
+      margin-bottom: 24px;
+    }
+    .modal-actions { display: flex; gap: 8px; justify-content: flex-end; }
+
+    .btn-danger {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(224,85,85,0.12);
+      color: #e05555;
+      border: 1px solid rgba(224,85,85,0.35);
+      padding: 10px 20px;
+      border-radius: 8px;
+      font-family: 'DM Mono', monospace;
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      cursor: pointer;
+      transition: background 0.2s, border-color 0.2s;
+    }
+    .btn-danger:hover { background: rgba(224,85,85,0.22); border-color: rgba(224,85,85,0.6); }
+
     /* ── RESPONSIVE ── */
     @media (max-width: 600px) {
       .nav { padding: 0 20px; }
@@ -477,6 +534,17 @@
     </div>
   </main>
 
+  <div class="modal-backdrop" id="confirmModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="modal">
+      <div class="modal-title" id="modalTitle">Deletar link</div>
+      <p class="modal-body">Esta ação não pode ser desfeita. O link ficará permanentemente inacessível.</p>
+      <div class="modal-actions">
+        <button class="btn-ghost" id="modalCancelBtn">Cancelar</button>
+        <button class="btn-danger" id="modalConfirmBtn">Deletar</button>
+      </div>
+    </div>
+  </div>
+
   <script type="module">
     // ── CURSOR ──
     ;(function() {
@@ -499,10 +567,16 @@
       }
       animateRing()
 
-      document.querySelectorAll('a, button').forEach(el => {
-        el.addEventListener('mouseenter', () => document.body.classList.add('cursor-hover'))
-        el.addEventListener('mouseleave', () => document.body.classList.remove('cursor-hover'))
-      })
+      function bindCursorHover() {
+        document.querySelectorAll('a, button').forEach(el => {
+          if (el._cursorBound) return
+          el._cursorBound = true
+          el.addEventListener('mouseenter', () => document.body.classList.add('cursor-hover'))
+          el.addEventListener('mouseleave', () => document.body.classList.remove('cursor-hover'))
+        })
+      }
+      bindCursorHover()
+      new MutationObserver(bindCursorHover).observe(document.body, { childList: true, subtree: true })
 
       document.addEventListener('mouseleave', () => { dot.style.opacity = '0'; ring.style.opacity = '0' })
       document.addEventListener('mouseenter', () => { dot.style.opacity = '1'; ring.style.opacity = '0.6' })
@@ -639,6 +713,8 @@
       domainSelect.innerHTML = data
         .map(d => `<option value="${d.domain}">${d.domain}${d.label ? ' — ' + d.label : ''}</option>`)
         .join('')
+      const saved = localStorage.getItem('lastDomain')
+      if (saved && [...domainSelect.options].some(o => o.value === saved)) domainSelect.value = saved
       updatePreview()
     }
 
@@ -653,7 +729,7 @@
     }
     slugInput.addEventListener('input', updatePreview)
     urlInput.addEventListener('focus', updatePreview)
-    domainSelect.addEventListener('change', updatePreview)
+    domainSelect.addEventListener('change', () => { localStorage.setItem('lastDomain', domainSelect.value); updatePreview() })
 
     // ── CREATE LINK ──
     createBtn.addEventListener('click', async () => {
@@ -759,13 +835,39 @@
         })
 
         item.querySelector('.delete-btn').addEventListener('click', async () => {
-          if (!confirm('Deletar este link? Esta ação não pode ser desfeita.')) return
+          if (!await showConfirm()) return
           const { error } = await supabase.from('links').delete().eq('id', link.id)
           if (!error) loadLinks()
         })
 
         list.appendChild(item)
       }
+    }
+
+    // ── CONFIRM MODAL ──
+    function showConfirm() {
+      return new Promise(resolve => {
+        const backdrop   = document.getElementById('confirmModal')
+        const confirmBtn = document.getElementById('modalConfirmBtn')
+        const cancelBtn  = document.getElementById('modalCancelBtn')
+
+        backdrop.classList.add('open')
+
+        function cleanup(result) {
+          backdrop.classList.remove('open')
+          confirmBtn.removeEventListener('click', onConfirm)
+          cancelBtn.removeEventListener('click', onCancel)
+          backdrop.removeEventListener('click', onBackdrop)
+          resolve(result)
+        }
+        function onConfirm()       { cleanup(true) }
+        function onCancel()        { cleanup(false) }
+        function onBackdrop(e)     { if (e.target === backdrop) cleanup(false) }
+
+        confirmBtn.addEventListener('click', onConfirm)
+        cancelBtn.addEventListener('click', onCancel)
+        backdrop.addEventListener('click', onBackdrop)
+      })
     }
 
     function escapeHtml(str) {
