@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Link n&atilde;o encontrado &mdash; lucaslara.dev</title>
+  <meta name="robots" content="noindex, nofollow" />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg:      #06080F;
+      --surface: #0D1117;
+      --accent:  #1E5FCC;
+      --accent2: #3575E8;
+      --text:    #F0F4FF;
+      --muted:   #8899BB;
+      --border:  rgba(42,63,126,0.45);
+    }
+    [data-theme="light"] {
+      --bg:      #F5F4FF;
+      --surface: #EDEAFF;
+      --accent:  #5B4FE8;
+      --accent2: #7B70F5;
+      --text:    #0D0B1A;
+      --muted:   #6655AA;
+      --border:  rgba(91,79,232,0.18);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'DM Mono', monospace;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      cursor: none;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+    a, button { cursor: none !important; }
+
+    @media (hover: none) {
+      .cursor-dot, .cursor-ring { display: none; }
+      body { cursor: auto; }
+      a, button { cursor: auto !important; }
+    }
+
+    .cursor-dot {
+      position: fixed; top: 0; left: 0; z-index: 9999;
+      width: 8px; height: 8px; border-radius: 50%;
+      background: var(--accent);
+      pointer-events: none;
+      transform: translate(-50%, -50%);
+      transition: transform 0.1s, width 0.2s, height 0.2s, background 0.2s;
+    }
+    .cursor-ring {
+      position: fixed; top: 0; left: 0; z-index: 9998;
+      width: 32px; height: 32px; border-radius: 50%;
+      border: 1.5px solid var(--accent);
+      pointer-events: none;
+      transform: translate(-50%, -50%);
+      transition: transform 0.12s ease-out, width 0.2s, height 0.2s, border-color 0.2s, opacity 0.2s;
+      opacity: 0.6;
+    }
+    body.cursor-hover .cursor-dot { width: 12px; height: 12px; background: var(--accent2); }
+    body.cursor-hover .cursor-ring { width: 48px; height: 48px; opacity: 0.3; }
+
+    .theme-toggle {
+      position: fixed;
+      top: 18px; right: 20px;
+      width: 40px; height: 22px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 100px;
+      cursor: pointer;
+      position: fixed;
+      transition: background 0.3s;
+    }
+    .theme-toggle::after {
+      content: '';
+      position: absolute;
+      top: 3px; left: 3px;
+      width: 14px; height: 14px;
+      border-radius: 50%;
+      background: var(--accent);
+      transition: transform 0.3s;
+    }
+    [data-theme="light"] .theme-toggle::after { transform: translateX(18px); }
+
+    .content {
+      text-align: center;
+      max-width: 400px;
+    }
+
+    .badge {
+      font-size: 11px;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 24px;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .badge::before {
+      content: '';
+      display: inline-block;
+      width: 20px; height: 1px;
+      background: var(--accent);
+    }
+
+    h1 {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: clamp(80px, 18vw, 140px);
+      line-height: 1;
+      letter-spacing: -4px;
+      color: var(--text);
+      margin-bottom: 16px;
+    }
+
+    p {
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.7;
+      margin-bottom: 36px;
+    }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--accent);
+      color: #fff;
+      padding: 12px 28px;
+      border-radius: 8px;
+      border: none;
+      font-family: 'DM Mono', monospace;
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      text-decoration: none;
+      transition: background 0.2s, transform 0.2s;
+    }
+    .btn-primary:hover { background: var(--accent2); transform: translateY(-1px); }
+  </style>
+</head>
+<body>
+
+  <div class="cursor-dot" id="cursorDot" aria-hidden="true"></div>
+  <div class="cursor-ring" id="cursorRing" aria-hidden="true"></div>
+  <button class="theme-toggle" id="themeToggle" aria-label="Alternar tema"></button>
+
+  <div class="content">
+    <div class="badge">ByLara &mdash; encurtador</div>
+    <h1>404</h1>
+    <p>Este link foi deletado ou nunca existiu.<br>Verifique o endere&ccedil;o ou volte para o in&iacute;cio.</p>
+    <a href="https://lucaslara.dev" class="btn-primary">&larr; lucaslara.dev</a>
+  </div>
+
+  <script>
+    ;(function () {
+      const html  = document.documentElement
+      const saved = localStorage.getItem('theme')
+      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches
+      html.setAttribute('data-theme', saved || (prefersDark ? 'dark' : 'light'))
+
+      document.getElementById('themeToggle').addEventListener('click', () => {
+        const next = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark'
+        html.setAttribute('data-theme', next)
+        localStorage.setItem('theme', next)
+      })
+
+      const dot  = document.getElementById('cursorDot')
+      const ring = document.getElementById('cursorRing')
+      let mx = 0, my = 0, rx = 0, ry = 0
+
+      document.addEventListener('mousemove', e => {
+        mx = e.clientX; my = e.clientY
+        dot.style.left = mx + 'px'
+        dot.style.top  = my + 'px'
+      })
+
+      ;(function animateRing() {
+        rx += (mx - rx) * 0.12
+        ry += (my - ry) * 0.12
+        ring.style.left = rx + 'px'
+        ring.style.top  = ry + 'px'
+        requestAnimationFrame(animateRing)
+      })()
+
+      document.querySelectorAll('a, button').forEach(el => {
+        el.addEventListener('mouseenter', () => document.body.classList.add('cursor-hover'))
+        el.addEventListener('mouseleave', () => document.body.classList.remove('cursor-hover'))
+      })
+
+      document.addEventListener('mouseleave', () => { dot.style.opacity = '0'; ring.style.opacity = '0' })
+      document.addEventListener('mouseenter', () => { dot.style.opacity = '1'; ring.style.opacity = '0.6' })
+    })()
+  </script>
+</body>
+</html>
