@@ -615,7 +615,7 @@
       if (!supabase) { showFeedback(loginFeedback, 'Supabase não configurado.', 'error'); loginBtn.disabled = false; loginBtn.textContent = 'Enviar magic link'; return }
       const { error } = await supabase.auth.signInWithOtp({
         email,
-        options: { emailRedirectTo: window.location.href }
+        options: { emailRedirectTo: 'https://lucaslara.dev/encurtador' }
       })
 
       loginBtn.disabled = false
