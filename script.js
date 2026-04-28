@@ -7,9 +7,9 @@
   ════════════════════════════════════════════════ */
   const DEFAULT_LANG = 'pt';
 
-  /* 1. TEMA — detecta preferência do dispositivo */
+  /* 1. TEMA — localStorage > preferência do dispositivo */
   const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-  html.setAttribute('data-theme', prefersDark ? 'dark' : 'light');
+  html.setAttribute('data-theme', localStorage.getItem('theme') || (prefersDark ? 'dark' : 'light'));
 
   /* ════════════════════════════════════════════════
      PROJETOS — adicione novos projetos aqui
@@ -189,7 +189,9 @@
   /* 4. TOGGLES */
   function toggleTheme() {
     document.documentElement.classList.add('theme-transitioning');
-    html.setAttribute('data-theme', html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
+    const next = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+    html.setAttribute('data-theme', next);
+    localStorage.setItem('theme', next);
     setTimeout(() => {
       document.documentElement.classList.remove('theme-transitioning');
     }, 300);

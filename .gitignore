@@ -2,3 +2,5 @@ notes
 node_modules
 .history
 .claude
+.env.local
+.env*.local

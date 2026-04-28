@@ -1,0 +1,778 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Encurtador | lucaslara.dev</title>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    /* ── Design tokens — mirror of portfolio style.css :root ── */
+    :root {
+      --bg:      #06080F;
+      --surface: #0D1117;
+      --accent:  #1E5FCC;
+      --accent2: #3575E8;
+      --text:    #F0F4FF;
+      --muted:   #8899BB;
+      --border:  rgba(42,63,126,0.45);
+    }
+    [data-theme="light"] {
+      --bg:      #F5F4FF;
+      --surface: #EDEAFF;
+      --accent:  #5B4FE8;
+      --accent2: #7B70F5;
+      --text:    #0D0B1A;
+      --muted:   #6655AA;
+      --border:  rgba(91,79,232,0.18);
+    }
+
+    * { margin:0; padding:0; box-sizing:border-box; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'DM Mono', monospace;
+      min-height: 100vh;
+      cursor: none;
+    }
+    a, button, label, input, textarea, select { cursor: none !important; }
+
+    /* ── CURSOR CUSTOMIZADO — idêntico ao portfolio ── */
+    .cursor-dot {
+      position: fixed; top: 0; left: 0; z-index: 9999;
+      width: 8px; height: 8px; border-radius: 50%;
+      background: var(--accent);
+      pointer-events: none;
+      transform: translate(-50%, -50%);
+      transition: transform 0.1s, width 0.2s, height 0.2s, background 0.2s;
+    }
+    .cursor-ring {
+      position: fixed; top: 0; left: 0; z-index: 9998;
+      width: 32px; height: 32px; border-radius: 50%;
+      border: 1.5px solid var(--accent);
+      pointer-events: none;
+      transform: translate(-50%, -50%);
+      transition: transform 0.12s ease-out, width 0.2s, height 0.2s, border-color 0.2s, opacity 0.2s;
+      opacity: 0.6;
+    }
+    body.cursor-hover .cursor-dot { width: 12px; height: 12px; background: var(--accent2); }
+    body.cursor-hover .cursor-ring { width: 48px; height: 48px; opacity: 0.3; }
+    @media (hover: none) {
+      .cursor-dot, .cursor-ring { display: none; }
+      body { cursor: auto; }
+      a, button, label, input, textarea, select { cursor: auto !important; }
+    }
+
+    /* ── NAV ── */
+    .nav {
+      background: rgba(6,8,15,0.75);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+      padding: 0 40px;
+      height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    [data-theme="light"] .nav { background: rgba(245,244,255,0.85); }
+
+    .nav-brand {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: 18px;
+      color: var(--text);
+      text-decoration: none;
+    }
+    .nav-brand span { color: var(--accent); }
+
+    .nav-actions { display: flex; align-items: center; gap: 12px; }
+
+    /* ── LAYOUT ── */
+    .main {
+      max-width: 640px;
+      margin: 0 auto;
+      padding: 48px 24px;
+    }
+
+    /* ── CARD ── */
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 28px 32px;
+    }
+    .card + .card { margin-top: 24px; }
+
+    /* ── TYPOGRAPHY ── */
+    .section-label {
+      font-size: 11px;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .section-label::before {
+      content: '';
+      display: inline-block;
+      width: 20px;
+      height: 1px;
+      background: var(--accent);
+    }
+
+    h1 {
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 22px;
+      color: var(--text);
+      margin-bottom: 8px;
+    }
+
+    .subtitle {
+      font-size: 12px;
+      color: var(--muted);
+      line-height: 1.7;
+      margin-bottom: 24px;
+    }
+
+    /* ── FORM ── */
+    .form-group { margin-bottom: 16px; }
+
+    label {
+      display: block;
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 8px;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    input[type="url"],
+    select {
+      width: 100%;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 10px 14px;
+      font-family: 'DM Mono', monospace;
+      font-size: 13px;
+      color: var(--text);
+      outline: none;
+      transition: border-color 0.3s ease, background-color 0.3s ease;
+    }
+    input:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(30,95,204,0.12);
+    }
+    [data-theme="light"] input:focus {
+      box-shadow: 0 0 0 3px rgba(91,79,232,0.1);
+    }
+    input::placeholder { color: var(--muted); opacity: 0.55; }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    /* ── BUTTONS ── */
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      width: 100%;
+      background: var(--accent);
+      color: #fff;
+      padding: 12px 28px;
+      border-radius: 8px;
+      border: none;
+      font-family: 'DM Mono', monospace;
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.2s;
+    }
+    .btn-primary:hover:not(:disabled) {
+      background: var(--accent2);
+      transform: translateY(-1px);
+    }
+    .btn-primary:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+
+    .btn-ghost {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: transparent;
+      color: var(--muted);
+      border: 1px solid var(--border);
+      padding: 8px 16px;
+      border-radius: 8px;
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 0.08em;
+      cursor: pointer;
+      transition: color 0.2s, border-color 0.2s;
+    }
+    .btn-ghost:hover { color: var(--text); border-color: var(--muted); }
+
+    .btn-icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 44px;
+      min-width: 52px;
+      background: transparent;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 8px 12px;
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 0.06em;
+      color: var(--muted);
+      cursor: pointer;
+      transition: color 0.2s, border-color 0.2s;
+    }
+    .btn-icon:hover { color: var(--accent); border-color: var(--accent); }
+    .btn-icon.danger:hover { color: #e05555; border-color: rgba(224,85,85,0.5); }
+
+    /* ── FEEDBACK ── */
+    .feedback {
+      font-size: 12px;
+      line-height: 1.6;
+      padding: 10px 14px;
+      border-radius: 8px;
+      margin-top: 12px;
+      display: none;
+    }
+    .feedback.success {
+      background: rgba(30,95,204,0.1);
+      border: 1px solid rgba(30,95,204,0.25);
+      color: var(--accent2);
+      display: block;
+    }
+    .feedback.error {
+      background: rgba(224,85,85,0.08);
+      border: 1px solid rgba(224,85,85,0.25);
+      color: #e07878;
+      display: block;
+    }
+    [data-theme="light"] .feedback.success {
+      background: rgba(91,79,232,0.07);
+      border-color: rgba(91,79,232,0.18);
+      color: var(--accent);
+    }
+
+    /* ── LINKS LIST ── */
+    .links-list { display: flex; flex-direction: column; gap: 12px; }
+
+    .link-item {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 16px 20px;
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 12px;
+      transition: border-color 0.2s;
+    }
+    .link-item:hover { border-color: rgba(30,95,204,0.4); }
+    [data-theme="light"] .link-item:hover { border-color: rgba(91,79,232,0.3); }
+
+    .link-info { flex: 1; min-width: 0; }
+
+    .link-slug {
+      font-family: 'DM Mono', monospace;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--accent);
+      letter-spacing: 0.04em;
+      margin-bottom: 4px;
+    }
+    .link-label {
+      font-size: 12px;
+      color: var(--text);
+      margin-bottom: 3px;
+    }
+    .link-url {
+      font-size: 11px;
+      color: var(--muted);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .link-meta {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-top: 8px;
+      font-size: 11px;
+      color: var(--muted);
+    }
+    .link-clicks::before { content: '↗ '; color: var(--accent); }
+
+    .link-actions { display: flex; gap: 8px; flex-shrink: 0; }
+
+    /* ── EMPTY STATE ── */
+    .empty-state {
+      text-align: center;
+      padding: 40px 20px;
+      color: var(--muted);
+    }
+    .empty-icon { font-size: 28px; margin-bottom: 12px; opacity: 0.3; }
+    .empty-state p { font-size: 12px; letter-spacing: 0.06em; }
+
+    /* ── UTILITY ── */
+    .hidden { display: none !important; }
+    .user-email { font-size: 11px; color: var(--muted); letter-spacing: 0.06em; }
+
+    /* ── LINK PREVIEW ── */
+    .link-preview {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 12px;
+      padding: 8px 12px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      min-height: 36px;
+      transition: border-color 0.2s;
+    }
+    .link-preview-label {
+      font-size: 10px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+    #linkPreviewUrl {
+      font-size: 12px;
+      color: var(--accent);
+      letter-spacing: 0.03em;
+      word-break: break-all;
+    }
+
+    /* ── THEME TOGGLE — idêntico ao portfolio ── */
+    .theme-toggle {
+      width: 40px; height: 22px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 100px;
+      cursor: pointer;
+      position: relative;
+      transition: background 0.3s;
+      flex-shrink: 0;
+    }
+    .theme-toggle::after {
+      content: '';
+      position: absolute;
+      top: 3px; left: 3px;
+      width: 14px; height: 14px;
+      border-radius: 50%;
+      background: var(--accent);
+      transition: transform 0.3s;
+    }
+    [data-theme="light"] .theme-toggle::after { transform: translateX(18px); }
+
+    .theme-transitioning,
+    .theme-transitioning *,
+    .theme-transitioning *::before,
+    .theme-transitioning *::after {
+      transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease !important;
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 600px) {
+      .nav { padding: 0 20px; }
+      .main { padding: 32px 16px; }
+      .card { padding: 20px; }
+      .form-row { grid-template-columns: 1fr; }
+      .link-item { flex-direction: column; }
+      .link-actions { width: 100%; justify-content: flex-end; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="cursor-dot" id="cursorDot" aria-hidden="true"></div>
+  <div class="cursor-ring" id="cursorRing" aria-hidden="true"></div>
+
+  <nav class="nav">
+    <a href="/" class="nav-brand">By<span>Lara</span></a>
+    <div class="nav-actions" id="navActions"></div>
+    <button class="theme-toggle" id="themeToggle" aria-label="Alternar tema"></button>
+  </nav>
+
+  <main class="main">
+
+    <!-- STATE A: LOGIN -->
+    <div id="loginView">
+      <div class="card">
+        <div class="section-label">Encurtador</div>
+        <h1>Acesso restrito</h1>
+        <p class="subtitle">Digite seu e-mail para receber um link de acesso.</p>
+
+        <div class="form-group">
+          <label for="emailInput">E-mail</label>
+          <input type="email" id="emailInput" placeholder="seu@email.com" autocomplete="email" />
+        </div>
+
+        <button class="btn-primary" id="loginBtn">Enviar magic link</button>
+        <div class="feedback" id="loginFeedback"></div>
+      </div>
+    </div>
+
+    <!-- STATE B: DASHBOARD -->
+    <div id="dashboardView" class="hidden">
+
+      <div class="card">
+        <div class="section-label">Novo link</div>
+
+        <div class="form-group">
+          <label for="urlInput">URL de destino *</label>
+          <input type="url" id="urlInput" placeholder="https://exemplo.com/pagina" />
+        </div>
+
+        <div class="form-group">
+          <label for="domainSelect">Domínio</label>
+          <select id="domainSelect"></select>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group" style="margin-bottom:0">
+            <label for="slugInput">Slug (opcional)</label>
+            <input type="text" id="slugInput" placeholder="meu-link" />
+          </div>
+          <div class="form-group" style="margin-bottom:0">
+            <label for="labelInput">Label (opcional)</label>
+            <input type="text" id="labelInput" placeholder="Descrição" />
+          </div>
+        </div>
+        <div class="link-preview" id="linkPreview">
+          <span class="link-preview-label">↗ link curto</span>
+          <span id="linkPreviewUrl"></span>
+        </div>
+
+        <button class="btn-primary" id="createBtn" style="margin-top:16px">Criar link curto</button>
+        <div class="feedback" id="createFeedback"></div>
+      </div>
+
+      <div class="card">
+        <div class="section-label">Meus links</div>
+        <div id="linksList">
+          <div class="empty-state"><p>Carregando...</p></div>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <script type="module">
+    // ── CURSOR ──
+    ;(function() {
+      const dot  = document.getElementById('cursorDot')
+      const ring = document.getElementById('cursorRing')
+      let mx = 0, my = 0, rx = 0, ry = 0
+
+      document.addEventListener('mousemove', e => {
+        mx = e.clientX; my = e.clientY
+        dot.style.left = mx + 'px'
+        dot.style.top  = my + 'px'
+      })
+
+      function animateRing() {
+        rx += (mx - rx) * 0.12
+        ry += (my - ry) * 0.12
+        ring.style.left = rx + 'px'
+        ring.style.top  = ry + 'px'
+        requestAnimationFrame(animateRing)
+      }
+      animateRing()
+
+      document.querySelectorAll('a, button').forEach(el => {
+        el.addEventListener('mouseenter', () => document.body.classList.add('cursor-hover'))
+        el.addEventListener('mouseleave', () => document.body.classList.remove('cursor-hover'))
+      })
+
+      document.addEventListener('mouseleave', () => { dot.style.opacity = '0'; ring.style.opacity = '0' })
+      document.addEventListener('mouseenter', () => { dot.style.opacity = '1'; ring.style.opacity = '0.6' })
+    })()
+
+    // ── THEME — detecta preferência e persiste em localStorage ──
+    ;(function() {
+      const html = document.documentElement
+      const saved = localStorage.getItem('theme')
+      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches
+      html.setAttribute('data-theme', saved || (prefersDark ? 'dark' : 'light'))
+      document.getElementById('themeToggle').addEventListener('click', () => {
+        html.classList.add('theme-transitioning')
+        const next = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark'
+        html.setAttribute('data-theme', next)
+        localStorage.setItem('theme', next)
+        setTimeout(() => html.classList.remove('theme-transitioning'), 300)
+      })
+    })()
+
+    import { createClient } from 'https://esm.sh/@supabase/supabase-js@2'
+
+    // ── CONFIG — fill in after deploying to Supabase ──
+    const SUPABASE_URL      = 'https://odwudkqswryhmrjhjbfz.supabase.co'
+    const SUPABASE_ANON_KEY = 'sb_publishable_QRKbWQReIz1YGHRr7wENZA_gpiOt0fh'
+
+    const supabase = SUPABASE_URL && SUPABASE_ANON_KEY
+      ? createClient(SUPABASE_URL, SUPABASE_ANON_KEY)
+      : null
+
+    // ── NANOID — url-safe, 6 chars ──
+    const ALPHABET = 'abcdefghijklmnopqrstuvwxyz0123456789'
+    function nanoid(size = 6) {
+      const arr = new Uint8Array(size)
+      crypto.getRandomValues(arr)
+      return Array.from(arr, b => ALPHABET[b % ALPHABET.length]).join('')
+    }
+
+    // ── DOM ──
+    const loginView      = document.getElementById('loginView')
+    const dashboardView  = document.getElementById('dashboardView')
+    const navActions     = document.getElementById('navActions')
+    const emailInput     = document.getElementById('emailInput')
+    const loginBtn       = document.getElementById('loginBtn')
+    const loginFeedback  = document.getElementById('loginFeedback')
+    const urlInput       = document.getElementById('urlInput')
+    const slugInput      = document.getElementById('slugInput')
+    const labelInput     = document.getElementById('labelInput')
+    const domainSelect   = document.getElementById('domainSelect')
+    const createBtn      = document.getElementById('createBtn')
+    const createFeedback = document.getElementById('createFeedback')
+    const linksList      = document.getElementById('linksList')
+
+    // ── FEEDBACK ──
+    function showFeedback(el, msg, type, autohide = 0) {
+      el.className = `feedback ${type}`
+      el.textContent = msg
+      if (autohide) setTimeout(() => clearFeedback(el), autohide)
+    }
+    function clearFeedback(el) { el.className = 'feedback'; el.textContent = '' }
+
+    // ── INIT ──
+    async function init() {
+      if (!supabase) { renderView(null); return }
+
+      const params = new URLSearchParams(window.location.search)
+      const code = params.get('code')
+      if (code) {
+        await supabase.auth.exchangeCodeForSession(code)
+        window.history.replaceState({}, '', window.location.pathname)
+      }
+
+      const { data: { session } } = await supabase.auth.getSession()
+      renderView(session)
+    }
+
+    if (supabase) supabase.auth.onAuthStateChange((_event, session) => renderView(session))
+
+    // ── VIEWS ──
+    function renderView(session) {
+      if (session) {
+        loginView.classList.add('hidden')
+        dashboardView.classList.remove('hidden')
+        navActions.innerHTML = `
+          <span class="user-email">${session.user.email}</span>
+          <button class="btn-ghost" id="logoutBtn">Sair</button>
+        `
+        document.getElementById('logoutBtn').addEventListener('click', () => supabase.auth.signOut())
+        loadLinks()
+        loadDomains()
+      } else {
+        loginView.classList.remove('hidden')
+        dashboardView.classList.add('hidden')
+        navActions.innerHTML = ''
+      }
+    }
+
+    // ── LOGIN ──
+    loginBtn.addEventListener('click', async () => {
+      const email = emailInput.value.trim()
+      if (!email) { showFeedback(loginFeedback, 'Informe seu e-mail.', 'error'); return }
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        showFeedback(loginFeedback, 'Formato de e-mail inválido.', 'error'); return
+      }
+
+      loginBtn.disabled = true
+      loginBtn.textContent = 'Enviando...'
+      clearFeedback(loginFeedback)
+
+      if (!supabase) { showFeedback(loginFeedback, 'Supabase não configurado.', 'error'); loginBtn.disabled = false; loginBtn.textContent = 'Enviar magic link'; return }
+      const { error } = await supabase.auth.signInWithOtp({
+        email,
+        options: { emailRedirectTo: window.location.href }
+      })
+
+      loginBtn.disabled = false
+      loginBtn.textContent = 'Enviar magic link'
+
+      if (error) {
+        showFeedback(loginFeedback, `Erro: ${error.message}`, 'error')
+      } else {
+        showFeedback(loginFeedback, 'Link enviado! Verifique seu e-mail.', 'success')
+        emailInput.value = ''
+      }
+    })
+
+    emailInput.addEventListener('keydown', e => { if (e.key === 'Enter') loginBtn.click() })
+
+    // ── LOAD DOMAINS ──
+    async function loadDomains() {
+      if (!supabase) return
+      const { data } = await supabase.from('domains').select('*').order('domain')
+      if (!data || data.length === 0) return
+      domainSelect.innerHTML = data
+        .map(d => `<option value="${d.domain}">${d.domain}${d.label ? ' — ' + d.label : ''}</option>`)
+        .join('')
+      updatePreview()
+    }
+
+    // ── LINK PREVIEW ──
+    function updatePreview() {
+      const slug = slugInput.value.trim().toLowerCase().replace(/\s+/g, '-')
+      const domain = domainSelect.value || '...'
+      const preview = document.getElementById('linkPreviewUrl')
+      preview.textContent = slug
+        ? `https://${domain}/r/${slug}`
+        : `https://${domain}/r/xxxxxx  ← gerado automaticamente`
+    }
+    slugInput.addEventListener('input', updatePreview)
+    urlInput.addEventListener('focus', updatePreview)
+    domainSelect.addEventListener('change', updatePreview)
+
+    // ── CREATE LINK ──
+    createBtn.addEventListener('click', async () => {
+      const rawUrl  = urlInput.value.trim()
+      const rawSlug = slugInput.value.trim()
+      const label   = labelInput.value.trim() || null
+
+      if (!rawUrl) { showFeedback(createFeedback, 'A URL é obrigatória.', 'error'); return }
+      try { new URL(rawUrl) } catch {
+        showFeedback(createFeedback, 'URL inválida — use o formato https://...', 'error'); return
+      }
+
+      const slug = rawSlug
+        ? rawSlug.toLowerCase().replace(/\s+/g, '-')
+        : nanoid(6)
+
+      if (!supabase) return
+      const { data: { user } } = await supabase.auth.getUser()
+
+      createBtn.disabled = true
+      createBtn.textContent = 'Criando...'
+      clearFeedback(createFeedback)
+
+      const { error } = await supabase.from('links').insert({ user_id: user.id, domain: domainSelect.value, slug, url: rawUrl, label })
+
+      createBtn.disabled = false
+      createBtn.textContent = 'Criar link curto'
+
+      if (error) {
+        const msg = error.code === '23505'
+          ? 'Slug já existe. Escolha outro.'
+          : `Erro: ${error.message}`
+        showFeedback(createFeedback, msg, 'error')
+        return
+      }
+
+      const shortUrl = `https://${domainSelect.value}/r/${slug}`
+      try { await navigator.clipboard.writeText(shortUrl) } catch { /* clipboard blocked */ }
+
+      urlInput.value = ''
+      slugInput.value = ''
+      labelInput.value = ''
+      showFeedback(createFeedback, `Criado! URL copiada: ${shortUrl}`, 'success', 4000)
+      loadLinks()
+    })
+
+    // ── LOAD LINKS ──
+    async function loadLinks() {
+      if (!supabase) { linksList.innerHTML = '<div class="empty-state"><p>Supabase não configurado.</p></div>'; return }
+      linksList.innerHTML = '<div class="empty-state"><p>Carregando...</p></div>'
+
+      const { data: links, error } = await supabase
+        .from('links')
+        .select('*')
+        .order('created_at', { ascending: false })
+
+      if (error) {
+        linksList.innerHTML = '<div class="empty-state"><p>Erro ao carregar links.</p></div>'
+        return
+      }
+
+      if (!links || links.length === 0) {
+        linksList.innerHTML = `
+          <div class="empty-state">
+            <div class="empty-icon">—</div>
+            <p>Nenhum link ainda. Crie o primeiro acima.</p>
+          </div>`
+        return
+      }
+
+      linksList.innerHTML = '<div class="links-list"></div>'
+      const list = linksList.querySelector('.links-list')
+
+      for (const link of links) {
+        const item = document.createElement('div')
+        item.className = 'link-item'
+        const date = new Date(link.created_at).toLocaleDateString('pt-BR', { day:'2-digit', month:'short', year:'numeric' })
+        const shortUrl = `https://${link.domain}/r/${link.slug}`
+
+        item.innerHTML = `
+          <div class="link-info">
+            <div class="link-slug">/${link.slug}</div>
+            ${link.label ? `<div class="link-label">${escapeHtml(link.label)}</div>` : ''}
+            <div class="link-url" title="${escapeHtml(link.url)}">${escapeHtml(link.url)}</div>
+            <div class="link-meta">
+              <span class="link-clicks">${link.clicks} cliques</span>
+              <span>${date}</span>
+            </div>
+          </div>
+          <div class="link-actions">
+            <button class="btn-icon copy-btn" title="Copiar link curto">copiar</button>
+            <button class="btn-icon danger delete-btn" title="Deletar link">del</button>
+          </div>`
+
+        item.querySelector('.copy-btn').addEventListener('click', async function() {
+          try {
+            await navigator.clipboard.writeText(shortUrl)
+            this.textContent = 'copiado!'
+          } catch {
+            this.textContent = 'erro'
+          }
+          setTimeout(() => { this.textContent = 'copiar' }, 1800)
+        })
+
+        item.querySelector('.delete-btn').addEventListener('click', async () => {
+          if (!confirm('Deletar este link? Esta ação não pode ser desfeita.')) return
+          const { error } = await supabase.from('links').delete().eq('id', link.id)
+          if (!error) loadLinks()
+        })
+
+        list.appendChild(item)
+      }
+    }
+
+    function escapeHtml(str) {
+      return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')
+    }
+
+    init()
+  </script>
+</body>
+</html>
