@@ -448,6 +448,112 @@
     }
     .btn-danger:hover { background: rgba(224,85,85,0.22); border-color: rgba(224,85,85,0.6); }
 
+    /* ── NAV RIGHT GROUP ── */
+    .nav-right { display: flex; align-items: center; gap: 8px; }
+    .nav-info { display: flex; align-items: center; gap: 2px; }
+    .nav-info .btn-ghost { font-size: 10px; padding: 5px 9px; opacity: 0.65; }
+    .nav-info .btn-ghost:hover { opacity: 1; }
+
+    /* ── PRE-LOGIN HERO ── */
+    .bylink-hero { text-align: center; margin-bottom: 24px; }
+    .bylink-hero h2 {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(22px, 5vw, 30px);
+      font-weight: 800;
+      color: var(--text);
+      margin-bottom: 8px;
+    }
+    .bylink-hero h2 span { color: var(--accent); }
+    .bylink-hero p {
+      font-size: 12px;
+      color: var(--muted);
+      line-height: 1.7;
+      margin-bottom: 14px;
+    }
+    .bylink-features {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-bottom: 16px;
+      font-size: 10px;
+      color: var(--muted);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+    .bylink-features span::before { content: '— '; color: var(--accent); }
+    .login-footer {
+      display: none;
+      margin-top: 20px;
+      padding-top: 16px;
+      border-top: 1px solid var(--border);
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+    .login-footer .btn-ghost { font-size: 10px; padding: 5px 9px; opacity: 0.65; }
+    .login-footer .btn-ghost:hover { opacity: 1; }
+
+    /* ── INFO MODALS ── */
+    .modal-wide { max-width: 580px; }
+    .modal-scroll {
+      max-height: 52vh;
+      overflow-y: auto;
+      padding-right: 6px;
+      margin-bottom: 20px;
+    }
+    .modal-scroll::-webkit-scrollbar { width: 3px; }
+    .modal-scroll::-webkit-scrollbar-track { background: transparent; }
+    .modal-scroll::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-bottom: 8px;
+    }
+    .pricing-card {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 16px;
+    }
+    .pricing-card.featured { border-color: var(--accent); }
+    .plan-tag {
+      font-size: 9px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 6px;
+    }
+    .plan-name {
+      font-family: 'Syne', sans-serif;
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 2px;
+    }
+    .plan-price {
+      font-family: 'Syne', sans-serif;
+      font-size: 20px;
+      font-weight: 800;
+      color: var(--accent);
+      margin-bottom: 8px;
+    }
+    .plan-price small { font-size: 11px; font-weight: 400; color: var(--muted); font-family: 'DM Mono', monospace; }
+    .plan-setup { font-size: 11px; color: var(--muted); margin-bottom: 8px; }
+    .plan-features { list-style: none; font-size: 11px; color: var(--muted); line-height: 2; margin-bottom: 12px; }
+    .plan-features li::before { content: '— '; color: var(--accent); }
+    .plan-trial { font-size: 10px; color: var(--muted); text-align: center; letter-spacing: 0.06em; opacity: 0.75; }
+    .msection {
+      font-family: 'Syne', sans-serif;
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--text);
+      letter-spacing: 0.06em;
+      margin: 14px 0 4px;
+    }
+    .mtext { font-size: 11px; color: var(--muted); line-height: 1.8; }
+
     /* ── RESPONSIVE ── */
     @media (max-width: 600px) {
       .nav { padding: 0 20px; }
@@ -456,6 +562,9 @@
       .form-row { grid-template-columns: 1fr; }
       .link-item { flex-direction: column; }
       .link-actions { width: 100%; justify-content: flex-end; }
+      .nav-info { display: none; }
+      .login-footer { display: flex; }
+      .pricing-grid { grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -467,16 +576,33 @@
   <nav class="nav">
     <a href="/" class="nav-brand">By<span>Lara</span></a>
     <div class="nav-actions" id="navActions"></div>
-    <button class="theme-toggle" id="themeToggle" aria-label="Alternar tema"></button>
+    <div class="nav-right">
+      <div class="nav-info">
+        <button class="btn-ghost" onclick="openInfoModal('precos')">Preços</button>
+        <button class="btn-ghost" onclick="openInfoModal('termos')">Termos</button>
+        <button class="btn-ghost" onclick="openInfoModal('privacidade')">Privacidade</button>
+      </div>
+      <button class="theme-toggle" id="themeToggle" aria-label="Alternar tema"></button>
+    </div>
   </nav>
 
   <main class="main">
 
     <!-- STATE A: LOGIN -->
     <div id="loginView">
+      <div class="bylink-hero">
+        <h2>By<span>Link</span></h2>
+        <p>Encurtador de links com o seu nome.<br>Crie links curtos profissionais em segundos.</p>
+        <div class="bylink-features">
+          <span>Links com slug personalizado</span>
+          <span>Dashboard simples</span>
+          <span>Domínio próprio disponível</span>
+        </div>
+        <button class="btn-ghost" onclick="openInfoModal('precos')" style="margin:0 auto">Ver Preços</button>
+      </div>
       <div class="card">
-        <div class="section-label">Encurtador</div>
-        <h1>Acesso restrito</h1>
+        <div class="section-label">Acesso</div>
+        <h1>Entrar no dashboard</h1>
         <p class="subtitle">Digite seu e-mail para receber um link de acesso.</p>
 
         <div class="form-group">
@@ -486,6 +612,11 @@
 
         <button class="btn-primary" id="loginBtn">Enviar magic link</button>
         <div class="feedback" id="loginFeedback"></div>
+        <div class="login-footer">
+          <button class="btn-ghost" onclick="openInfoModal('precos')">Preços</button>
+          <button class="btn-ghost" onclick="openInfoModal('termos')">Termos de Uso</button>
+          <button class="btn-ghost" onclick="openInfoModal('privacidade')">Privacidade</button>
+        </div>
       </div>
     </div>
 
@@ -545,6 +676,96 @@
     </div>
   </div>
 
+  <!-- MODAL: PREÇOS -->
+  <div class="modal-backdrop" id="modalPrecos" role="dialog" aria-modal="true" aria-labelledby="precosTitle">
+    <div class="modal modal-wide">
+      <div class="modal-title" id="precosTitle">Planos ByLink</div>
+      <div class="modal-scroll">
+        <div class="pricing-grid">
+          <div class="pricing-card featured">
+            <div class="plan-tag">Plano 1</div>
+            <div class="plan-name">ByLink Hospedado</div>
+            <div class="plan-price">R$ 39<small>/mês</small></div>
+            <ul class="plan-features">
+              <li>Até 30 links ativos</li>
+              <li>10K cliques/mês</li>
+              <li>Dashboard com magic-link</li>
+              <li>Links em lucaslara.dev/r/</li>
+              <li>Suporte por e-mail em 48h</li>
+            </ul>
+            <a href="mailto:LucasML@live.com?subject=ByLink%20Hospedado%20%E2%80%94%20quero%20contratar" class="btn-primary" style="font-size:11px;padding:10px 16px;text-decoration:none">Quero contratar</a>
+          </div>
+          <div class="pricing-card">
+            <div class="plan-tag">Plano 2</div>
+            <div class="plan-name">ByLink Domínio Próprio</div>
+            <div class="plan-price">R$ 99<small>/mês</small></div>
+            <div class="plan-setup">+ Setup R$ 497 (único)</div>
+            <ul class="plan-features">
+              <li>Links no seu domínio</li>
+              <li>Tudo do Plano 1</li>
+              <li>Config DNS inclusa</li>
+              <li>Treinamento de 30 min</li>
+              <li>Portabilidade grátis</li>
+            </ul>
+            <a href="mailto:LucasML@live.com?subject=ByLink%20Dom%C3%ADnio%20Pr%C3%B3prio%20%E2%80%94%20quero%20saber%20mais" class="btn-ghost" style="width:100%;justify-content:center;text-decoration:none">Falar com Lucas</a>
+          </div>
+        </div>
+        <p class="plan-trial">Trial de 14 dias grátis no Plano 1 — sem cartão.</p>
+      </div>
+      <div class="modal-actions">
+        <button class="btn-ghost" onclick="closeInfoModal('precos')">Fechar</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL: TERMOS DE USO -->
+  <div class="modal-backdrop" id="modalTermos" role="dialog" aria-modal="true" aria-labelledby="termosTitle">
+    <div class="modal modal-wide">
+      <div class="modal-title" id="termosTitle">Termos de Uso</div>
+      <div class="modal-scroll">
+        <p class="msection">1. Serviço</p>
+        <p class="mtext">O ByLink é um serviço de encurtamento e redirecionamento de URLs prestado por Lucas Lara (LucasML@live.com). A disponibilidade é oferecida em regime <em>best-effort</em>, sem SLA garantido.</p>
+        <p class="msection">2. Pagamento e Cancelamento</p>
+        <p class="mtext">O plano é cobrado mensalmente de forma recorrente. O cancelamento pode ser solicitado a qualquer momento por e-mail, sem multa. Não há reembolso proporcional pelo mês em curso.</p>
+        <p class="msection">3. Uso Aceitável</p>
+        <p class="mtext">É vedado o uso para phishing, distribuição de malware, spam, conteúdo ilegal ou qualquer finalidade que viole a legislação brasileira. O prestador reserva-se o direito de suspender a conta imediatamente em caso de abuso, sem aviso prévio.</p>
+        <p class="msection">4. Limitação de Responsabilidade</p>
+        <p class="mtext">O serviço não se responsabiliza por perdas decorrentes de indisponibilidade, perda de cliques ou redirecionamentos incorretos causados por fatores externos (DNS, CDN, infraestrutura de terceiros).</p>
+        <p class="msection">5. Lei Aplicável</p>
+        <p class="mtext">Estes termos são regidos pela legislação brasileira. Fica eleito o foro da comarca de São Paulo – SP para dirimir eventuais conflitos.</p>
+        <p class="msection">6. Atualizações</p>
+        <p class="mtext">Alterações substanciais serão comunicadas por e-mail com antecedência mínima de 15 dias.</p>
+      </div>
+      <div class="modal-actions">
+        <button class="btn-ghost" onclick="closeInfoModal('termos')">Fechar</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL: PRIVACIDADE -->
+  <div class="modal-backdrop" id="modalPrivacidade" role="dialog" aria-modal="true" aria-labelledby="privacidadeTitle">
+    <div class="modal modal-wide">
+      <div class="modal-title" id="privacidadeTitle">Política de Privacidade</div>
+      <div class="modal-scroll">
+        <p class="msection">Controlador</p>
+        <p class="mtext">Lucas Lara — LucasML@live.com</p>
+        <p class="msection">Dados Coletados</p>
+        <p class="mtext">Coletamos apenas o necessário: endereço de e-mail (autenticação), URLs encurtadas, domínio associado e contador agregado de cliques. <strong>Não coletamos</strong> IP, user-agent, geolocalização nem cookies de rastreamento.</p>
+        <p class="msection">Finalidade</p>
+        <p class="mtext">Os dados são usados exclusivamente para autenticação e operação do redirecionamento. Nenhum dado é compartilhado com terceiros para fins comerciais ou publicitários.</p>
+        <p class="msection">Subprocessadores</p>
+        <p class="mtext">A infraestrutura é fornecida pela Supabase Inc. (EUA). Os dados podem ser armazenados fora do Brasil em servidores da Amazon Web Services.</p>
+        <p class="msection">Seus Direitos (LGPD)</p>
+        <p class="mtext">Você pode solicitar acesso, correção, portabilidade ou exclusão dos seus dados pelo e-mail acima. Atendemos em até 15 dias úteis.</p>
+        <p class="msection">Retenção</p>
+        <p class="mtext">Após cancelamento, os dados são excluídos em até 30 dias.</p>
+      </div>
+      <div class="modal-actions">
+        <button class="btn-ghost" onclick="closeInfoModal('privacidade')">Fechar</button>
+      </div>
+    </div>
+  </div>
+
   <script type="module">
     // ── CURSOR ──
     ;(function() {
@@ -599,7 +820,9 @@
 
     import { createClient } from 'https://esm.sh/@supabase/supabase-js@2'
 
-    // ── CONFIG — fill in after deploying to Supabase ──
+    // ── CONFIG ──
+    // SUPABASE_ANON_KEY is Supabase's publishable (anon) key — intentionally public.
+    // All read/write is gated by Row Level Security (RLS) policies on the database.
     const SUPABASE_URL      = 'https://odwudkqswryhmrjhjbfz.supabase.co'
     const SUPABASE_ANON_KEY = 'sb_publishable_QRKbWQReIz1YGHRr7wENZA_gpiOt0fh'
 
@@ -873,6 +1096,22 @@
     function escapeHtml(str) {
       return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')
     }
+
+    // ── INFO MODALS (Preços / Termos / Privacidade) ──
+    function infoEl(id) {
+      return document.getElementById('modal' + id.charAt(0).toUpperCase() + id.slice(1))
+    }
+    window.openInfoModal  = id => infoEl(id)?.classList.add('open')
+    window.closeInfoModal = id => infoEl(id)?.classList.remove('open')
+
+    ;['precos', 'termos', 'privacidade'].forEach(id => {
+      const el = infoEl(id)
+      if (el) el.addEventListener('click', e => { if (e.target === el) el.classList.remove('open') })
+    })
+    document.addEventListener('keydown', e => {
+      if (e.key !== 'Escape') return
+      ;['precos', 'termos', 'privacidade'].forEach(id => infoEl(id)?.classList.remove('open'))
+    })
 
     init()
   </script>
