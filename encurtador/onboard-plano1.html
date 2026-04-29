@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bem-vindo ao ByLink — Plano Hospedado</title>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg:      #06080F;
+      --surface: #0D1117;
+      --accent:  #1E5FCC;
+      --accent2: #3575E8;
+      --text:    #F0F4FF;
+      --muted:   #8899BB;
+      --border:  rgba(42,63,126,0.45);
+    }
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'DM Mono', monospace;
+      min-height: 100vh;
+      padding: 40px 20px 80px;
+    }
+    .container {
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    .badge {
+      display: inline-block;
+      font-size: 10px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--accent2);
+      border: 1px solid var(--accent);
+      border-radius: 4px;
+      padding: 3px 10px;
+      margin-bottom: 16px;
+    }
+    h1 {
+      font-family: 'Syne', sans-serif;
+      font-size: 28px;
+      font-weight: 800;
+      line-height: 1.2;
+      margin-bottom: 8px;
+    }
+    .subtitle {
+      color: var(--muted);
+      font-size: 13px;
+      margin-bottom: 40px;
+      line-height: 1.6;
+    }
+    .step {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 24px;
+      margin-bottom: 16px;
+    }
+    .step-header {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 14px;
+    }
+    .step-num {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: var(--accent);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Syne', sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+    .step-title {
+      font-family: 'Syne', sans-serif;
+      font-size: 15px;
+      font-weight: 700;
+    }
+    .step-body {
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.8;
+    }
+    .step-body strong { color: var(--text); }
+    .step-body code {
+      background: rgba(30,95,204,0.15);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 1px 6px;
+      font-size: 11px;
+      color: var(--accent2);
+    }
+    .limit-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 8px 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 12px;
+    }
+    .limit-row:last-child { border-bottom: none; }
+    .limit-val {
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      color: var(--accent2);
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--accent);
+      color: var(--text);
+      border: none;
+      border-radius: 6px;
+      padding: 10px 20px;
+      font-family: 'DM Mono', monospace;
+      font-size: 12px;
+      text-decoration: none;
+      margin-top: 16px;
+    }
+    .divider {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 32px 0;
+    }
+    .footer-note {
+      color: var(--muted);
+      font-size: 11px;
+      text-align: center;
+      line-height: 1.8;
+    }
+    .footer-note a { color: var(--accent2); text-decoration: none; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="badge">Plano 1 — ByLink Hospedado</div>
+    <h1>Tudo pronto.<br>Vamos configurar.</h1>
+    <p class="subtitle">Você contratou o ByLink Hospedado (R$ 39/mês). Siga os 3 passos abaixo e seus links estarão no ar em menos de 5 minutos.</p>
+
+    <div class="step">
+      <div class="step-header">
+        <div class="step-num">1</div>
+        <div class="step-title">Acesse o dashboard</div>
+      </div>
+      <div class="step-body">
+        Vá para <code>lucaslara.dev/encurtador</code> e insira o e-mail que você usou na contratação.<br><br>
+        Você vai receber um <strong>magic link</strong> na sua caixa de entrada — clique nele e você estará logado automaticamente, sem senha.<br><br>
+        Verifique também a pasta de spam se não receber em até 2 minutos.
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-header">
+        <div class="step-num">2</div>
+        <div class="step-title">Crie seu primeiro link</div>
+      </div>
+      <div class="step-body">
+        Dentro do dashboard, cole a URL longa no campo <strong>"URL de destino"</strong> e defina um slug curto (ex: <code>promo</code>).<br><br>
+        Seu link ficará disponível em <code>lucaslara.dev/r/promo</code> imediatamente após salvar.
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-header">
+        <div class="step-num">3</div>
+        <div class="step-title">Conheça seus limites</div>
+      </div>
+      <div class="step-body">
+        <div class="limit-row">
+          <span>Links ativos simultâneos</span>
+          <span class="limit-val">30</span>
+        </div>
+        <div class="limit-row">
+          <span>Cliques mensais</span>
+          <span class="limit-val">10.000</span>
+        </div>
+        <div class="limit-row">
+          <span>Domínio dos links</span>
+          <span class="limit-val">lucaslara.dev/r/</span>
+        </div>
+        <div class="limit-row">
+          <span>Suporte por e-mail</span>
+          <span class="limit-val">até 48h</span>
+        </div>
+        <div class="limit-row">
+          <span>Trial grátis restante</span>
+          <span class="limit-val">14 dias</span>
+        </div>
+      </div>
+    </div>
+
+    <hr class="divider">
+
+    <p class="footer-note">
+      Dúvidas ou problemas? Fale comigo pelo WhatsApp ou mande um e-mail.<br>
+      <a href="https://wa.me/5527999768885" target="_blank">WhatsApp</a> &nbsp;·&nbsp;
+      <a href="mailto:LucasML@live.com">LucasML@live.com</a>
+    </p>
+  </div>
+</body>
+</html>

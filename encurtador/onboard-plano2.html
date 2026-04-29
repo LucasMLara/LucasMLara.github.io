@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bem-vindo ao ByLink — Domínio Próprio</title>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg:      #06080F;
+      --surface: #0D1117;
+      --accent:  #1E5FCC;
+      --accent2: #3575E8;
+      --text:    #F0F4FF;
+      --muted:   #8899BB;
+      --border:  rgba(42,63,126,0.45);
+    }
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'DM Mono', monospace;
+      min-height: 100vh;
+      padding: 40px 20px 80px;
+    }
+    .container {
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    .badge {
+      display: inline-block;
+      font-size: 10px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--accent2);
+      border: 1px solid var(--accent);
+      border-radius: 4px;
+      padding: 3px 10px;
+      margin-bottom: 16px;
+    }
+    h1 {
+      font-family: 'Syne', sans-serif;
+      font-size: 28px;
+      font-weight: 800;
+      line-height: 1.2;
+      margin-bottom: 8px;
+    }
+    .subtitle {
+      color: var(--muted);
+      font-size: 13px;
+      margin-bottom: 40px;
+      line-height: 1.6;
+    }
+    .step {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 24px;
+      margin-bottom: 16px;
+    }
+    .step-header {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 14px;
+    }
+    .step-num {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: var(--accent);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Syne', sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+    .step-title {
+      font-family: 'Syne', sans-serif;
+      font-size: 15px;
+      font-weight: 700;
+    }
+    .step-tag {
+      margin-left: auto;
+      font-size: 9px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--muted);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 2px 8px;
+      flex-shrink: 0;
+    }
+    .step-body {
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.8;
+    }
+    .step-body strong { color: var(--text); }
+    .step-body code {
+      background: rgba(30,95,204,0.15);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 1px 6px;
+      font-size: 11px;
+      color: var(--accent2);
+    }
+    .dns-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 12px;
+      font-size: 11px;
+    }
+    .dns-table th {
+      text-align: left;
+      color: var(--muted);
+      font-weight: 400;
+      padding: 6px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .dns-table td {
+      padding: 8px 0;
+      border-bottom: 1px solid rgba(42,63,126,0.2);
+      color: var(--text);
+    }
+    .dns-table td:first-child { color: var(--muted); }
+    .dns-table td code {
+      font-size: 11px;
+    }
+    .limit-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 8px 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 12px;
+    }
+    .limit-row:last-child { border-bottom: none; }
+    .limit-val {
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      color: var(--accent2);
+    }
+    .callout {
+      background: rgba(30,95,204,0.1);
+      border: 1px solid var(--accent);
+      border-radius: 8px;
+      padding: 16px 20px;
+      font-size: 12px;
+      color: var(--muted);
+      margin-bottom: 16px;
+      line-height: 1.7;
+    }
+    .callout strong { color: var(--text); }
+    .divider {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 32px 0;
+    }
+    .footer-note {
+      color: var(--muted);
+      font-size: 11px;
+      text-align: center;
+      line-height: 1.8;
+    }
+    .footer-note a { color: var(--accent2); text-decoration: none; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="badge">Plano 2 — ByLink Domínio Próprio</div>
+    <h1>Seu link,<br>seu domínio.</h1>
+    <p class="subtitle">Você contratou o ByLink Domínio Próprio (R$ 99/mês + setup R$ 497). O processo de setup leva em média 24h — aqui está o que vai acontecer.</p>
+
+    <div class="callout">
+      <strong>Antes de começar:</strong> me informe o domínio que você quer usar para os links (ex: <code>links.suaempresa.com.br</code>). Se ainda não tem um domínio, posso indicar onde comprar.
+    </div>
+
+    <div class="step">
+      <div class="step-header">
+        <div class="step-num">1</div>
+        <div class="step-title">Configuração DNS</div>
+        <span class="step-tag">eu faço</span>
+      </div>
+      <div class="step-body">
+        Após você me passar o domínio, eu configuro o redirecionamento. Você precisará adicionar os seguintes registros no painel do seu provedor de domínio:<br><br>
+        <table class="dns-table">
+          <thead>
+            <tr>
+              <th>Tipo</th>
+              <th>Nome</th>
+              <th>Valor</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>CNAME</td>
+              <td><code>links</code> (ou subdomínio escolhido)</td>
+              <td><code>[enviado por mim via WhatsApp]</code></td>
+            </tr>
+          </tbody>
+        </table>
+        <br>
+        A propagação DNS pode levar de <strong>15 minutos a 24h</strong> dependendo do seu provedor.
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-header">
+        <div class="step-num">2</div>
+        <div class="step-title">Treinamento (30 min)</div>
+        <span class="step-tag">juntos</span>
+      </div>
+      <div class="step-body">
+        Agendamos uma call de 30 minutos pelo Google Meet ou WhatsApp Video.<br><br>
+        Vou te mostrar como:<br>
+        — Criar e editar links no dashboard<br>
+        — Acompanhar cliques<br>
+        — Gerenciar e deletar links<br>
+        — Fazer logout e usar o magic link<br><br>
+        <strong>Me manda uma mensagem para agendar:</strong> escolha um horário de segunda a sexta, entre 9h e 18h.
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-header">
+        <div class="step-num">3</div>
+        <div class="step-title">Acesse o dashboard</div>
+        <span class="step-tag">você</span>
+      </div>
+      <div class="step-body">
+        Após o DNS propagar, seu dashboard estará disponível no subdomínio configurado.<br><br>
+        Acesse, insira seu e-mail e você receberá um <strong>magic link</strong> — sem senha, só clicar.
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-header">
+        <div class="step-num">4</div>
+        <div class="step-title">O que você tem</div>
+      </div>
+      <div class="step-body">
+        <div class="limit-row">
+          <span>Links ativos simultâneos</span>
+          <span class="limit-val">30</span>
+        </div>
+        <div class="limit-row">
+          <span>Cliques mensais</span>
+          <span class="limit-val">10.000</span>
+        </div>
+        <div class="limit-row">
+          <span>Domínio dos links</span>
+          <span class="limit-val">seu domínio</span>
+        </div>
+        <div class="limit-row">
+          <span>Config DNS</span>
+          <span class="limit-val">inclusa</span>
+        </div>
+        <div class="limit-row">
+          <span>Treinamento</span>
+          <span class="limit-val">30 min incluso</span>
+        </div>
+        <div class="limit-row">
+          <span>Portabilidade</span>
+          <span class="limit-val">grátis</span>
+        </div>
+        <div class="limit-row">
+          <span>Suporte por e-mail</span>
+          <span class="limit-val">até 48h</span>
+        </div>
+      </div>
+    </div>
+
+    <hr class="divider">
+
+    <p class="footer-note">
+      Vamos começar? Me chama no WhatsApp para passar o domínio e agendar o treinamento.<br>
+      <a href="https://wa.me/5527999768885" target="_blank">WhatsApp</a> &nbsp;·&nbsp;
+      <a href="mailto:LucasML@live.com">LucasML@live.com</a>
+    </p>
+  </div>
+</body>
+</html>
