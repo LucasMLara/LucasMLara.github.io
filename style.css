@@ -921,7 +921,7 @@
       font-size: 13px; color: var(--muted);
       margin-bottom: 28px; line-height: 1.6; transition: color 0.4s;
     }
-    .contact-form-btn {
+    .contact-whats-btn {
       display: flex; align-items: center; justify-content: center; gap: 10px;
       width: 100%; padding: 16px;
       background: var(--accent); color: #fff;
@@ -931,12 +931,7 @@
       text-decoration: none; cursor: pointer;
       transition: background 0.2s, transform 0.2s;
     }
-    .contact-form-btn:hover { background: var(--accent2); transform: translateY(-2px); }
-    .contact-form-note {
-      font-size: 11px; color: var(--muted); text-align: center;
-      margin-top: 14px; line-height: 1.6; transition: color 0.4s;
-    }
-    .contact-form-note strong { color: var(--text); transition: color 0.4s; }
+    .contact-whats-btn:hover { background: var(--accent2); transform: translateY(-2px); }
 
     /* what to expect */
     .contact-expect {
