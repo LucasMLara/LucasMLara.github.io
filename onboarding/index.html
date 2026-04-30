@@ -1,0 +1,1796 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Onboarding — ByLara Automações</title>
+  <meta name="robots" content="noindex, nofollow">
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg:      #06080F;
+      --surface: #0D1117;
+      --card:    #2A3F7E;
+      --accent:  #1E5FCC;
+      --accent2: #3575E8;
+      --text:    #F0F4FF;
+      --muted:   #8899BB;
+      --border:  rgba(42,63,126,0.45);
+      --glow:    rgba(30,95,204,0.6);
+      --accent-dim:    rgba(30,95,204,0.1);
+      --accent-border: rgba(30,95,204,0.35);
+      --red:    #ff6b6b;
+      --dim:    rgba(42,63,126,0.6);
+      --radius: 10px;
+      --font: 'Syne', sans-serif;
+      --mono: 'DM Mono', monospace;
+      --ease: 0.18s ease;
+    }
+    [data-theme="light"] {
+      --bg:      #F5F4FF;
+      --surface: #EDEAFF;
+      --card:    #FFFFFF;
+      --accent:  #5B4FE8;
+      --accent2: #7B70F5;
+      --text:    #0D0B1A;
+      --muted:   #6655AA;
+      --border:  rgba(91,79,232,0.18);
+      --glow:    rgba(91,79,232,0.45);
+      --accent-dim:    rgba(91,79,232,0.08);
+      --accent-border: rgba(91,79,232,0.25);
+      --dim:    rgba(91,79,232,0.3);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font);
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── Progress ── */
+    .progress-track {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: var(--border);
+      z-index: 200;
+    }
+    .progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--accent) 0%, var(--blue) 100%);
+      transition: width 0.45s cubic-bezier(0.4,0,0.2,1);
+    }
+
+    /* ── Theme transition ── */
+    .theme-transitioning *,
+    .theme-transitioning *::before,
+    .theme-transitioning *::after {
+      transition:
+        background-color 0.3s ease,
+        border-color 0.3s ease,
+        color 0.3s ease !important;
+    }
+
+    /* ── Theme toggle ── */
+    .theme-toggle {
+      width: 40px; height: 22px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 100px;
+      cursor: pointer;
+      position: relative;
+      transition: background 0.3s;
+      flex-shrink: 0;
+    }
+    .theme-toggle::after {
+      content: '';
+      position: absolute;
+      top: 3px; left: 3px;
+      width: 14px; height: 14px;
+      border-radius: 50%;
+      background: var(--accent);
+      transition: transform 0.3s;
+    }
+    [data-theme="light"] .theme-toggle::after { transform: translateX(18px); }
+
+    /* ── Header ── */
+    header {
+      position: sticky;
+      top: 0;
+      background: rgba(6,8,15,0.92);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+      padding: 0 28px;
+      height: 56px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      z-index: 100;
+    }
+    [data-theme="light"] header { background: rgba(245,244,255,0.92); }
+    .nav-brand { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 20px; color: var(--text); text-decoration: none; }
+    .nav-brand span { color: var(--accent); }
+    .header-divider { flex: 1; }
+    .step-counter {
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      color: var(--muted);
+      letter-spacing: 0.04em;
+    }
+
+    /* ── Layout ── */
+    .page-wrap {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 0 24px 120px;
+    }
+
+    /* ── Hero (inside step 1) ── */
+    .hero {
+      padding: 56px 0 40px;
+    }
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      font-family: var(--mono);
+      font-size: 0.68rem;
+      color: var(--accent);
+      border: 1px solid var(--accent-border);
+      padding: 4px 12px;
+      border-radius: 100px;
+      margin-bottom: 24px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+    .tag::before {
+      content: '';
+      width: 5px; height: 5px;
+      border-radius: 50%;
+      background: var(--accent);
+      flex-shrink: 0;
+    }
+    .hero h1 {
+      font-size: clamp(2.1rem, 5.5vw, 3.2rem);
+      font-weight: 800;
+      line-height: 1.12;
+      letter-spacing: -0.03em;
+      margin-bottom: 18px;
+    }
+    .hero h1 em {
+      font-style: normal;
+      color: var(--accent);
+    }
+    .hero-lead {
+      font-size: 1rem;
+      color: var(--muted);
+      line-height: 1.75;
+      max-width: 560px;
+      margin-bottom: 36px;
+    }
+    .value-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+      gap: 12px;
+      margin-bottom: 44px;
+    }
+    .value-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 18px 16px;
+    }
+    .value-card .vi {
+      font-size: 1.3rem;
+      display: block;
+      margin-bottom: 10px;
+    }
+    .value-card strong {
+      display: block;
+      font-size: 0.82rem;
+      font-weight: 700;
+      margin-bottom: 5px;
+    }
+    .value-card p {
+      font-size: 0.76rem;
+      color: var(--muted);
+      line-height: 1.55;
+    }
+
+    /* ── Section header ── */
+    .section-header {
+      padding-top: 48px;
+      margin-bottom: 28px;
+    }
+    .section-num {
+      display: block;
+      font-family: var(--mono);
+      font-size: 0.68rem;
+      color: var(--accent);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+    .section-title {
+      font-size: 1.65rem;
+      font-weight: 800;
+      letter-spacing: -0.025em;
+      line-height: 1.15;
+      margin-bottom: 10px;
+    }
+    .section-desc {
+      font-size: 0.88rem;
+      color: var(--muted);
+      line-height: 1.65;
+    }
+
+    /* ── Note box ── */
+    .note-box {
+      background: var(--blue-dim);
+      border: 1px solid var(--blue-border);
+      border-radius: var(--radius);
+      padding: 13px 16px;
+      font-size: 0.79rem;
+      color: var(--blue);
+      line-height: 1.6;
+      margin-bottom: 24px;
+    }
+    .note-box.soft {
+      background: rgba(255,255,255,0.03);
+      border-color: var(--border);
+      color: var(--muted);
+    }
+
+    /* ── Fields ── */
+    .field {
+      margin-bottom: 18px;
+    }
+    .row2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+    @media (max-width: 580px) {
+      .row2 { grid-template-columns: 1fr; }
+    }
+
+    label {
+      display: block;
+      font-size: 0.79rem;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 6px;
+      line-height: 1.4;
+    }
+    label .req { color: var(--accent); margin-left: 2px; }
+    label .hint {
+      display: block;
+      font-family: var(--mono);
+      font-size: 0.69rem;
+      font-weight: 400;
+      color: var(--muted);
+      margin-top: 2px;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    input[type="tel"],
+    input[type="url"],
+    input[type="number"],
+    input[type="time"],
+    select,
+    textarea {
+      width: 100%;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 10px 13px;
+      color: var(--text);
+      font-family: var(--mono);
+      font-size: 0.83rem;
+      line-height: 1.5;
+      transition: border-color var(--ease), box-shadow var(--ease);
+      outline: none;
+      appearance: none;
+    }
+    input:focus, select:focus, textarea:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px var(--accent-dim);
+    }
+    input::placeholder, textarea::placeholder { color: var(--dim); }
+    textarea { resize: vertical; min-height: 96px; }
+    select { cursor: pointer; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' fill='none'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%23666' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 12px center; padding-right: 32px; }
+    select option { background: var(--surface); color: var(--text); }
+
+    /* ── Pill selects (radio/check) ── */
+    .pill-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+      margin-top: 4px;
+    }
+    .pill-group label {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 0.8rem;
+      font-weight: 500;
+      padding: 6px 13px;
+      border: 1px solid var(--border);
+      border-radius: 100px;
+      cursor: pointer;
+      transition: border-color var(--ease), background var(--ease), color var(--ease);
+      margin-bottom: 0;
+      white-space: nowrap;
+    }
+    .pill-group label:has(input:checked) {
+      border-color: var(--accent);
+      color: var(--accent);
+      background: var(--accent-dim);
+    }
+    .pill-group input { display: none; }
+
+    /* ── Divider ── */
+    hr {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 32px 0;
+    }
+
+    /* ── Dynamic table ── */
+    .dyn-table {
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      margin-bottom: 12px;
+    }
+    .dyn-table:empty { display: none; }
+    .dyn-row {
+      padding: 18px 16px;
+      border-bottom: 1px solid var(--border);
+    }
+    .dyn-row:last-child { border-bottom: none; }
+    .dyn-row-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 14px;
+    }
+    .dyn-label {
+      font-family: var(--mono);
+      font-size: 0.68rem;
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+    .btn-remove {
+      background: none;
+      border: 1px solid var(--border);
+      color: var(--muted);
+      border-radius: 5px;
+      padding: 2px 9px;
+      font-size: 0.68rem;
+      font-family: var(--mono);
+      cursor: pointer;
+      transition: border-color var(--ease), color var(--ease);
+    }
+    .btn-remove:hover { border-color: var(--red); color: var(--red); }
+    .btn-add {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 7px;
+      background: none;
+      border: 1px dashed var(--border);
+      color: var(--muted);
+      border-radius: var(--radius);
+      padding: 10px 16px;
+      font-family: var(--mono);
+      font-size: 0.76rem;
+      cursor: pointer;
+      transition: border-color var(--ease), color var(--ease);
+    }
+    .btn-add:hover { border-color: var(--accent); color: var(--accent); }
+
+    /* ── Step visibility ── */
+    .step { display: none; }
+    .step.active { display: block; }
+
+    /* ── Bottom nav ── */
+    .form-nav {
+      position: fixed;
+      bottom: 0; left: 0; right: 0;
+      background: rgba(6,8,15,0.96);
+      backdrop-filter: blur(16px);
+      border-top: 1px solid var(--border);
+      padding: 14px 28px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      z-index: 100;
+    }
+    .nav-meta {
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      color: var(--muted);
+      line-height: 1.4;
+    }
+    .nav-meta strong {
+      display: block;
+      color: var(--text);
+      font-size: 0.78rem;
+      margin-bottom: 2px;
+    }
+    .nav-btns { display: flex; gap: 10px; align-items: center; }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 9px 20px;
+      border-radius: 8px;
+      font-family: var(--font);
+      font-size: 0.83rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all var(--ease);
+      border: none;
+      white-space: nowrap;
+    }
+    .btn-ghost {
+      background: transparent;
+      border: 1px solid var(--border);
+      color: var(--muted);
+    }
+    .btn-ghost:hover { border-color: var(--text); color: var(--text); }
+    .btn-primary {
+      background: var(--accent);
+      color: #fff;
+    }
+    .btn-primary:hover { filter: brightness(0.88); }
+    .btn[hidden] { display: none; }
+    .btn-dev {
+      background: transparent;
+      border: 1px dashed var(--border);
+      color: var(--muted);
+      font-family: var(--mono);
+      font-size: 0.75rem;
+      font-weight: 400;
+    }
+    .btn-dev:hover { border-color: var(--accent); color: var(--accent); }
+
+    /* ── Submit confirm box ── */
+    .submit-box {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 20px;
+      margin-top: 24px;
+    }
+    .submit-box p {
+      font-size: 0.81rem;
+      color: var(--muted);
+      line-height: 1.65;
+    }
+
+    /* ── Success ── */
+    #success {
+      display: none;
+      max-width: 520px;
+      margin: 80px auto;
+      padding: 40px 24px;
+      text-align: center;
+    }
+    .success-badge {
+      width: 72px; height: 72px;
+      background: var(--accent-dim);
+      border: 2px solid var(--accent);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 28px;
+      font-size: 2rem;
+    }
+    #success h2 {
+      font-size: 1.9rem;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      margin-bottom: 14px;
+    }
+    #success p {
+      color: var(--muted);
+      line-height: 1.7;
+      font-size: 0.9rem;
+    }
+    #success p + p { margin-top: 10px; }
+
+    [data-theme="light"] .form-nav { background: rgba(245,244,255,0.96); }
+
+    /* ── Validation errors ── */
+    .field-error {
+      border-color: var(--red) !important;
+      box-shadow: 0 0 0 3px rgba(255,107,107,0.12) !important;
+    }
+    .err-msg {
+      display: block;
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      color: var(--red);
+      margin-top: 5px;
+    }
+    .group-error-wrap {
+      outline: 1px solid var(--red);
+      outline-offset: 4px;
+      border-radius: 8px;
+    }
+    [data-theme="light"] input[type="text"],
+    [data-theme="light"] input[type="email"],
+    [data-theme="light"] input[type="tel"],
+    [data-theme="light"] input[type="url"],
+    [data-theme="light"] input[type="number"],
+    [data-theme="light"] input[type="time"],
+    [data-theme="light"] select,
+    [data-theme="light"] textarea { background: #fff; }
+    [data-theme="light"] .note-box.soft { background: rgba(91,79,232,0.04); color: var(--muted); }
+    [data-theme="light"] .submit-box { background: #fff; }
+
+    @media (max-width: 500px) {
+      .nav-meta { display: none; }
+      .btn { padding: 9px 15px; font-size: 0.8rem; }
+      header { padding: 0 16px; }
+      .page-wrap { padding: 0 16px 120px; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="progress-track">
+  <div class="progress-fill" id="progressFill" style="width:8.33%"></div>
+</div>
+
+<header>
+  <a class="nav-brand" href="https://lucaslara.dev" target="_blank">By<span>Lara</span></a>
+  <div class="header-divider"></div>
+  <span class="step-counter" id="stepCounter">Etapa 1 de 12</span>
+  <button class="theme-toggle" id="themeToggle" onclick="toggleTheme()" aria-label="Alternar tema"></button>
+</header>
+
+<div class="page-wrap" id="pageWrap">
+
+  <!-- ══ STEP 1 — Dados do estabelecimento ══ -->
+  <div class="step active" id="step-1">
+    <div class="hero">
+      <span class="tag">Onboarding</span>
+      <h1>Vamos construir<br>sua <em>automação</em>.</h1>
+      <p class="hero-lead">
+        Este formulário reúne tudo que precisamos para montar seu agente de IA do zero.
+        Quanto mais completo e preciso você preencher, mais rápido e fiel ao seu negócio o sistema vai ser entregue — sem idas e vindas de dúvidas.
+      </p>
+      <div class="value-grid">
+        <div class="value-card">
+          <span class="vi">⚡</span>
+          <strong>Entrega mais rápida</strong>
+          <p>Respostas completas eliminam reuniões extras e aceleram o desenvolvimento.</p>
+        </div>
+        <div class="value-card">
+          <span class="vi">🎯</span>
+          <strong>Produto sob medida</strong>
+          <p>Cada detalhe que você informar vai refletir no comportamento real do agente.</p>
+        </div>
+        <div class="value-card">
+          <span class="vi">🔒</span>
+          <strong>Dados seguros</strong>
+          <p>Suas informações ficam guardadas com segurança e são usadas só para este projeto.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-header" style="padding-top:0">
+      <span class="section-num">01 — Dados do estabelecimento</span>
+      <h2 class="section-title">Sobre o seu negócio</h2>
+      <p class="section-desc">Informações de identificação. O agente usa esses dados para se localizar e se apresentar ao cliente.</p>
+    </div>
+
+    <div class="field">
+      <label for="nome_salao">Nome oficial do estabelecimento <span class="req">*</span></label>
+      <input type="text" id="nome_salao" name="nome_salao" placeholder="Ex: Salão Dornelles" required>
+    </div>
+
+    <div class="field">
+      <label for="endereco">Endereço completo <span class="req">*</span>
+        <span class="hint">Rua, número, bairro, cidade, estado</span>
+      </label>
+      <input type="text" id="endereco" name="endereco" placeholder="Ex: Rua das Flores, 123, Centro, Serra – ES" required>
+    </div>
+
+    <div class="row2">
+      <div class="field">
+        <label for="google_maps">Link do Google Maps</label>
+        <input type="url" id="google_maps" name="google_maps" placeholder="https://maps.google.com/...">
+      </div>
+      <div class="field">
+        <label for="estacionamento">Tem estacionamento? Como é o acesso?</label>
+        <input type="text" id="estacionamento" name="estacionamento" placeholder="Ex: Vagas na rua, gratuito">
+      </div>
+    </div>
+
+    <div class="row2">
+      <div class="field">
+        <label for="whatsapp_producao">WhatsApp de produção <span class="req">*</span>
+          <span class="hint">Número onde o agente vai operar</span>
+        </label>
+        <input type="tel" id="whatsapp_producao" name="whatsapp_producao" placeholder="(27) 99999-9999" data-mask="phone" required>
+      </div>
+      <div class="field">
+        <label for="whatsapp_teste">WhatsApp de teste
+          <span class="hint">Para homologação antes de ir ao ar</span>
+        </label>
+        <input type="tel" id="whatsapp_teste" name="whatsapp_teste" placeholder="(27) 99999-9999" data-mask="phone">
+      </div>
+    </div>
+
+    <div class="row2">
+      <div class="field">
+        <label for="instagram">Instagram / redes sociais</label>
+        <input type="text" id="instagram" name="instagram" placeholder="@seunegoicio">
+      </div>
+      <div class="field">
+        <label for="site">Site (se houver)</label>
+        <input type="url" id="site" name="site" placeholder="https://...">
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ STEP 2 — Horários ══ -->
+  <div class="step" id="step-2">
+    <div class="section-header">
+      <span class="section-num">02 — Horários de funcionamento</span>
+      <h2 class="section-title">Quando você atende</h2>
+      <p class="section-desc">O agente só vai oferecer horários disponíveis e vai respeitar seus dias de descanso automaticamente.</p>
+    </div>
+
+    <div class="field">
+      <label>Dias de funcionamento <span class="req">*</span></label>
+      <div class="pill-group">
+        <label><input type="checkbox" name="dias_funcionamento" value="segunda"> Segunda</label>
+        <label><input type="checkbox" name="dias_funcionamento" value="terca"> Terça</label>
+        <label><input type="checkbox" name="dias_funcionamento" value="quarta"> Quarta</label>
+        <label><input type="checkbox" name="dias_funcionamento" value="quinta"> Quinta</label>
+        <label><input type="checkbox" name="dias_funcionamento" value="sexta"> Sexta</label>
+        <label><input type="checkbox" name="dias_funcionamento" value="sabado"> Sábado</label>
+        <label><input type="checkbox" name="dias_funcionamento" value="domingo"> Domingo</label>
+      </div>
+    </div>
+
+    <div class="row2">
+      <div class="field">
+        <label for="horario_abertura">Horário de abertura</label>
+        <input type="time" id="horario_abertura" name="horario_abertura">
+      </div>
+      <div class="field">
+        <label for="horario_fechamento">Horário de fechamento</label>
+        <input type="time" id="horario_fechamento" name="horario_fechamento">
+      </div>
+    </div>
+
+    <div class="field">
+      <label for="horarios_especiais">Horários diferentes por dia?
+        <span class="hint">Se algum dia abre/fecha em horário diferente, detalhe aqui. Deixe em branco se for igual todos os dias.</span>
+      </label>
+      <textarea id="horarios_especiais" name="horarios_especiais" placeholder="Ex:&#10;Segunda a sexta: 8h–18h&#10;Sábado: 8h–14h"></textarea>
+    </div>
+
+    <div class="field">
+      <label>Tem intervalo de almoço?</label>
+      <div class="pill-group">
+        <label><input type="radio" name="intervalo_almoco" value="nao"> Não</label>
+        <label><input type="radio" name="intervalo_almoco" value="sim"> Sim</label>
+      </div>
+    </div>
+
+    <div class="row2">
+      <div class="field">
+        <label for="almoco_inicio">Início do intervalo</label>
+        <input type="time" id="almoco_inicio" name="almoco_inicio">
+      </div>
+      <div class="field">
+        <label for="almoco_fim">Fim do intervalo</label>
+        <input type="time" id="almoco_fim" name="almoco_fim">
+      </div>
+    </div>
+
+    <div class="field">
+      <label for="feriados">Funciona em feriados? Com restrições?</label>
+      <input type="text" id="feriados" name="feriados" placeholder="Ex: Fechado em feriados nacionais. Estaduais funciona normalmente.">
+    </div>
+
+    <div class="row2">
+      <div class="field">
+        <label for="antecedencia_min">Antecedência mínima para agendar
+          <span class="hint">Ex: 2 horas antes do horário</span>
+        </label>
+        <input type="text" id="antecedencia_min" name="antecedencia_min" placeholder="Ex: 2 horas">
+      </div>
+      <div class="field">
+        <label for="antecedencia_max">Antecedência máxima
+          <span class="hint">Ex: até 30 dias no futuro</span>
+        </label>
+        <input type="text" id="antecedencia_max" name="antecedencia_max" placeholder="Ex: 30 dias">
+      </div>
+    </div>
+
+    <div class="field">
+      <label for="folga_atendimentos">Folga entre atendimentos
+        <span class="hint">Tempo de limpeza ou troca entre um cliente e outro</span>
+      </label>
+      <input type="text" id="folga_atendimentos" name="folga_atendimentos" placeholder="Ex: 15 minutos">
+    </div>
+  </div>
+
+  <!-- ══ STEP 3 — Profissionais ══ -->
+  <div class="step" id="step-3">
+    <div class="section-header">
+      <span class="section-num">03 — Profissionais</span>
+      <h2 class="section-title">Sua equipe</h2>
+      <p class="section-desc">O agente vai saber exatamente quem está disponível e quando, sem precisar perguntar ao responsável.</p>
+    </div>
+
+    <div class="note-box">
+      O <strong>slug/ID</strong> é um identificador interno sem espaços (ex: "cesar", "julio"). Ele é gravado em cada evento do calendário para rastrear a agenda de cada profissional individualmente.
+    </div>
+
+    <div class="dyn-table" id="prof-table"></div>
+    <button type="button" class="btn-add" onclick="addProfRow()">+ Adicionar profissional</button>
+  </div>
+
+  <!-- ══ STEP 4 — Serviços ══ -->
+  <div class="step" id="step-4">
+    <div class="section-header">
+      <span class="section-num">04 — Serviços e precificação</span>
+      <h2 class="section-title">O que você oferece</h2>
+      <p class="section-desc">Catálogo completo com preços e durações. O agente consulta esses dados em tempo real — nada fica fixo no código.</p>
+    </div>
+
+    <div class="dyn-table" id="serv-table"></div>
+    <button type="button" class="btn-add" onclick="addServRow()">+ Adicionar serviço</button>
+
+    <hr>
+
+    <div class="field">
+      <label for="servicos_combinados">Tem serviços combinados?
+        <span class="hint">Ex: Corte + Barba. Liste com duração total e preço.</span>
+      </label>
+      <textarea id="servicos_combinados" name="servicos_combinados" placeholder="Ex: Corte + Barba — 60 min — R$ 55,00"></textarea>
+    </div>
+
+    <div class="field">
+      <label for="preco_variavel">Tem serviços com preço variável?
+        <span class="hint">Ex: Coloração varia por tamanho do cabelo. Como o agente deve lidar?</span>
+      </label>
+      <textarea id="preco_variavel" name="preco_variavel" placeholder="Ex: Coloração simples a partir de R$ 120. Agente informa o mínimo e pede avaliação presencial."></textarea>
+    </div>
+
+    <div class="field">
+      <label for="consulta_previa">Algum serviço requer consulta prévia antes de agendar?</label>
+      <textarea id="consulta_previa" name="consulta_previa" placeholder="Ex: Progressiva requer avaliação do fio antes."></textarea>
+    </div>
+
+    <div class="field">
+      <label for="materiais_antecipados">Algum serviço exige materiais ou informações antecipadas?
+        <span class="hint">Ex: trazer foto de referência, informar tamanho do cabelo etc.</span>
+      </label>
+      <textarea id="materiais_antecipados" name="materiais_antecipados" placeholder="Ex: Para coloração criativa, pedir foto de referência no momento do agendamento."></textarea>
+    </div>
+  </div>
+
+  <!-- ══ STEP 5 — Políticas ══ -->
+  <div class="step" id="step-5">
+    <div class="section-header">
+      <span class="section-num">05 — Políticas do atendimento</span>
+      <h2 class="section-title">Regras do negócio</h2>
+      <p class="section-desc">O agente vai comunicar essas políticas automaticamente, no momento certo, sem que você precise intervir.</p>
+    </div>
+
+    <div class="field">
+      <label for="politica_cancelamento">Política de cancelamento <span class="req">*</span>
+        <span class="hint">Ex: cancelar com pelo menos 2h de antecedência</span>
+      </label>
+      <textarea id="politica_cancelamento" name="politica_cancelamento" required placeholder="Descreva sua política de cancelamento."></textarea>
+    </div>
+
+    <div class="field">
+      <label for="taxa_no_show">Tem taxa para cancelamento tardio ou no-show?</label>
+      <textarea id="taxa_no_show" name="taxa_no_show" placeholder="Ex: No-show cobra 50% do valor do serviço na próxima visita."></textarea>
+    </div>
+
+    <div class="field">
+      <label>O agente pode reagendar diretamente?</label>
+      <div class="pill-group">
+        <label><input type="radio" name="agente_reagenda" value="sim"> Sim</label>
+        <label><input type="radio" name="agente_reagenda" value="nao"> Não — escala para humano</label>
+        <label><input type="radio" name="agente_reagenda" value="limitado"> Sim, com limites</label>
+      </div>
+    </div>
+
+    <div class="field">
+      <label for="limite_reagendamentos">Quantas vezes o cliente pode reagendar o mesmo horário?</label>
+      <input type="text" id="limite_reagendamentos" name="limite_reagendamentos" placeholder="Ex: Máximo 1 vez por agendamento">
+    </div>
+
+    <div class="row2">
+      <div class="field">
+        <label for="tolerancia_atraso">Tolerância para atraso do cliente</label>
+        <input type="text" id="tolerancia_atraso" name="tolerancia_atraso" placeholder="Ex: 15 minutos">
+      </div>
+      <div class="field">
+        <label>Aceita walk-in (sem agendamento)?</label>
+        <div class="pill-group" style="margin-top:6px">
+          <label><input type="radio" name="walk_in" value="sim"> Sim</label>
+          <label><input type="radio" name="walk_in" value="nao"> Não</label>
+          <label><input type="radio" name="walk_in" value="disponibilidade"> Sujeito à disponibilidade</label>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ STEP 6 — Pagamento ══ -->
+  <div class="step" id="step-6">
+    <div class="section-header">
+      <span class="section-num">06 — Pagamento e confirmação</span>
+      <h2 class="section-title">Como você cobra</h2>
+      <p class="section-desc">O agente vai informar as formas de pagamento e, se necessário, cobrar um sinal antes de confirmar o horário.</p>
+    </div>
+
+    <div class="field">
+      <label>Formas de pagamento aceitas <span class="req">*</span></label>
+      <div class="pill-group">
+        <label><input type="checkbox" name="pagamento" value="pix"> PIX</label>
+        <label><input type="checkbox" name="pagamento" value="credito"> Cartão de crédito</label>
+        <label><input type="checkbox" name="pagamento" value="debito"> Cartão de débito</label>
+        <label><input type="checkbox" name="pagamento" value="dinheiro"> Dinheiro</label>
+        <label><input type="checkbox" name="pagamento" value="transferencia"> Transferência bancária</label>
+      </div>
+    </div>
+
+    <div class="field">
+      <label>Pagamento é feito quando?</label>
+      <div class="pill-group">
+        <label><input type="radio" name="quando_pagamento" value="presencial"> No estabelecimento após o atendimento</label>
+        <label><input type="radio" name="quando_pagamento" value="antecipado"> Antecipado (antes do serviço)</label>
+        <label><input type="radio" name="quando_pagamento" value="misto"> Misto</label>
+      </div>
+    </div>
+
+    <div class="row2">
+      <div class="field">
+        <label for="sinal">Exige sinal/depósito para confirmar?
+          <span class="hint">Valor ou porcentagem</span>
+        </label>
+        <input type="text" id="sinal" name="sinal" placeholder="Ex: R$ 30 via PIX / Não exige">
+      </div>
+      <div class="field">
+        <label for="chave_pix">Chave PIX</label>
+        <input type="text" id="chave_pix" name="chave_pix" placeholder="CPF, CNPJ, e-mail ou telefone">
+      </div>
+    </div>
+
+    <div class="row2">
+      <div class="field">
+        <label>Emite nota fiscal / recibo?</label>
+        <div class="pill-group" style="margin-top:6px">
+          <label><input type="radio" name="nota_fiscal" value="sim"> Sim</label>
+          <label><input type="radio" name="nota_fiscal" value="recibo"> Apenas recibo</label>
+          <label><input type="radio" name="nota_fiscal" value="nao"> Não</label>
+        </div>
+      </div>
+      <div class="field">
+        <label for="fidelidade">Programa de fidelidade ou pacotes?
+          <span class="hint">Se não houver, deixe em branco</span>
+        </label>
+        <input type="text" id="fidelidade" name="fidelidade" placeholder="Ex: Cartão fidelidade — 10º corte grátis">
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ STEP 7 — Persona ══ -->
+  <div class="step" id="step-7">
+    <div class="section-header">
+      <span class="section-num">07 — Persona do agente</span>
+      <h2 class="section-title">A voz do seu negócio</h2>
+      <p class="section-desc">O agente vai falar com seus clientes todos os dias. Defina como você quer que ele se apresente e se comunique.</p>
+    </div>
+
+    <div class="row2">
+      <div class="field">
+        <label for="nome_agente">Nome do agente <span class="req">*</span>
+          <span class="hint">Como ele vai se apresentar para os clientes</span>
+        </label>
+        <input type="text" id="nome_agente" name="nome_agente" placeholder="Ex: Ana, Bella, Carol, Max" required>
+      </div>
+      <div class="field">
+        <label for="tom_comunicacao">Tom de comunicação <span class="req">*</span></label>
+        <select id="tom_comunicacao" name="tom_comunicacao" required>
+          <option value="">Selecione...</option>
+          <option value="informal">Informal e descontraído</option>
+          <option value="profissional">Profissional e cordial</option>
+          <option value="formal">Formal</option>
+          <option value="misto">Profissional mas acolhedor</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="field">
+      <label>O agente deve se apresentar como:</label>
+      <div class="pill-group">
+        <label><input type="radio" name="apresentacao_agente" value="humano"> Humano (não revelar que é IA)</label>
+        <label><input type="radio" name="apresentacao_agente" value="assistente"> Assistente virtual</label>
+        <label><input type="radio" name="apresentacao_agente" value="transparente"> IA a serviço do negócio</label>
+      </div>
+    </div>
+
+    <div class="field">
+      <label for="boas_vindas">Frase de boas-vindas
+        <span class="hint">Mensagem que o agente envia ao primeiro contato. Pode ser a que você já usa no WhatsApp.</span>
+      </label>
+      <textarea id="boas_vindas" name="boas_vindas" placeholder="Ex: Olá! Tudo bem? Sou a Ana, assistente do Salão Dornelles. Como posso te ajudar hoje? 😊"></textarea>
+    </div>
+
+    <div class="field">
+      <label for="assuntos_proibidos">Assuntos que o agente NÃO deve abordar</label>
+      <textarea id="assuntos_proibidos" name="assuntos_proibidos" placeholder="Ex: Não comentar sobre preços de concorrentes. Não opinar sobre política."></textarea>
+    </div>
+
+    <div class="field">
+      <label>O agente deve oferecer promoções:</label>
+      <div class="pill-group">
+        <label><input type="radio" name="promos_proativas" value="sim"> Proativamente, quando relevante</label>
+        <label><input type="radio" name="promos_proativas" value="nao"> Só se o cliente perguntar</label>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ STEP 8 — Fluxo / escalonamento ══ -->
+  <div class="step" id="step-8">
+    <div class="section-header">
+      <span class="section-num">08 — Fluxo de atendimento</span>
+      <h2 class="section-title">Quando o humano entra</h2>
+      <p class="section-desc">O agente sabe a hora de chamar reforço. Defina as regras para que a transição seja suave e sem ruídos.</p>
+    </div>
+
+    <div class="row2">
+      <div class="field">
+        <label for="responsavel">Nome do responsável que recebe notificações <span class="req">*</span></label>
+        <input type="text" id="responsavel" name="responsavel" required placeholder="Ex: Dornelles, Maria">
+      </div>
+      <div class="field">
+        <label for="whatsapp_responsavel">WhatsApp do responsável</label>
+        <input type="tel" id="whatsapp_responsavel" name="whatsapp_responsavel" placeholder="(27) 99999-9999" data-mask="phone">
+      </div>
+    </div>
+
+    <div class="field">
+      <label>Notificações de agendamento vão para:</label>
+      <div class="pill-group">
+        <label><input type="radio" name="tipo_notificacao" value="individual"> Conversa individual</label>
+        <label><input type="radio" name="tipo_notificacao" value="grupo"> Grupo de WhatsApp</label>
+        <label><input type="radio" name="tipo_notificacao" value="ambos"> Ambos</label>
+      </div>
+    </div>
+
+    <div class="field">
+      <label for="id_grupo">ID do grupo de WhatsApp
+        <span class="hint">Se ainda não tem, deixe em branco — criamos juntos</span>
+      </label>
+      <input type="text" id="id_grupo" name="id_grupo" placeholder="Ex: 120363xxxxxx@g.us">
+    </div>
+
+    <div class="field">
+      <label for="quando_escalar">Em quais situações o agente deve chamar o humano? <span class="req">*</span></label>
+      <textarea id="quando_escalar" name="quando_escalar" required placeholder="Ex: Reclamações, pedidos de desconto, dúvidas fora do escopo, solicitações especiais."></textarea>
+    </div>
+
+    <div class="row2">
+      <div class="field">
+        <label for="tempo_silencio">Por quanto tempo o agente fica quieto após o humano entrar?
+          <span class="hint">Padrão recomendado: 12 minutos</span>
+        </label>
+        <input type="text" id="tempo_silencio" name="tempo_silencio" placeholder="Ex: 12 minutos">
+      </div>
+      <div class="field">
+        <label>Responsável quer receber resumo ao escalar?
+          <span class="hint">Nome, serviço, horário sugerido</span>
+        </label>
+        <div class="pill-group" style="margin-top:6px">
+          <label><input type="radio" name="resumo_escalonamento" value="sim"> Sim</label>
+          <label><input type="radio" name="resumo_escalonamento" value="nao"> Não</label>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ STEP 9 — Base de conhecimento ══ -->
+  <div class="step" id="step-9">
+    <div class="section-header">
+      <span class="section-num">09 — Base de conhecimento</span>
+      <h2 class="section-title">O que o agente precisa saber</h2>
+      <p class="section-desc">Essas informações ficam guardadas e o agente consulta quando o cliente pergunta. Quanto mais rico, melhor o atendimento.</p>
+    </div>
+
+    <div class="field">
+      <label for="faq">Perguntas mais frequentes dos clientes <span class="req">*</span>
+        <span class="hint">Liste as 5–10 perguntas mais comuns com as respostas.</span>
+      </label>
+      <textarea id="faq" name="faq" style="min-height:180px" required placeholder="P: Vocês aceitam crianças?&#10;R: Sim, atendemos a partir de 5 anos.&#10;&#10;P: Tem estacionamento?&#10;R: Sim, tem vagas na rua sem custo.&#10;&#10;P: Como faço para cancelar?&#10;R: Basta avisar com pelo menos 2h de antecedência."></textarea>
+    </div>
+
+    <div class="field">
+      <label for="diferenciais">Diferenciais do negócio
+        <span class="hint">O que o agente deve destacar quando perguntado sobre o negócio.</span>
+      </label>
+      <textarea id="diferenciais" name="diferenciais" placeholder="Ex: 10 anos de experiência, ambiente climatizado, produtos profissionais Wella."></textarea>
+    </div>
+
+    <div class="field">
+      <label for="promocoes_ativas">Promoções ativas agora
+        <span class="hint">Se não houver, deixe em branco.</span>
+      </label>
+      <textarea id="promocoes_ativas" name="promocoes_ativas" placeholder="Ex: Maio: Corte + Hidratação por R$ 79,90. Válido até 31/05."></textarea>
+    </div>
+
+    <div class="field">
+      <label for="politicas_especificas">Políticas específicas que o cliente precisa saber antes de vir</label>
+      <textarea id="politicas_especificas" name="politicas_especificas" placeholder="Ex: Não atendemos crianças menores de 5 anos. Exige agendamento prévio."></textarea>
+    </div>
+
+    <div class="field">
+      <label for="produtos_usados">Produtos ou linhas usados
+        <span class="hint">Se for um diferencial que o agente pode mencionar</span>
+      </label>
+      <input type="text" id="produtos_usados" name="produtos_usados" placeholder="Ex: Wella Professionals, L'Oréal, TRUSS">
+    </div>
+  </div>
+
+  <!-- ══ STEP 10 — Google Calendar ══ -->
+  <div class="step" id="step-10">
+    <div class="section-header">
+      <span class="section-num">10 — Google Calendar</span>
+      <h2 class="section-title">Agenda digital</h2>
+      <p class="section-desc">O sistema usa um único Google Calendar para gerenciar todos os agendamentos. Cada profissional fica registrado em cada evento.</p>
+    </div>
+
+    <div class="note-box">
+      Usamos <strong>um único Calendar</strong> para todos os profissionais. Cada evento registra o profissional responsável no título (ex: "Corte — César") e em um campo interno. Assim o sistema sabe exatamente quem está ocupado em cada slot.
+    </div>
+
+    <div class="field">
+      <label>Já tem um Google Calendar para agendamentos?</label>
+      <div class="pill-group">
+        <label><input type="radio" name="tem_calendar" value="sim"> Sim</label>
+        <label><input type="radio" name="tem_calendar" value="nao"> Não — vamos criar juntos</label>
+      </div>
+    </div>
+
+    <div class="field">
+      <label for="calendar_id">ID do Google Calendar
+        <span class="hint">Settings → Integrate calendar → Calendar ID. Formato: xxxxxx@group.calendar.google.com</span>
+      </label>
+      <input type="text" id="calendar_id" name="calendar_id" placeholder="xxxxxx@group.calendar.google.com">
+    </div>
+
+    <div class="field">
+      <label>Eventos já existentes no Calendar devem bloquear slots?
+        <span class="hint">Compromisso pessoal, folga de profissional etc.</span>
+      </label>
+      <div class="pill-group">
+        <label><input type="radio" name="eventos_bloqueiam" value="sim"> Sim — bloquear tudo</label>
+        <label><input type="radio" name="eventos_bloqueiam" value="depende"> Depende — definir caso a caso</label>
+        <label><input type="radio" name="eventos_bloqueiam" value="nao"> Não</label>
+      </div>
+    </div>
+
+    <div class="row2">
+      <div class="field">
+        <label>Cliente recebe convite do Google Calendar ao agendar?</label>
+        <div class="pill-group" style="margin-top:6px">
+          <label><input type="radio" name="convite_calendar" value="sim"> Sim</label>
+          <label><input type="radio" name="convite_calendar" value="nao"> Não</label>
+        </div>
+      </div>
+      <div class="field">
+        <label>Prefere ver os agendamentos no:</label>
+        <div class="pill-group" style="margin-top:6px">
+          <label><input type="radio" name="calendar_separado" value="mesmo"> Mesmo Calendar</label>
+          <label><input type="radio" name="calendar_separado" value="separado"> Calendar separado</label>
+        </div>
+      </div>
+    </div>
+
+    <div class="field">
+      <label for="endereco_eventos">Endereço para aparecer nos eventos do Calendar</label>
+      <input type="text" id="endereco_eventos" name="endereco_eventos" placeholder="Ex: Rua das Flores, 123, Centro, Serra – ES">
+    </div>
+  </div>
+
+  <!-- ══ STEP 11 — Infraestrutura ══ -->
+  <div class="step" id="step-11">
+    <div class="section-header">
+      <span class="section-num">11 — Infraestrutura técnica</span>
+      <h2 class="section-title">Configurações de sistema</h2>
+      <p class="section-desc">Seção técnica. Se não souber as respostas, sem problema — definimos juntos na reunião de kickoff.</p>
+    </div>
+
+    <div class="note-box soft">
+      Não se preocupe se não souber tudo aqui. Essas perguntas são para agilizar o setup técnico — respondendo o que souber já ajuda.
+    </div>
+
+    <div class="field">
+      <label>Instância Evolution API</label>
+      <div class="pill-group">
+        <label><input type="radio" name="evolution_api" value="compartilhada"> Instância compartilhada existente</label>
+        <label><input type="radio" name="evolution_api" value="nova"> Nova instância dedicada</label>
+        <label><input type="radio" name="evolution_api" value="nao_sei"> Definir com Lucas</label>
+      </div>
+    </div>
+
+    <div class="field">
+      <label>Supabase</label>
+      <div class="pill-group">
+        <label><input type="radio" name="supabase_config" value="mesmo"> Mesmo projeto (nova tabela client_id)</label>
+        <label><input type="radio" name="supabase_config" value="novo"> Projeto Supabase novo</label>
+        <label><input type="radio" name="supabase_config" value="nao_sei"> Definir com Lucas</label>
+      </div>
+    </div>
+
+    <div class="field">
+      <label for="instance_name">Nome da instância na Evolution API</label>
+      <input type="text" id="instance_name" name="instance_name" placeholder="Ex: dornelles-prod">
+    </div>
+
+    <div class="field">
+      <label for="obs_infra">Observações técnicas adicionais</label>
+      <textarea id="obs_infra" name="obs_infra" placeholder="Qualquer informação técnica adicional que queira mencionar."></textarea>
+    </div>
+  </div>
+
+  <!-- ══ STEP 12 — Follow-up ══ -->
+  <div class="step" id="step-12">
+    <div class="section-header">
+      <span class="section-num">12 — Follow-up e lembretes</span>
+      <h2 class="section-title">Automações de relacionamento</h2>
+      <p class="section-desc">Como o sistema vai manter contato com seus clientes para reduzir no-shows e recuperar leads que sumiram.</p>
+    </div>
+
+    <div class="field">
+      <label>Follow-up automático para leads que pararam de responder?
+        <span class="hint">Padrão: mensagem aos 30min → 4h → 24h após silêncio</span>
+      </label>
+      <div class="pill-group">
+        <label><input type="radio" name="followup_leads" value="sim"> Sim — padrão</label>
+        <label><input type="radio" name="followup_leads" value="customizar"> Sim, quero customizar</label>
+        <label><input type="radio" name="followup_leads" value="nao"> Não</label>
+      </div>
+    </div>
+
+    <div class="field">
+      <label for="followup_intervalo">Intervalo customizado de follow-up
+        <span class="hint">Preencha somente se selecionou "quero customizar" acima</span>
+      </label>
+      <input type="text" id="followup_intervalo" name="followup_intervalo" placeholder="Ex: 1h → 6h → 48h">
+    </div>
+
+    <div class="field">
+      <label>Lembretes automáticos antes do atendimento?
+        <span class="hint">Padrão: 24h antes e 2h antes do horário marcado</span>
+      </label>
+      <div class="pill-group">
+        <label><input type="radio" name="lembretes" value="sim"> Sim — padrão</label>
+        <label><input type="radio" name="lembretes" value="customizar"> Sim, quero customizar</label>
+        <label><input type="radio" name="lembretes" value="nao"> Não</label>
+      </div>
+    </div>
+
+    <div class="field">
+      <label for="lembretes_intervalo">Intervalo customizado de lembretes</label>
+      <input type="text" id="lembretes_intervalo" name="lembretes_intervalo" placeholder="Ex: 48h antes e 1h antes">
+    </div>
+
+    <div class="field">
+      <label>Os lembretes devem pedir confirmação ativa?
+        <span class="hint">Ex: "Confirme com SIM ou NÃO"</span>
+      </label>
+      <div class="pill-group">
+        <label><input type="radio" name="confirmacao_ativa" value="sim"> Sim — pedir confirmação</label>
+        <label><input type="radio" name="confirmacao_ativa" value="nao"> Não — apenas informativo</label>
+      </div>
+    </div>
+
+    <div class="field">
+      <label for="sem_confirmacao">Se o cliente não confirmar, o que acontece?</label>
+      <textarea id="sem_confirmacao" name="sem_confirmacao" placeholder="Ex: Cancela automaticamente e avisa o responsável. / Avisa o responsável para decidir."></textarea>
+    </div>
+
+    <div class="field">
+      <label for="obs_gerais">Observações finais — algo que não foi perguntado?</label>
+      <textarea id="obs_gerais" name="obs_gerais" style="min-height:120px" placeholder="Espaço livre para qualquer informação importante que não caiu em nenhuma das seções acima."></textarea>
+    </div>
+
+    <div class="submit-box">
+      <p>
+        Ao clicar em <strong>Enviar</strong>, suas respostas ficam guardadas com segurança.
+        Lucas receberá uma notificação e entrará em contato para confirmar os próximos passos e o cronograma de entrega.
+        Nenhuma informação deste formulário será compartilhada com terceiros.
+      </p>
+    </div>
+  </div>
+
+</div><!-- /page-wrap -->
+
+<!-- Success -->
+<div id="success">
+  <div class="success-badge">✓</div>
+  <h2>Formulário enviado!</h2>
+  <p>Suas informações foram recebidas com sucesso. Lucas vai analisar tudo e entrar em contato pelo WhatsApp para confirmar os próximos passos.</p>
+  <p style="margin-top:16px; font-family: var(--mono); font-size:0.78rem; color: var(--dim)">Fique atento ao WhatsApp — em breve você recebe uma confirmação e o cronograma de entrega.</p>
+</div>
+
+<!-- Bottom nav -->
+<nav class="form-nav" id="formNav">
+  <div class="nav-meta">
+    <strong id="navTitle">Dados do estabelecimento</strong>
+    <span id="navSub">Etapa 1 de 12</span>
+  </div>
+  <div class="nav-btns">
+    <!-- <button type="button" class="btn btn-dev" onclick="autofill(current)" title="Preencher campos de teste">⚡ Dev</button> -->
+    <button type="button" class="btn btn-ghost" id="btnPrev" onclick="prevStep()" hidden>← Voltar</button>
+    <button type="button" class="btn btn-primary" id="btnNext" onclick="nextStep()">Continuar →</button>
+    <button type="button" class="btn btn-primary" id="btnSubmit" onclick="submitForm()" hidden>Enviar formulário →</button>
+  </div>
+</nav>
+
+<!-- Netlify form detection (static — never displayed) -->
+<form name="onboarding-bylara" data-netlify="true" netlify-honeypot="bot-field" hidden aria-hidden="true">
+  <input name="bot-field">
+  <input name="nome_salao"><input name="endereco"><input name="google_maps"><input name="estacionamento">
+  <input name="whatsapp_producao"><input name="whatsapp_teste"><input name="instagram"><input name="site">
+  <input name="dias_funcionamento"><input name="horario_abertura"><input name="horario_fechamento">
+  <input name="horarios_especiais"><input name="intervalo_almoco"><input name="almoco_inicio"><input name="almoco_fim">
+  <input name="feriados"><input name="antecedencia_min"><input name="antecedencia_max"><input name="folga_atendimentos">
+  <input name="prof_1_nome"><input name="prof_1_apelido"><input name="prof_1_slug"><input name="prof_1_ativo"><input name="prof_1_dias"><input name="prof_1_horario">
+  <input name="prof_2_nome"><input name="prof_2_apelido"><input name="prof_2_slug"><input name="prof_2_ativo"><input name="prof_2_dias"><input name="prof_2_horario">
+  <input name="prof_3_nome"><input name="prof_3_apelido"><input name="prof_3_slug"><input name="prof_3_ativo"><input name="prof_3_dias"><input name="prof_3_horario">
+  <input name="prof_4_nome"><input name="prof_4_apelido"><input name="prof_4_slug"><input name="prof_4_ativo"><input name="prof_4_dias"><input name="prof_4_horario">
+  <input name="prof_5_nome"><input name="prof_5_apelido"><input name="prof_5_slug"><input name="prof_5_ativo"><input name="prof_5_dias"><input name="prof_5_horario">
+  <input name="prof_6_nome"><input name="prof_6_apelido"><input name="prof_6_slug"><input name="prof_6_ativo"><input name="prof_6_dias"><input name="prof_6_horario">
+  <input name="serv_1_nome"><input name="serv_1_categoria"><input name="serv_1_duracao"><input name="serv_1_preco"><input name="serv_1_profissionais"><input name="serv_1_variacao">
+  <input name="serv_2_nome"><input name="serv_2_categoria"><input name="serv_2_duracao"><input name="serv_2_preco"><input name="serv_2_profissionais"><input name="serv_2_variacao">
+  <input name="serv_3_nome"><input name="serv_3_categoria"><input name="serv_3_duracao"><input name="serv_3_preco"><input name="serv_3_profissionais"><input name="serv_3_variacao">
+  <input name="serv_4_nome"><input name="serv_4_categoria"><input name="serv_4_duracao"><input name="serv_4_preco"><input name="serv_4_profissionais"><input name="serv_4_variacao">
+  <input name="serv_5_nome"><input name="serv_5_categoria"><input name="serv_5_duracao"><input name="serv_5_preco"><input name="serv_5_profissionais"><input name="serv_5_variacao">
+  <input name="serv_6_nome"><input name="serv_6_categoria"><input name="serv_6_duracao"><input name="serv_6_preco"><input name="serv_6_profissionais"><input name="serv_6_variacao">
+  <input name="serv_7_nome"><input name="serv_7_categoria"><input name="serv_7_duracao"><input name="serv_7_preco"><input name="serv_7_profissionais"><input name="serv_7_variacao">
+  <input name="serv_8_nome"><input name="serv_8_categoria"><input name="serv_8_duracao"><input name="serv_8_preco"><input name="serv_8_profissionais"><input name="serv_8_variacao">
+  <input name="servicos_combinados"><input name="preco_variavel"><input name="consulta_previa"><input name="materiais_antecipados">
+  <input name="politica_cancelamento"><input name="taxa_no_show"><input name="agente_reagenda">
+  <input name="limite_reagendamentos"><input name="tolerancia_atraso"><input name="walk_in">
+  <input name="pagamento"><input name="quando_pagamento"><input name="sinal"><input name="chave_pix">
+  <input name="nota_fiscal"><input name="fidelidade">
+  <input name="nome_agente"><input name="tom_comunicacao"><input name="apresentacao_agente">
+  <input name="boas_vindas"><input name="assuntos_proibidos"><input name="promos_proativas">
+  <input name="responsavel"><input name="whatsapp_responsavel"><input name="tipo_notificacao">
+  <input name="id_grupo"><input name="quando_escalar"><input name="tempo_silencio"><input name="resumo_escalonamento">
+  <input name="faq"><input name="diferenciais"><input name="promocoes_ativas">
+  <input name="politicas_especificas"><input name="produtos_usados">
+  <input name="tem_calendar"><input name="calendar_id"><input name="eventos_bloqueiam">
+  <input name="convite_calendar"><input name="calendar_separado"><input name="endereco_eventos">
+  <input name="evolution_api"><input name="supabase_config"><input name="instance_name"><input name="obs_infra">
+  <input name="followup_leads"><input name="followup_intervalo"><input name="lembretes">
+  <input name="lembretes_intervalo"><input name="confirmacao_ativa"><input name="sem_confirmacao"><input name="obs_gerais">
+</form>
+
+<script>
+  const STEPS = [
+    { title: 'Dados do estabelecimento', sub: 'Sobre o seu negócio' },
+    { title: 'Horários de funcionamento', sub: 'Quando você atende' },
+    { title: 'Profissionais', sub: 'Sua equipe' },
+    { title: 'Serviços e precificação', sub: 'O que você oferece' },
+    { title: 'Políticas do atendimento', sub: 'Regras do negócio' },
+    { title: 'Pagamento e confirmação', sub: 'Como você cobra' },
+    { title: 'Persona do agente', sub: 'A voz do seu negócio' },
+    { title: 'Fluxo de atendimento', sub: 'Quando o humano entra' },
+    { title: 'Base de conhecimento', sub: 'O que o agente sabe' },
+    { title: 'Google Calendar', sub: 'Agenda digital' },
+    { title: 'Infraestrutura técnica', sub: 'Configurações de sistema' },
+    { title: 'Follow-up e lembretes', sub: 'Automações de relacionamento' },
+  ];
+
+  let current = 1;
+  const total = STEPS.length;
+  let profCount = 0, servCount = 0;
+
+  function updateUI() {
+    const s = STEPS[current - 1];
+    document.getElementById('stepCounter').textContent = `Etapa ${current} de ${total}`;
+    document.getElementById('navTitle').textContent = s.title;
+    document.getElementById('navSub').textContent = `Etapa ${current} de ${total} — ${s.sub}`;
+    document.getElementById('progressFill').style.width = `${(current / total) * 100}%`;
+    document.getElementById('btnPrev').hidden = current === 1;
+    document.getElementById('btnNext').hidden = current === total;
+    document.getElementById('btnSubmit').hidden = current !== total;
+  }
+
+  function showStep(n) {
+    document.querySelectorAll('.step').forEach(el => el.classList.remove('active'));
+    document.getElementById(`step-${n}`).classList.add('active');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  // ── Validation ──
+  function isUrl(s) { try { new URL(s); return true; } catch { return false; } }
+  function isValidPhone(v) { return v.replace(/\D/g, '').length >= 10; }
+
+  function fieldErr(el, msg) {
+    el.classList.add('field-error');
+    const f = el.closest('.field');
+    if (f && !f.querySelector('.err-msg')) {
+      const e = document.createElement('span');
+      e.className = 'err-msg';
+      e.textContent = msg;
+      f.appendChild(e);
+    }
+  }
+
+  function groupErr(container, msg) {
+    container.classList.add('group-error-wrap');
+    const f = container.closest('.field');
+    if (f && !f.querySelector('.err-msg')) {
+      const e = document.createElement('span');
+      e.className = 'err-msg';
+      e.textContent = msg;
+      f.appendChild(e);
+    }
+  }
+
+  function clearErrors(n) {
+    const s = document.getElementById(`step-${n}`);
+    s.querySelectorAll('.field-error').forEach(el => el.classList.remove('field-error'));
+    s.querySelectorAll('.group-error-wrap').forEach(el => el.classList.remove('group-error-wrap'));
+    s.querySelectorAll('.err-msg').forEach(el => el.remove());
+  }
+
+  const RULES = {
+    1() {
+      const errs = [];
+      const nome = document.getElementById('nome_salao');
+      const end  = document.getElementById('endereco');
+      const wpp  = document.getElementById('whatsapp_producao');
+      const maps = document.getElementById('google_maps');
+      const site = document.getElementById('site');
+      if (!nome.value.trim()) errs.push(() => fieldErr(nome, 'Informe o nome do estabelecimento'));
+      if (!end.value.trim())  errs.push(() => fieldErr(end,  'Informe o endereço completo'));
+      if (!wpp.value.trim())           errs.push(() => fieldErr(wpp, 'Informe o WhatsApp de produção'));
+      else if (!isValidPhone(wpp.value)) errs.push(() => fieldErr(wpp, 'Número incompleto — informe DDD + número (ex: (27) 99999-9999)'));
+      const wppT = document.getElementById('whatsapp_teste');
+      if (wppT.value.trim() && !isValidPhone(wppT.value)) errs.push(() => fieldErr(wppT, 'Número incompleto — informe DDD + número (ex: (27) 99999-9999)'));
+      if (maps.value.trim() && !isUrl(maps.value.trim())) errs.push(() => fieldErr(maps, 'Informe uma URL válida (ex: https://maps.google.com/...)'));
+      if (site.value.trim() && !isUrl(site.value.trim())) errs.push(() => fieldErr(site, 'Informe uma URL válida (ex: https://...)'));
+      return errs;
+    },
+    2() {
+      const errs = [];
+      const dias = document.querySelectorAll('input[name="dias_funcionamento"]:checked');
+      const ab   = document.getElementById('horario_abertura');
+      const fe   = document.getElementById('horario_fechamento');
+      if (!dias.length) errs.push(() => groupErr(document.querySelector('input[name="dias_funcionamento"]').closest('.pill-group'), 'Selecione pelo menos um dia'));
+      if (!ab.value)   errs.push(() => fieldErr(ab, 'Informe o horário de abertura'));
+      if (!fe.value)   errs.push(() => fieldErr(fe, 'Informe o horário de fechamento'));
+      return errs;
+    },
+    3() {
+      const errs = [];
+      const nome = document.querySelector('input[name="prof_1_nome"]');
+      const slug = document.querySelector('input[name="prof_1_slug"]');
+      if (nome && !nome.value.trim()) errs.push(() => fieldErr(nome, 'Informe o nome do primeiro profissional'));
+      if (slug && !slug.value.trim()) errs.push(() => fieldErr(slug, 'Informe o slug/ID do primeiro profissional'));
+      return errs;
+    },
+    4() {
+      const errs = [];
+      const nome = document.querySelector('input[name="serv_1_nome"]');
+      if (nome && !nome.value.trim()) errs.push(() => fieldErr(nome, 'Informe o nome do primeiro serviço'));
+      return errs;
+    },
+    5() {
+      const errs = [];
+      const pol = document.getElementById('politica_cancelamento');
+      if (!pol.value.trim()) errs.push(() => fieldErr(pol, 'Descreva a política de cancelamento'));
+      return errs;
+    },
+    6() {
+      const errs = [];
+      const checked = document.querySelectorAll('input[name="pagamento"]:checked');
+      if (!checked.length) errs.push(() => groupErr(document.querySelector('input[name="pagamento"]').closest('.pill-group'), 'Selecione pelo menos uma forma de pagamento'));
+      return errs;
+    },
+    7() {
+      const errs = [];
+      const nome = document.getElementById('nome_agente');
+      const tom  = document.getElementById('tom_comunicacao');
+      if (!nome.value.trim()) errs.push(() => fieldErr(nome, 'Defina o nome do agente'));
+      if (!tom.value)         errs.push(() => fieldErr(tom,  'Selecione o tom de comunicação'));
+      return errs;
+    },
+    8() {
+      const errs = [];
+      const resp    = document.getElementById('responsavel');
+      const escalar = document.getElementById('quando_escalar');
+      if (!resp.value.trim())    errs.push(() => fieldErr(resp,    'Informe o nome do responsável'));
+      if (!escalar.value.trim()) errs.push(() => fieldErr(escalar, 'Descreva quando o agente deve escalar'));
+      const wppR = document.getElementById('whatsapp_responsavel');
+      if (wppR.value.trim() && !isValidPhone(wppR.value)) errs.push(() => fieldErr(wppR, 'Número incompleto — informe DDD + número (ex: (27) 99999-9999)'));
+      return errs;
+    },
+    9() {
+      const errs = [];
+      const faq = document.getElementById('faq');
+      if (!faq.value.trim()) errs.push(() => fieldErr(faq, 'Adicione pelo menos algumas perguntas frequentes'));
+      return errs;
+    },
+  };
+
+  function validateStep(n) {
+    clearErrors(n);
+    const rule = RULES[n];
+    if (!rule) return true;
+    const errs = rule();
+    if (!errs.length) return true;
+    errs.forEach(fn => fn());
+    const first = document.getElementById(`step-${n}`).querySelector('.field-error, .group-error-wrap');
+    if (first) first.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    return false;
+  }
+
+  function nextStep() {
+    if (!validateStep(current)) return;
+    if (current < total) {
+      current++;
+      showStep(current);
+      updateUI();
+    }
+  }
+
+  function prevStep() {
+    if (current > 1) {
+      current--;
+      showStep(current);
+      updateUI();
+    }
+  }
+
+  function addProfRow() {
+    profCount++;
+    const n = profCount;
+    const table = document.getElementById('prof-table');
+    const row = document.createElement('div');
+    row.className = 'dyn-row';
+    row.id = `prof-${n}`;
+    row.innerHTML = `
+      <div class="dyn-row-head">
+        <span class="dyn-label">Profissional ${n}</span>
+        ${n > 1 ? `<button type="button" class="btn-remove" onclick="removeRow('prof-${n}')">Remover</button>` : ''}
+      </div>
+      <div class="row2">
+        <div class="field">
+          <label>Nome completo</label>
+          <input type="text" name="prof_${n}_nome" placeholder="Ex: César Dornelles">
+        </div>
+        <div class="field">
+          <label>Apelido / como o agente chama</label>
+          <input type="text" name="prof_${n}_apelido" placeholder="Ex: César">
+        </div>
+      </div>
+      <div class="row2">
+        <div class="field">
+          <label>Slug/ID <span style="font-weight:400;font-family:var(--mono);font-size:0.68rem;color:var(--muted)">(sem espaços, minúsculas)</span></label>
+          <input type="text" name="prof_${n}_slug" placeholder="Ex: cesar" oninput="this.value=this.value.toLowerCase().replace(/[^a-z0-9_-]/g,'')">
+        </div>
+        <div class="field">
+          <label>Está ativo?</label>
+          <select name="prof_${n}_ativo">
+            <option value="sim">Sim</option>
+            <option value="nao">Não</option>
+          </select>
+        </div>
+      </div>
+      <div class="row2">
+        <div class="field">
+          <label>Dias diferentes do salão? <span style="font-weight:400;font-family:var(--mono);font-size:0.68rem;color:var(--muted)">(deixe em branco se igual)</span></label>
+          <input type="text" name="prof_${n}_dias" placeholder="Ex: Não trabalha às segundas">
+        </div>
+        <div class="field">
+          <label>Horário diferente do salão? <span style="font-weight:400;font-family:var(--mono);font-size:0.68rem;color:var(--muted)">(deixe em branco se igual)</span></label>
+          <input type="text" name="prof_${n}_horario" placeholder="Ex: 9h às 16h">
+        </div>
+      </div>
+    `;
+    table.appendChild(row);
+  }
+
+  function addServRow() {
+    servCount++;
+    const n = servCount;
+    const table = document.getElementById('serv-table');
+    const row = document.createElement('div');
+    row.className = 'dyn-row';
+    row.id = `serv-${n}`;
+    row.innerHTML = `
+      <div class="dyn-row-head">
+        <span class="dyn-label">Serviço ${n}</span>
+        ${n > 1 ? `<button type="button" class="btn-remove" onclick="removeRow('serv-${n}')">Remover</button>` : ''}
+      </div>
+      <div class="row2">
+        <div class="field">
+          <label>Nome do serviço</label>
+          <input type="text" name="serv_${n}_nome" placeholder="Ex: Corte masculino">
+        </div>
+        <div class="field">
+          <label>Categoria</label>
+          <input type="text" name="serv_${n}_categoria" placeholder="Ex: Corte, Coloração, Estética…">
+        </div>
+      </div>
+      <div class="row2">
+        <div class="field">
+          <label>Duração (minutos)</label>
+          <input type="number" name="serv_${n}_duracao" placeholder="Ex: 30" min="5" step="5">
+        </div>
+        <div class="field">
+          <label>Preço (R$)</label>
+          <input type="text" name="serv_${n}_preco" placeholder="Ex: 45,00">
+        </div>
+      </div>
+      <div class="row2">
+        <div class="field">
+          <label>Quem realiza?</label>
+          <input type="text" name="serv_${n}_profissionais" placeholder="Ex: César, Júlio">
+        </div>
+        <div class="field">
+          <label>Preço varia por profissional?</label>
+          <select name="serv_${n}_variacao">
+            <option value="nao">Não — preço igual para todos</option>
+            <option value="sim">Sim — especificar em observações</option>
+          </select>
+        </div>
+      </div>
+    `;
+    table.appendChild(row);
+  }
+
+  function removeRow(id) {
+    const el = document.getElementById(id);
+    if (el) el.remove();
+  }
+
+  function collectFormData() {
+    const data = {};
+    document.querySelectorAll('#pageWrap input, #pageWrap select, #pageWrap textarea').forEach(el => {
+      if (!el.name) return;
+      if ((el.type === 'checkbox' || el.type === 'radio') && !el.checked) return;
+      if (!el.value.trim()) return;
+      if (data[el.name]) {
+        data[el.name] += ', ' + el.value;
+      } else {
+        data[el.name] = el.value;
+      }
+    });
+    return data;
+  }
+
+  function submitForm() {
+    const btn = document.getElementById('btnSubmit');
+    btn.textContent = 'Enviando…';
+    btn.disabled = true;
+
+    const data = collectFormData();
+    const body = new URLSearchParams({
+      'form-name': 'onboarding-bylara',
+      'bot-field': '',
+      ...data
+    });
+
+    fetch('/', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: body.toString()
+    })
+    .then(res => {
+      if (!res.ok) throw new Error(res.status);
+      document.getElementById('formNav').style.display = 'none';
+      document.querySelector('header').style.display = 'none';
+      document.querySelector('.progress-track').style.display = 'none';
+      document.getElementById('pageWrap').style.display = 'none';
+      document.getElementById('success').style.display = 'block';
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    })
+    .catch(() => {
+      btn.textContent = 'Enviar formulário →';
+      btn.disabled = false;
+      alert('Erro ao enviar. Tente novamente ou entre em contato direto pelo WhatsApp.');
+    });
+  }
+
+  // ── Dev autofill ──
+  function autofill(n) {
+    const id  = (id, v)   => { const el = document.getElementById(id); if (el) el.value = v; };
+    const nm  = (name, v) => { const el = document.querySelector(`[name="${name}"]`); if (el) el.value = v; };
+    const rad = (name, v) => { const el = document.querySelector(`input[name="${name}"][value="${v}"]`); if (el) el.checked = true; };
+    const chk = (name, vals) => document.querySelectorAll(`input[name="${name}"]`).forEach(el => { el.checked = vals.includes(el.value); });
+    const ta  = (id, v)   => { const el = document.getElementById(id); if (el) el.value = v; };
+
+    const FILL = {
+      1() {
+        id('nome_salao',          'Salão Dornelles');
+        id('endereco',            'Rua das Flores, 123, Centro, Serra – ES');
+        id('google_maps',         'https://maps.google.com/?q=Salão+Dornelles+Serra+ES');
+        id('estacionamento',      'Vagas na rua, gratuito');
+        id('whatsapp_producao',   '(27) 99999-0001');
+        id('whatsapp_teste',      '(27) 99999-0002');
+        id('instagram',           '@salaodornelles');
+        id('site',                'https://salaodornelles.com.br');
+      },
+      2() {
+        chk('dias_funcionamento', ['segunda','terca','quarta','quinta','sexta','sabado']);
+        id('horario_abertura',    '08:00');
+        id('horario_fechamento',  '18:00');
+        ta('horarios_especiais',  'Sábado fecha às 14h');
+        rad('intervalo_almoco',   'sim');
+        id('almoco_inicio',       '12:00');
+        id('almoco_fim',          '13:00');
+        id('feriados',            'Fechado em feriados nacionais. Estaduais funciona normalmente.');
+        id('antecedencia_min',    '2 horas');
+        id('antecedencia_max',    '30 dias');
+        id('folga_atendimentos',  '15 minutos');
+      },
+      3() {
+        nm('prof_1_nome',    'César Dornelles'); nm('prof_1_apelido', 'César'); nm('prof_1_slug', 'cesar');
+        nm('prof_2_nome',    'Júlio Silva');     nm('prof_2_apelido', 'Júlio'); nm('prof_2_slug', 'julio');
+        nm('prof_3_nome',    'Marina Costa');   nm('prof_3_apelido', 'Mari');  nm('prof_3_slug', 'mari');
+      },
+      4() {
+        nm('serv_1_nome', 'Corte masculino');  nm('serv_1_categoria', 'Corte');     nm('serv_1_duracao', '30'); nm('serv_1_preco', '45,00'); nm('serv_1_profissionais', 'César, Júlio');
+        nm('serv_2_nome', 'Corte feminino');   nm('serv_2_categoria', 'Corte');     nm('serv_2_duracao', '45'); nm('serv_2_preco', '65,00'); nm('serv_2_profissionais', 'Mari');
+        nm('serv_3_nome', 'Barba');            nm('serv_3_categoria', 'Barba');     nm('serv_3_duracao', '20'); nm('serv_3_preco', '25,00'); nm('serv_3_profissionais', 'César, Júlio');
+        nm('serv_4_nome', 'Hidratação');       nm('serv_4_categoria', 'Tratamento'); nm('serv_4_duracao', '40'); nm('serv_4_preco', '55,00'); nm('serv_4_profissionais', 'Mari');
+        ta('servicos_combinados',  'Corte + Barba — 60 min — R$ 65,00\nCorte feminino + Hidratação — 85 min — R$ 110,00');
+        ta('preco_variavel',       'Coloração simples a partir de R$ 120. Agente informa o valor mínimo e pede avaliação presencial.');
+        ta('consulta_previa',      'Progressiva e relaxamento requerem avaliação do fio antes do agendamento.');
+        ta('materiais_antecipados','Para coloração criativa, pedir foto de referência no momento do agendamento.');
+      },
+      5() {
+        ta('politica_cancelamento', 'Cancelar com pelo menos 2 horas de antecedência pelo WhatsApp.');
+        ta('taxa_no_show',          'No-show cobra 50% do valor do serviço na próxima visita.');
+        rad('agente_reagenda',      'limitado');
+        id('limite_reagendamentos', '1 vez por agendamento');
+        id('tolerancia_atraso',     '15 minutos');
+        rad('walk_in',              'disponibilidade');
+      },
+      6() {
+        chk('pagamento', ['pix','credito','debito','dinheiro']);
+        rad('quando_pagamento',  'presencial');
+        id('sinal',              'Não exige sinal');
+        id('chave_pix',          '27999990001');
+        rad('nota_fiscal',       'recibo');
+        id('fidelidade',         'Cartão fidelidade — a cada 10 cortes, o 11º é grátis');
+      },
+      7() {
+        id('nome_agente',           'Ana');
+        document.getElementById('tom_comunicacao').value = 'misto';
+        rad('apresentacao_agente',  'assistente');
+        ta('boas_vindas',           'Olá! Tudo bem? Sou a Ana, assistente do Salão Dornelles. Como posso te ajudar hoje? 😊');
+        ta('assuntos_proibidos',    'Não comentar sobre preços de concorrentes. Não opinar sobre política.');
+        rad('promos_proativas',     'nao');
+      },
+      8() {
+        id('responsavel',           'Dornelles');
+        id('whatsapp_responsavel',  '(27) 99999-0001');
+        rad('tipo_notificacao',     'grupo');
+        id('id_grupo',              '120363000000001@g.us');
+        ta('quando_escalar',        'Reclamações, pedidos de desconto, dúvidas fora do escopo, solicitações especiais ou qualquer situação em que o cliente demonstre insatisfação.');
+        id('tempo_silencio',        '12 minutos');
+        rad('resumo_escalonamento', 'sim');
+      },
+      9() {
+        ta('faq', 'P: Vocês aceitam crianças?\nR: Sim, atendemos a partir de 5 anos.\n\nP: Tem estacionamento?\nR: Sim, vagas na rua sem custo.\n\nP: Como cancelo um agendamento?\nR: Basta avisar pelo WhatsApp com pelo menos 2h de antecedência.\n\nP: Quais formas de pagamento aceitam?\nR: PIX, cartão de crédito, débito e dinheiro.\n\nP: Atendem sábado?\nR: Sim, sábados das 8h às 14h.');
+        ta('diferenciais',          '10 anos de experiência, ambiente climatizado, produtos profissionais Wella e L\'Oréal, equipe especializada.');
+        ta('promocoes_ativas',      'Maio: Corte + Hidratação por R$ 110,00. Válido até 31/05.');
+        ta('politicas_especificas', 'Atendimento somente mediante agendamento prévio. Não atendemos crianças menores de 5 anos.');
+        id('produtos_usados',       'Wella Professionals, L\'Oréal, TRUSS');
+      },
+      10() {
+        rad('tem_calendar',      'sim');
+        id('calendar_id',        'abc123xyz@group.calendar.google.com');
+        rad('eventos_bloqueiam', 'sim');
+        rad('convite_calendar',  'nao');
+        rad('calendar_separado', 'mesmo');
+        id('endereco_eventos',   'Rua das Flores, 123, Centro, Serra – ES');
+      },
+      11() {
+        rad('evolution_api',    'compartilhada');
+        rad('supabase_config',  'mesmo');
+        id('instance_name',     'dornelles-prod');
+        ta('obs_infra',         'Usar o mesmo Redis do projeto IMM.');
+      },
+      12() {
+        rad('followup_leads',      'sim');
+        rad('lembretes',           'sim');
+        rad('confirmacao_ativa',   'sim');
+        ta('sem_confirmacao',      'Avisa o responsável para decidir. Não cancela automaticamente.');
+        ta('obs_gerais',           'Nenhuma observação adicional por enquanto.');
+      },
+    };
+
+    if (FILL[n]) { FILL[n](); clearErrors(n); }
+  }
+
+  function toggleTheme() {
+    const html = document.documentElement;
+    html.classList.add('theme-transitioning');
+    const next = html.dataset.theme === 'dark' ? 'light' : 'dark';
+    html.dataset.theme = next;
+    localStorage.setItem('theme', next);
+    setTimeout(() => html.classList.remove('theme-transitioning'), 350);
+  }
+
+  // Init
+  document.addEventListener('DOMContentLoaded', () => {
+    const saved = localStorage.getItem('theme');
+    if (saved) document.documentElement.dataset.theme = saved;
+
+    function applyPhoneMask(el) {
+      const digits = el.value.replace(/\D/g, '').slice(0, 11);
+      let masked = '';
+      if (digits.length === 0) { el.value = ''; return; }
+      if (digits.length <= 2)  { masked = `(${digits}`; }
+      else if (digits.length <= 7) { masked = `(${digits.slice(0,2)}) ${digits.slice(2)}`; }
+      else { masked = `(${digits.slice(0,2)}) ${digits.slice(2,7)}-${digits.slice(7)}`; }
+      el.value = masked;
+    }
+
+    document.querySelectorAll('[data-mask="phone"]').forEach(el => {
+      el.addEventListener('input', () => applyPhoneMask(el));
+    });
+
+    document.addEventListener('input', e => {
+      const f = e.target.closest('.field');
+      if (!f) return;
+      e.target.classList.remove('field-error');
+      f.querySelector('.err-msg')?.remove();
+    });
+    document.addEventListener('change', e => {
+      const f = e.target.closest('.field');
+      if (!f) return;
+      f.querySelectorAll('.field-error').forEach(el => el.classList.remove('field-error'));
+      f.querySelector('.group-error-wrap')?.classList.remove('group-error-wrap');
+      f.querySelector('.err-msg')?.remove();
+      e.target.closest('.pill-group')?.classList.remove('group-error-wrap');
+    });
+    addProfRow();
+    addProfRow();
+    addProfRow();
+    addServRow();
+    addServRow();
+    addServRow();
+    addServRow();
+    updateUI();
+  });
+</script>
+
+</body>
+</html>
