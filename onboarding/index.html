@@ -457,15 +457,6 @@
     }
     .btn-primary:hover { filter: brightness(0.88); }
     .btn[hidden] { display: none; }
-    .btn-dev {
-      background: transparent;
-      border: 1px dashed var(--border);
-      color: var(--muted);
-      font-family: var(--mono);
-      font-size: 0.75rem;
-      font-weight: 400;
-    }
-    .btn-dev:hover { border-color: var(--accent); color: var(--accent); }
 
     /* ── Submit confirm box ── */
     .submit-box {
@@ -1249,8 +1240,7 @@
     <span id="navSub">Etapa 1 de 12</span>
   </div>
   <div class="nav-btns">
-    <!-- <button type="button" class="btn btn-dev" onclick="autofill(current)" title="Preencher campos de teste">⚡ Dev</button> -->
-    <button type="button" class="btn btn-ghost" id="btnPrev" onclick="prevStep()" hidden>← Voltar</button>
+<button type="button" class="btn btn-ghost" id="btnPrev" onclick="prevStep()" hidden>← Voltar</button>
     <button type="button" class="btn btn-primary" id="btnNext" onclick="nextStep()">Continuar →</button>
     <button type="button" class="btn btn-primary" id="btnSubmit" onclick="submitForm()" hidden>Enviar formulário →</button>
   </div>
@@ -1765,6 +1755,10 @@
 
     document.querySelectorAll('[data-mask="phone"]').forEach(el => {
       el.addEventListener('input', () => applyPhoneMask(el));
+    });
+
+    document.addEventListener('keydown', e => {
+      if (e.altKey && e.shiftKey && e.key === 'F') autofill(current);
     });
 
     document.addEventListener('input', e => {
